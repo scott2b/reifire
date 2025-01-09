@@ -1,0 +1,61 @@
+{
+    "object": {
+        "name": "Cthulu",
+        "modifiers": [
+            {
+                "name": "age",
+                "value": "baby",
+                "alternatives": [
+                    {
+                        "name": "age",
+                        "value": "adult"
+                    }
+                ]
+            }
+        ]
+    },
+    "type": {
+        "name": "illustration",
+        "category": "visual"
+    },
+    "artifact": {
+        "type": "image",
+        "attributes": [
+            {
+                "name": "style",
+                "value": "children's illustration",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "children art",
+                    "image": "children_art.svg"
+                }
+            },
+            {
+                "name": "mood",
+                "value": "scary-cute"
+            },
+            {
+                "name": "color scheme",
+                "visualization": {
+                    "source": "colors",
+                    "name": "brown-green-purple",
+                    "images": [
+                        "brown.svg",
+                        "green.svg",
+                        "purple.svg"
+                    ]
+                }
+            }
+        ],
+        "visualization": {
+            "source": "openai",
+            "name": "baby cthulu",
+            "image": "bc.png"
+        }
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T10:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Scary-cute baby Cthulu illustration with brown-green-purple color scheme. Wide outlines, childrens illustration style."
+    }
+} 

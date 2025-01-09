@@ -1,0 +1,79 @@
+{
+    "object": {
+        "name": "cityscape",
+        "modifiers": [
+            {
+                "name": "time_period",
+                "value": "future",
+                "alternatives": [
+                    {
+                        "name": "time_period",
+                        "value": "present"
+                    }
+                ]
+            },
+            {
+                "name": "location",
+                "value": "tokyo"
+            }
+        ]
+    },
+    "type": {
+        "name": "scene",
+        "category": "visual"
+    },
+    "artifact": {
+        "type": "image",
+        "attributes": [
+            {
+                "name": "style",
+                "value": "cyberpunk",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "cyberpunk",
+                    "image": "cyberpunk_style.svg"
+                }
+            },
+            {
+                "name": "time",
+                "value": "night"
+            },
+            {
+                "name": "weather",
+                "value": "rain"
+            },
+            {
+                "name": "composition",
+                "value": "street level view"
+            }
+        ],
+        "visualization": {
+            "source": "openai",
+            "name": "future_tokyo_night",
+            "image": "tokyo_cyber.png"
+        },
+        "relationships": [
+            {
+                "type": "contains",
+                "source": "scene",
+                "target": "neon_signs",
+                "properties": {
+                    "position": "throughout"
+                }
+            },
+            {
+                "type": "contains",
+                "source": "scene",
+                "target": "flying_vehicles",
+                "properties": {
+                    "position": "sky"
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T13:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Create a rainy night scene of futuristic Tokyo in cyberpunk style, viewed from street level with neon signs and flying vehicles."
+    }
+} 

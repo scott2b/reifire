@@ -1,0 +1,75 @@
+{
+    "object": {
+        "name": "date_picker",
+        "modifiers": [
+            {
+                "name": "range",
+                "value": "multi",
+                "alternatives": [
+                    {
+                        "name": "range",
+                        "value": "single"
+                    }
+                ]
+            },
+            {
+                "name": "scope",
+                "value": "calendar"
+            }
+        ]
+    },
+    "type": {
+        "name": "component",
+        "category": "interactive"
+    },
+    "artifact": {
+        "type": "ui_element",
+        "attributes": [
+            {
+                "name": "framework",
+                "value": "react"
+            },
+            {
+                "name": "style_system",
+                "value": "tailwind"
+            },
+            {
+                "name": "theme",
+                "value": "dark",
+                "alternatives": [
+                    {
+                        "name": "theme",
+                        "value": "light"
+                    }
+                ]
+            },
+            {
+                "name": "accessibility",
+                "value": "wcag_aa"
+            }
+        ],
+        "relationships": [
+            {
+                "type": "contains",
+                "source": "date_picker",
+                "target": "calendar_grid",
+                "properties": {
+                    "interaction": "clickable"
+                }
+            },
+            {
+                "type": "contains",
+                "source": "date_picker",
+                "target": "time_selector",
+                "properties": {
+                    "optional": true
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T15:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Create a WCAG AA compliant React date range picker component with dark theme using Tailwind CSS."
+    }
+} 

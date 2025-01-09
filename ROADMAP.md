@@ -1,29 +1,67 @@
 # Reifire 🔥 project roadmap
 
-## Project description
 
-Reifire is a library / toolkit that empowers the reification of natural language prompts
-into visual objects. The project was inspired by page 28 of the _Microsoft New Future of Work Report 2024_
-which can be found [here](https://www.microsoft.com/en-us/research/uploads/prod/2024/12/NFWReport2024_12.20.24.pdf)
+## Data specification
 
-The relevant content of that report follows:
+- [ ] Complete a detailed data specification in DATASPEC.md
 
-> Initial evidence on post-chat interaction techniques suggests that they could help solve prompt engineering hurdles
-> The principle of reification in human-computer interaction turns abstract commands into persistent reusable interface objects, which affords several benefits to users (Beaudoin-Lafon 2000). We can apply this principle to user prompts (or fragments of prompts), embodying them into interactive graphical objects persistent on screen for users to store and reuse multiple times, as well as alter and combine at will. Riche et al. (2024) call this next generation of widgets: “AI-instruments”.
->
-> An initial qualitative study with 12 users shows a few advantages of AIinstruments over more linear typing-based interactions:
->   • Generating interactive objects surfacing different dimensions (or
-aspects of a prompt) eliminates the need for users to articulate them in
-their own words.
->   - Simple interactions with objects to add/remove dimensions or suggest
-different dimensions facilitates exploration and iterative content
-generation.
->   - Persistent objects on screen can be stored, combined and most importantly reused with minimal effort.
->
-> References:
->   - Beaudouin-Lafon, M., (2000). Instrumental interaction: an interaction model for designing post-WIMP user interfaces. CHI 2024
->   - Riche, N. et al., (2024). AI-instruments: Embodying Prompts as Instruments to Abstract & Reflect Graphical Interface Commands as General-Purpose Tools (Preprint).
->
-> <img src="https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true" alt="Reification" width=500>
->
-> Source: [Microsoft New Future of Work Report 2024](https://www.microsoft.com/en-us/research/uploads/prod/2024/12/NFWReport2024_12.20.24.pdf). p. 28
+
+## Articulation
+
+- [x] Implement articulation module
+
+### Articulation Module Improvements
+
+#### Attribute Handling Abstraction
+- [x] Remove hard-coded attributes (e.g., "scary-cute", "color scheme")
+- [x] Consolidate redundant style-related conditions
+- [x] Create extensible attribute type system
+- [x] Implement generic attribute handler interface
+
+#### Relationship Handling Abstraction
+- [x] Create relationship handler protocol
+- [x] Implement handlers for basic relationship types (references, contains, compares)
+- [x] Add support for relationship properties
+- [x] Create extensible relationship type system
+- [x] Move relationship text generation to dedicated handlers
+  - [x] Move text pattern handling to RelationshipType class
+  - [x] Add support for complex text generation patterns
+  - [x] Make text generation configurable through templates
+  - [x] Support custom text formatters per relationship type
+
+#### String Pattern Management
+- [ ] Create unified pattern replacement system
+- [ ] Remove redundant style-related replacements
+- [ ] Implement configurable text transformation rules
+- [ ] Remove hard-coded special cases
+
+#### Structural Flexibility
+- [ ] Remove rigid object/modifier/attribute assumptions
+- [ ] Implement flexible property structure handling
+- [ ] Create generic relationship type system
+- [ ] Support custom object structures
+
+#### Text Generation System
+- [ ] Create configurable prefix system
+- [ ] Implement flexible sentence structure
+- [ ] Support multiple output formats
+- [ ] Add customizable text assembly rules
+
+#### Configuration and Customization
+- [ ] Implement template-based text generation
+- [ ] Create attribute registry system
+- [ ] Add support for custom formatters
+- [ ] Create environment-specific configuration system
+- [ ] Support external pattern definitions
+
+#### Pattern-based Assembly
+- [ ] Define formal grammar for text assembly
+- [ ] Implement configurable joining rules
+- [ ] Support multiple output styles
+- [ ] Create pattern validation system
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+{
+    "object": {
+        "name": "authentication",
+        "modifiers": [
+            {
+                "name": "type",
+                "value": "oauth2",
+                "alternatives": [
+                    {
+                        "name": "type",
+                        "value": "jwt"
+                    }
+                ]
+            },
+            {
+                "name": "scope",
+                "value": "middleware"
+            }
+        ]
+    },
+    "type": {
+        "name": "implementation",
+        "category": "code"
+    },
+    "artifact": {
+        "type": "code",
+        "attributes": [
+            {
+                "name": "language",
+                "value": "python",
+                "alternatives": [
+                    {
+                        "name": "language",
+                        "value": "typescript"
+                    }
+                ]
+            },
+            {
+                "name": "framework",
+                "value": "fastapi"
+            },
+            {
+                "name": "style",
+                "value": "functional"
+            },
+            {
+                "name": "documentation",
+                "value": "detailed"
+            }
+        ],
+        "relationships": [
+            {
+                "type": "depends_on",
+                "source": "middleware",
+                "target": "user_model",
+                "properties": {
+                    "type": "import"
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T12:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Create a FastAPI OAuth2 authentication middleware with detailed documentation using functional programming style."
+    }
+} 

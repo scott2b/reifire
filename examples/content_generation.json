@@ -1,0 +1,88 @@
+{
+    "object": {
+        "name": "product_review",
+        "modifiers": [
+            {
+                "name": "product",
+                "value": "smartphone",
+                "properties": {
+                    "brand": "Apple",
+                    "model": "iPhone 15 Pro"
+                }
+            },
+            {
+                "name": "experience",
+                "value": "long_term",
+                "alternatives": [
+                    {
+                        "name": "experience",
+                        "value": "first_impression"
+                    }
+                ]
+            }
+        ]
+    },
+    "type": {
+        "name": "content",
+        "category": "textual"
+    },
+    "artifact": {
+        "type": "article",
+        "attributes": [
+            {
+                "name": "tone",
+                "value": "professional",
+                "alternatives": [
+                    {
+                        "name": "tone",
+                        "value": "casual"
+                    }
+                ]
+            },
+            {
+                "name": "perspective",
+                "value": "expert"
+            },
+            {
+                "name": "structure",
+                "value": "sections",
+                "properties": {
+                    "sections": [
+                        "design",
+                        "performance",
+                        "camera",
+                        "battery",
+                        "verdict"
+                    ]
+                }
+            },
+            {
+                "name": "word_count",
+                "value": 2000
+            }
+        ],
+        "relationships": [
+            {
+                "type": "references",
+                "source": "review",
+                "target": "technical_specs",
+                "properties": {
+                    "validation": "required"
+                }
+            },
+            {
+                "type": "compares",
+                "source": "iphone_15_pro",
+                "target": "iphone_14_pro",
+                "properties": {
+                    "aspects": ["performance", "camera"]
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T16:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Write a comprehensive 2000-word professional review of the iPhone 15 Pro based on long-term usage, including comparisons with the previous model."
+    }
+} 

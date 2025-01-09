@@ -1,0 +1,61 @@
+{
+    "object": {
+        "name": "sales_data",
+        "modifiers": [
+            {
+                "name": "time_range",
+                "value": "last_quarter",
+                "alternatives": [
+                    {
+                        "name": "time_range",
+                        "value": "last_year"
+                    }
+                ]
+            },
+            {
+                "name": "region",
+                "value": "north_america"
+            }
+        ]
+    },
+    "type": {
+        "name": "analysis",
+        "category": "data"
+    },
+    "artifact": {
+        "type": "query",
+        "attributes": [
+            {
+                "name": "operation",
+                "value": "aggregation"
+            },
+            {
+                "name": "grouping",
+                "value": ["product_category", "month"]
+            },
+            {
+                "name": "metrics",
+                "value": ["revenue", "growth_rate"]
+            },
+            {
+                "name": "format",
+                "value": "sql"
+            }
+        ],
+        "relationships": [
+            {
+                "type": "references",
+                "source": "sales_data",
+                "target": "product_catalog",
+                "properties": {
+                    "join_type": "left"
+                }
+            }
+        ]
+    },
+    "metadata": {
+        "timestamp": "2024-01-20T14:00:00Z",
+        "version": "1.0",
+        "original_prompt": "Generate a SQL query to analyze last quarter's North American sales data, showing revenue and growth rate by product category and month."
+    }
+} 

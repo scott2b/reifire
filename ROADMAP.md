@@ -15,14 +15,13 @@ The relevant content of that report follows:
 >   • Generating interactive objects surfacing different dimensions (or
 aspects of a prompt) eliminates the need for users to articulate them in
 their own words.
->   • Simple interactions with objects to add/remove dimensions or suggest
+>   - Simple interactions with objects to add/remove dimensions or suggest
 different dimensions facilitates exploration and iterative content
 generation.
->   • Persistent objects on screen can be stored, combined and most importantly reused with minimal effort.
+>   - Persistent objects on screen can be stored, combined and most importantly reused with minimal effort.
 >
 > References:
 >   - Beaudouin-Lafon, M., (2000). Instrumental interaction: an interaction model for designing post-WIMP user interfaces. CHI 2024
 >   - Riche, N. et al., (2024). AI-instruments: Embodying Prompts as Instruments to Abstract & Reflect Graphical Interface Commands as General-Purpose Tools (Preprint).
-<img src="https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true" alt="Reification" width=200>
-
-![Reification](https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true|width=100)
+>   - 
+<img src="https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true" alt="Reification" width=500>

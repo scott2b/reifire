@@ -24,4 +24,4 @@ generation.
 >   - Beaudouin-Lafon, M., (2000). Instrumental interaction: an interaction model for designing post-WIMP user interfaces. CHI 2024
 >   - Riche, N. et al., (2024). AI-instruments: Embodying Prompts as Instruments to Abstract & Reflect Graphical Interface Commands as General-Purpose Tools (Preprint).
 
-![Reification](https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true|width=300)
+![Reification](https://github.com/scott2b/reifire/blob/main/reification.aka.ms.nfw.2024.png?raw=true|width=200)

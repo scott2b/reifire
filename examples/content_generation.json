@@ -1,24 +1,10 @@
 {
     "object": {
-        "name": "product_review",
+        "name": "product review",
         "modifiers": [
             {
                 "name": "product",
-                "value": "smartphone",
-                "properties": {
-                    "brand": "Apple",
-                    "model": "iPhone 15 Pro"
-                }
-            },
-            {
-                "name": "experience",
-                "value": "long_term",
-                "alternatives": [
-                    {
-                        "name": "experience",
-                        "value": "first_impression"
-                    }
-                ]
+                "value": "Apple iPhone 15 Pro"
             }
         ]
     },
@@ -65,15 +51,15 @@
             {
                 "type": "references",
                 "source": "review",
-                "target": "technical_specs",
+                "target": "technical specs",
                 "properties": {
                     "validation": "required"
                 }
             },
             {
                 "type": "compares",
-                "source": "iphone_15_pro",
-                "target": "iphone_14_pro",
+                "source": "iPhone 15 Pro",
+                "target": "iPhone 14 Pro",
                 "properties": {
                     "aspects": ["performance", "camera"]
                 }

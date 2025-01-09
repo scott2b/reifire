@@ -56,7 +56,7 @@
             {
                 "type": "contains",
                 "source": "scene",
-                "target": "neon_signs",
+                "target": "neon signs",
                 "properties": {
                     "position": "throughout"
                 }
@@ -64,7 +64,7 @@
             {
                 "type": "contains",
                 "source": "scene",
-                "target": "flying_vehicles",
+                "target": "flying vehicles",
                 "properties": {
                     "position": "sky"
                 }

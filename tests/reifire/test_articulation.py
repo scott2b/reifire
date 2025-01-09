@@ -28,8 +28,9 @@ def test_basic_illustration() -> None:
     reified = load_example("basic_illustration")
     prompt = articulate(reified)
     expected = (
-        "Create a baby Cthulu in children's illustration style, "
-        "in a scary-cute way, with brown-green-purple color scheme."
+        "Create a scary-cute baby Cthulhu "
+        "with a brown-green-purple color scheme "
+        "in children's illustration style."
     )
     assert prompt == expected
 
@@ -39,8 +40,8 @@ def test_question_answer() -> None:
     reified = load_example("question_answer")
     prompt = articulate(reified)
     expected = (
-        "Explain process photosynthesis in step-by-step style, "
-        "elementary, in educational style."
+        "Explain the process of photosynthesis "
+        "in elementary, step-by-step, educational style."
     )
     assert prompt == expected
 
@@ -50,8 +51,8 @@ def test_code_generation() -> None:
     reified = load_example("code_generation")
     prompt = articulate(reified)
     expected = (
-        "Implement a oauth2 middleware authentication using python, fastapi, "
-        "in functional style, detailed, using user_model."
+        "Implement an oauth2 middleware authentication in functional style "
+        "with detailed documentation using python and fastapi, requiring user_model."
     )
     assert prompt == expected
 
@@ -62,7 +63,7 @@ def test_complex_visual_scene() -> None:
     prompt = articulate(reified)
     expected = (
         "Create a future tokyo cityscape in cyberpunk style, night, rain, "
-        "street level view, with neon_signs throughout, with flying_vehicles sky."
+        "street level view, with neon signs throughout with flying vehicles in the sky."
     )
     assert prompt == expected
 
@@ -73,7 +74,7 @@ def test_data_analysis() -> None:
     prompt = articulate(reified)
     expected = (
         "Generate last_quarter north_america sales_data, aggregation, "
-        "product_category and month, revenue and growth_rate, sql, "
+        "product_category and month, revenue and growth_rate in SQL, "
         "referencing product_catalog."
     )
     assert prompt == expected
@@ -84,9 +85,11 @@ def test_ui_component() -> None:
     reified = load_example("ui_component")
     prompt = articulate(reified)
     expected = (
-        "Create a multi calendar date_picker using react, tailwind, "
-        "in dark style, with wcag_aa compliance, containing calendar_grid, "
-        "containing time_selector."
+        "Create a multi calendar date_picker "
+        "with wcag_aa compliance "
+        "in dark style "
+        "using react and tailwind, "
+        "containing calendar_grid and time_selector."
     )
     assert prompt == expected
 
@@ -96,9 +99,9 @@ def test_content_generation() -> None:
     reified = load_example("content_generation")
     prompt = articulate(reified)
     expected = (
-        "Write a Apple iPhone 15 Pro long_term product_review in professional style, "
+        "Write an Apple iPhone 15 Pro product review in professional style, "
         "expert, covering design, performance, camera, battery, verdict in 2000 words, "
-        "referencing technical_specs, comparing performance and camera with iphone_14_pro."
+        "referencing technical specs comparing performance and camera with iPhone 14 Pro."
     )
     assert prompt == expected
 
@@ -106,9 +109,13 @@ def test_content_generation() -> None:
 def test_alternatives() -> None:
     """Test alternatives prompt generation."""
     reified = load_example("basic_illustration")
-    alt_prompt = articulate_alternatives(reified, ["object.modifiers.0"])
+    alt_prompt = articulate_alternatives(
+        reified,
+        ["object.modifiers.0", "artifact.attributes.0", "artifact.attributes.1"],
+    )
     expected = (
-        "Create a adult Cthulu in children's illustration style, "
-        "in a scary-cute way, with brown-green-purple color scheme."
+        "Create a terrifying Cthulhu "
+        "with a brown-green-purple color scheme "
+        "in dark fantasy style."
     )
     assert alt_prompt == expected

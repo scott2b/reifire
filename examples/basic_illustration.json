@@ -1,6 +1,6 @@
 {
     "object": {
-        "name": "Cthulu",
+        "name": "Cthulhu",
         "modifiers": [
             {
                 "name": "age",
@@ -8,7 +8,7 @@
                 "alternatives": [
                     {
                         "name": "age",
-                        "value": "adult"
+                        "value": null
                     }
                 ]
             }
@@ -24,15 +24,22 @@
             {
                 "name": "style",
                 "value": "children's illustration",
-                "visualization": {
-                    "source": "nounproject",
-                    "name": "children art",
-                    "image": "children_art.svg"
-                }
+                "alternatives": [
+                    {
+                        "name": "style",
+                        "value": "dark fantasy"
+                    }
+                ]
             },
             {
                 "name": "mood",
-                "value": "scary-cute"
+                "value": "scary-cute",
+                "alternatives": [
+                    {
+                        "name": "mood",
+                        "value": "terrifying"
+                    }
+                ]
             },
             {
                 "name": "color scheme",
@@ -49,13 +56,13 @@
         ],
         "visualization": {
             "source": "openai",
-            "name": "baby cthulu",
-            "image": "bc.png"
+            "name": "cthulhu",
+            "image": "cthulhu.png"
         }
     },
     "metadata": {
         "timestamp": "2024-01-20T10:00:00Z",
         "version": "1.0",
-        "original_prompt": "Scary-cute baby Cthulu illustration with brown-green-purple color scheme. Wide outlines, childrens illustration style."
+        "original_prompt": "Create a scary-cute baby Cthulhu in children's illustration style with brown-green-purple color scheme."
     }
 } 

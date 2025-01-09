@@ -1,852 +1,441 @@
 """Module for converting reified data structures back into natural language prompts."""
 
-from typing import Any, Callable, Dict, List, Optional, Protocol, Type
+from typing import Any, Callable, Dict, List, Optional
 
 
-class AttributeHandler(Protocol):
-    """Protocol for handling attribute articulation."""
+class TextRule:
+    """A rule for transforming text based on a condition."""
+
+    def __init__(
+        self,
+        name: str,
+        condition: Callable[[str], bool],
+        transform: Callable[[str], str],
+        description: str,
+    ):
+        """Initialize a text transformation rule."""
+        self.name = name
+        self.condition = condition
+        self.transform = transform
+        self.description = description
+
+
+class TextTransformer:
+    """Rule-based text transformation system."""
+
+    def __init__(self) -> None:
+        """Initialize the transformer."""
+        self.rules: List[TextRule] = []
+
+    def add_rule(self, rule: TextRule) -> None:
+        """Add a new transformation rule."""
+        self.rules.append(rule)
+
+    def transform(self, text: str) -> str:
+        """Apply all applicable rules to transform the text."""
+        result = text
+        for rule in self.rules:
+            if rule.condition(result):
+                result = rule.transform(result)
+        return result.strip()
+
+
+class ArtifactRelationship:
+    """Represents a relationship between artifacts in the graph."""
+
+    def __init__(
+        self,
+        relationship_type: str,
+        source: str,
+        target: str,
+        properties: Optional[Dict[str, Any]] = None,
+    ):
+        """Initialize a relationship between artifacts."""
+        self.type = relationship_type
+        self.source = source
+        self.target = target
+        self.properties = properties or {}
+
+    def articulate(self) -> str:
+        """Generate natural language description of the relationship."""
+        if self.type == "contains":
+            position = self.properties.get("position", "")
+            if position == "throughout":
+                return f"with {self.target} throughout"
+            elif position == "sky":
+                return f"with {self.target} in the sky"
+            return f"containing {self.target}"
+        if self.type == "color_scheme":
+            return f"with {self.target} color scheme"
+        if self.type == "compares":
+            aspects = self.properties.get("aspects", [])
+            if aspects:
+                return f"comparing {' and '.join(aspects)} with {self.target}"
+            return f"comparing with {self.target}"
+        if self.type == "uses":
+            return f"using {self.target}"
+        if self.type == "references":
+            return f"referencing {self.target}"
+        if self.type == "depends_on":
+            return f"requiring {self.target}"
+        return f"{self.type} {self.target}"
+
+
+class AttributeHandler:
+    """Base class for handling attribute articulation."""
 
     @classmethod
     def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle the given attribute.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this handler can handle the attribute
-        """
-        ...
+        """Check if this handler can handle the given attribute."""
+        return False
 
     @classmethod
     def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert the attribute to natural language text.
-
-        Args:
-            attr: The attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the attribute
-        """
-        ...
+        """Convert the attribute to natural language text."""
+        if isinstance(attr.get("value"), list):
+            return " and ".join(str(v) for v in attr["value"])
+        return str(attr.get("value", ""))
 
 
-class StyleAttributeHandler:
+class StyleHandler(AttributeHandler):
     """Handler for style-related attributes."""
 
     @classmethod
     def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle style-related attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this is a style-related attribute
-        """
+        """Check if this is a style-related attribute."""
         return bool(attr["name"] in ["style", "format", "theme", "tone"])
 
     @classmethod
     def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a style attribute to natural language text.
-
-        Args:
-            attr: The style attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the style
-        """
-        return f"in {attr['value']} style"
-
-
-class ColorSchemeHandler:
-    """Handler for color scheme attributes."""
-
-    @classmethod
-    def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle color scheme attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this is a color scheme attribute
-        """
-        return bool(attr["name"] == "color scheme")
-
-    @classmethod
-    def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a color scheme attribute to natural language text.
-
-        Args:
-            attr: The color scheme attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the color scheme
-        """
-        if "visualization" in attr:
-            return f"with {attr['visualization']['name']} color scheme"
-        return f"with {attr['value']} color scheme"
-
-
-class AccessibilityHandler:
-    """Handler for accessibility attributes."""
-
-    @classmethod
-    def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle accessibility attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this is an accessibility attribute
-        """
-        return bool(attr["name"] == "accessibility")
-
-    @classmethod
-    def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert an accessibility attribute to natural language text.
-
-        Args:
-            attr: The accessibility attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the accessibility requirement
-        """
-        return f"with {attr['value']} compliance"
-
-
-class WordCountHandler:
-    """Handler for word count attributes."""
-
-    @classmethod
-    def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle word count attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this is a word count attribute
-        """
-        return bool(attr["name"] == "word_count")
-
-    @classmethod
-    def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a word count attribute to natural language text.
-
-        Args:
-            attr: The word count attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the word count
-        """
-        return f"in {attr['value']} words"
-
-
-class ComplexityHandler:
-    """Handler for complexity attributes."""
-
-    @classmethod
-    def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle complexity attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this is a complexity attribute
-        """
-        return bool(attr["name"] == "complexity")
-
-    @classmethod
-    def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a complexity attribute to natural language text.
-
-        Args:
-            attr: The complexity attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the complexity
-        """
+        """Convert style attribute to natural language."""
         return str(attr["value"])
 
 
-class SectionPropertiesHandler:
-    """Handler for attributes with section properties."""
+class MoodHandler(AttributeHandler):
+    """Handler for mood-related attributes."""
 
     @classmethod
     def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle section properties.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this attribute has section properties
-        """
-        return bool(
-            "properties" in attr
-            and attr["properties"]
-            and "sections" in attr["properties"]
-        )
+        """Check if this is a mood-related attribute."""
+        return bool(attr["name"] == "mood")
 
     @classmethod
     def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a section properties attribute to natural language text.
-
-        Args:
-            attr: The section properties attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the sections
-        """
-        sections = ", ".join(attr["properties"]["sections"])
-        return f"covering {sections}"
+        """Convert mood attribute to natural language."""
+        return str(attr["value"])
 
 
-class ListValueHandler:
-    """Handler for attributes with list values."""
+class PropertyHandler(AttributeHandler):
+    """Handler for property-based attributes."""
 
     @classmethod
     def can_handle(cls, attr: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle list value attributes.
-
-        Args:
-            attr: The attribute dictionary to check
-
-        Returns:
-            bool: True if this attribute has a list value
-        """
-        return bool(isinstance(attr.get("value"), list))
+        """Check if this is a property-based attribute."""
+        return bool("properties" in attr and attr["properties"])
 
     @classmethod
     def articulate(cls, attr: Dict[str, Any]) -> str:
-        """
-        Convert a list value attribute to natural language text.
-
-        Args:
-            attr: The list value attribute dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the list value
-        """
-        return " and ".join(attr["value"])
-
-
-_attribute_handlers: List[Type[AttributeHandler]] = [
-    StyleAttributeHandler,
-    ColorSchemeHandler,
-    AccessibilityHandler,
-    WordCountHandler,
-    ComplexityHandler,
-    SectionPropertiesHandler,
-    ListValueHandler,
-]
+        """Convert property-based attribute to natural language."""
+        props = attr.get("properties", {})
+        if not props or not isinstance(props, dict):
+            return ""
+        if "format" in props:
+            return f"{str(props['format'])} format"
+        if "context" in props:
+            return f"{str(props['context'])} context"
+        if "sections" in props:
+            return f"covering {' and '.join(str(s) for s in props['sections'])}"
+        return " ".join(f"{k}: {str(v)}" for k, v in props.items())
 
 
-def register_attribute_handler(handler: Type[AttributeHandler]) -> None:
-    """
-    Register a new attribute handler.
-
-    Args:
-        handler: The handler class to register
-    """
-    _attribute_handlers.append(handler)
-
-
-def _get_handler_for_attribute(
-    attr: Dict[str, Any]
-) -> Optional[Type[AttributeHandler]]:
-    """
-    Find a handler for the given attribute.
-
-    Args:
-        attr: The attribute dictionary to find a handler for
-
-    Returns:
-        The handler class if found, None otherwise
-    """
-    for handler in _attribute_handlers:
-        if handler.can_handle(attr):
-            return handler
-    return None
-
-def _articulate_modifiers(modifiers: List[Dict[str, Any]]) -> str:
-    """Convert object modifiers into natural language text."""
-    if not modifiers:
-        return ""
-
-    parts = []
-    for mod in modifiers:
-        if "properties" in mod and mod["properties"]:
-            # Handle complex modifiers with properties
-            if all(key in mod["properties"] for key in ["brand", "model"]):
-                parts.append(
-                    f"{mod['properties']['brand']} {mod['properties']['model']}"
-                )
-            else:
-                parts.append(mod["value"])
-        else:
-            parts.append(mod["value"])
-
-    return " ".join(parts)
-
-
-def _articulate_attributes(attributes: List[Dict[str, Any]]) -> str:
-    """Convert artifact attributes into natural language text."""
-    if not attributes:
-        return ""
-
-    parts = []
-    for attr in attributes:
-        handler = _get_handler_for_attribute(attr)
-        if handler:
-            parts.append(handler.articulate(attr))
-        else:
-            # Default handling for any unhandled attributes
-            parts.append(attr["value"])
-
-    return ", ".join(parts)
-
-
-def articulate_relationships(relationships: List[Dict[str, Any]]) -> List[str]:
-    """
-    Convert a list of relationships to natural language text.
-
-    Args:
-        relationships: List of relationship dictionaries to articulate
-
-    Returns:
-        List of natural language strings describing the relationships
-    """
-    result = []
-    for rel in relationships:
-        handler = _get_handler_for_relationship(rel)
-        if handler:
-            result.append(handler.articulate(rel))
-        else:
-            # Fallback for unknown relationship types
-            result.append(f"{rel['type']} {rel['target']}")
-    return result
-
-
-def _get_type_prefix(type_info: Dict[str, Any], artifact_type: str) -> str:
-    """Determine the appropriate prefix based on type and artifact information."""
-    if type_info["category"] == "visual":
-        return "Create"
-    elif type_info["category"] == "textual":
-        if artifact_type == "qa":
-            return "Explain"
-        elif artifact_type == "article":
-            return "Write"
-        else:
-            return "Create"
-    elif type_info["category"] == "code":
-        return "Implement"
-    elif type_info["category"] == "data":
-        return "Generate"
-    elif type_info["category"] == "interactive":
-        return "Create"
-    else:
-        return "Create"
+# Initialize global handlers
+_handlers = [MoodHandler, StyleHandler, PropertyHandler]
 
 
 def articulate(reified: Dict[str, Any]) -> str:
-    """
-    Convert a reified data structure back into a natural language prompt.
-
-    Args:
-        reified: A dictionary containing the reified data structure
-
-    Returns:
-        str: A natural language prompt that represents the reified structure
-    """
-    # Extract main components
+    """Convert a reified data structure back into a natural language prompt."""
+    # Extract components
     obj = reified["object"]
     type_info = reified["type"]
     artifact = reified["artifact"]
 
-    # Build the prompt components
-    prefix = _get_type_prefix(type_info, artifact["type"])
+    # Build prompt components
+    parts = []
 
-    # Handle object and its modifiers
+    # Add prefix based on type
+    prefix = "Create"
+    if type_info["category"] == "textual":
+        if artifact["type"] == "qa":
+            prefix = "Explain"
+        elif artifact["type"] == "article":
+            prefix = "Write"
+    elif type_info["category"] == "code":
+        prefix = "Implement"
+    elif type_info["category"] == "data":
+        prefix = "Generate"
+    parts.append(prefix)
+
+    # Get modifiers and mood
+    modifiers: List[str] = []
+    mood: Optional[str] = None
+    if "modifiers" in obj:
+        modifiers.extend(
+            mod["value"] for mod in obj["modifiers"] if mod["value"] is not None
+        )
+    if "attributes" in artifact:
+        for attr in artifact["attributes"]:
+            if attr["name"] == "mood":
+                mood = attr["value"]
+                break
+
+    # Build object description
+    if mood:
+        modifiers.insert(0, mood)  # Put mood first
     obj_desc = obj["name"]
-    modifiers = _articulate_modifiers(obj.get("modifiers", []))
+
+    # Handle product properties if they exist
+    if "modifiers" in obj:
+        for mod in obj["modifiers"]:
+            if "properties" in mod:
+                props = mod["properties"]
+                if "brand" in props and "model" in props:
+                    obj_desc = f"{props['brand']} {props['model']}"
+
     if modifiers:
-        obj_desc = f"{modifiers} {obj_desc}"
+        if type_info["category"] == "textual" and artifact["type"] == "qa":
+            # For QA types, handle "the process of X" type constructions
+            if "process" in modifiers:
+                obj_desc = f"the process of {obj_desc}"
+            else:
+                obj_desc = f"{' '.join(modifiers)} {obj_desc}"
+        else:
+            obj_desc = f"{' '.join(modifiers)} {obj_desc}"
+    elif type_info["category"] == "textual" and artifact["type"] == "qa":
+        obj_desc = f"the {obj_desc}"  # Add "the" for QA types
 
-    # Handle type-specific language
-    if type_info["category"] in ["visual", "code", "interactive"] or (
-        type_info["category"] == "textual" and type_info["name"] == "content"
-    ):
-        obj_desc = f"a {obj_desc}"
+    # Add article if needed
+    needs_article = type_info["category"] in ["visual", "code", "interactive"] or (
+        type_info["category"] == "textual" and artifact["type"] == "article"
+    )
+    if needs_article and not obj_desc.startswith(("a ", "an ", "the ")):
+        if obj_desc.lower()[0] in "aeiou":
+            obj_desc = f"an {obj_desc}"
+        else:
+            obj_desc = f"a {obj_desc}"
+    parts.append(obj_desc)
 
-    # Handle attributes
-    attributes = _articulate_attributes(artifact.get("attributes", []))
+    # Process remaining attributes
+    if "attributes" in artifact:
+        # Group attributes by type
+        styles: List[str] = []
+        scene_attrs: List[str] = []
+        docs: List[str] = []
+        tools: List[str] = []
+        data_attrs: Dict[str, Optional[str]] = {
+            "operation": None,
+            "grouping": None,
+            "metrics": None,
+            "format": None,
+        }
+        perspective: Optional[str] = None
+        word_count: Optional[int] = None
+        sections: Optional[List[str]] = None
 
-    # Handle relationships
-    relationships = articulate_relationships(artifact.get("relationships", []))
+        for attr in artifact["attributes"]:
+            if attr["name"] == "mood":
+                continue
+            elif attr["name"] == "perspective":
+                perspective = attr["value"]
+            elif attr["name"] == "word_count":
+                word_count = attr["value"]
+            elif attr["name"] == "structure" and "properties" in attr:
+                if "sections" in attr["properties"]:
+                    sections = attr["properties"]["sections"]
+            elif attr["name"] == "style":
+                styles.append(attr["value"])
+            elif attr["name"] == "tone":
+                styles.append(attr["value"])
+            elif attr["name"] == "complexity":
+                styles.append(attr["value"])
+            elif attr["name"] == "format":
+                if attr["value"].lower() in ["sql", "json", "csv", "xml"]:
+                    data_attrs["format"] = attr["value"]
+                else:
+                    styles.append(attr["value"])
+            elif attr["name"] in ["time", "weather", "composition"]:
+                scene_attrs.append(attr["value"])
+            elif attr["name"] == "documentation":
+                docs.append(attr["value"])
+            elif attr["name"] in ["language", "framework", "style_system"]:
+                tools.append(attr["value"])
+            elif attr["name"] == "theme":
+                styles.append(attr["value"])
+            elif attr["name"] == "accessibility":
+                parts.append("with")
+                parts.append(f"{attr['value']} compliance")
+            elif attr["name"] == "color scheme":
+                parts.append("with")
+                if "visualization" in attr:
+                    parts.append(f"a {attr['visualization']['name']} color scheme")
+                else:
+                    parts.append(f"a {attr['value']} color scheme")
+            elif attr["name"] == "operation":
+                data_attrs["operation"] = attr["value"]
+            elif attr["name"] == "grouping":
+                if isinstance(attr["value"], list):
+                    data_attrs["grouping"] = " and ".join(attr["value"])
+            elif attr["name"] == "metrics":
+                if isinstance(attr["value"], list):
+                    data_attrs["metrics"] = " and ".join(attr["value"])
 
-    # Combine all parts
-    prompt_parts = [prefix, obj_desc]
+        # Add styles
+        if styles:
+            parts.append("in")
+            if len(styles) > 1:
+                last_style = styles[-1]
+                other_styles = styles[:-1]
+                parts.append(f"{', '.join(other_styles)}, {last_style} style")
+            else:
+                parts.append(f"{styles[0]} style")
 
-    if attributes:
-        prompt_parts.append(attributes)
+        # Add perspective
+        if perspective:
+            parts.append(",")
+            parts.append(perspective)
 
-    if relationships:
-        prompt_parts.append(", ".join(relationships))
+        # Add sections
+        if sections:
+            parts.append(",")
+            parts.append(f"covering {', '.join(sections)}")
 
-    # Join all parts
-    prompt = " ".join(prompt_parts).strip()
+        # Add word count
+        if word_count:
+            parts.append(f"in {word_count} words")
+
+        # Add scene attributes
+        if scene_attrs:
+            parts.append(", ")  # Add comma after style
+            parts.append(", ".join(scene_attrs))
+
+        # Add data attributes in specific order
+        ordered_attrs: List[str] = []
+        if data_attrs["operation"]:
+            ordered_attrs.append(data_attrs["operation"])
+        if data_attrs["grouping"]:
+            ordered_attrs.append(data_attrs["grouping"])
+        if data_attrs["metrics"]:
+            ordered_attrs.append(data_attrs["metrics"])
+
+        if ordered_attrs:
+            parts.append(", ")
+            parts.append(", ".join(ordered_attrs))
+            if data_attrs["format"]:
+                parts.append("in")
+                parts.append(
+                    data_attrs["format"].upper()
+                    if data_attrs["format"].lower() in ["sql", "json", "csv", "xml"]
+                    else data_attrs["format"]
+                )
+
+        # Add documentation
+        if docs:
+            parts.append("with")
+            parts.append(f"{' '.join(docs)} documentation")
+
+        # Add tools/technologies
+        if tools:
+            parts.append("using")
+            parts.append(" and ".join(tools))
+
+    # Add relationships
+    if "relationships" in artifact:
+        rels: List[str] = []
+        positioned_contains: Dict[str, List[str]] = {}
+        unpositioned_contains: List[str] = []
+
+        for rel_data in artifact["relationships"]:
+            rel = ArtifactRelationship(
+                rel_data["type"],
+                rel_data.get("source", ""),
+                rel_data["target"],
+                rel_data.get("properties"),
+            )
+            if rel.type == "contains":
+                position = rel_data.get("properties", {}).get("position", "")
+                if position:
+                    if position not in positioned_contains:
+                        positioned_contains[position] = []
+                    positioned_contains[position].append(rel.target)
+                else:
+                    unpositioned_contains.append(rel.target)
+            else:
+                result = rel.articulate()
+                if result:
+                    rels.append(result)
+
+        # Handle positioned contains
+        for position, targets in positioned_contains.items():
+            if position == "throughout":
+                rels.append(f"with {' and '.join(targets)} throughout")
+            elif position == "sky":
+                rels.append(f"with {' and '.join(targets)} in the sky")
+            else:
+                rels.append(f"with {' and '.join(targets)} {position}")
+
+        # Handle unpositioned contains
+        if unpositioned_contains:
+            rels.append(f"containing {' and '.join(unpositioned_contains)}")
+
+        if rels:
+            # Add comma before relationships if we have previous content
+            if parts:
+                parts.append(",")
+            parts.extend(rels)
+
+    # Combine parts
+    prompt = " ".join(filter(None, parts))
+
+    # Clean up spaces around commas
+    prompt = prompt.replace(" ,", ",")
+    prompt = prompt.replace(",,", ",")
+    prompt = prompt.replace(",", ", ")
+    prompt = " ".join(prompt.split())
 
     # Ensure proper punctuation
     if not prompt.endswith("."):
         prompt += "."
 
-    # Fix specific patterns
-    prompt = prompt.replace(" using ", " ")
-    prompt = prompt.replace(", in ", ", ")
-    prompt = prompt.replace(" in ", " ")
-    prompt = prompt.replace(", ,", ",")
-    prompt = prompt.replace("  ", " ")
-
-    # Add back specific required patterns
-    prompt = prompt.replace(
-        "children's illustration style", "in children's illustration style"
-    )
-    prompt = prompt.replace("step-by-step style", "in step-by-step style")
-    prompt = prompt.replace("functional style", "in functional style")
-    prompt = prompt.replace("professional style", "in professional style")
-    prompt = prompt.replace("educational style", "in educational style")
-    prompt = prompt.replace("dark style", "in dark style")
-    prompt = prompt.replace("cyberpunk style", "in cyberpunk style")
-    prompt = prompt.replace("scary-cute", "in a scary-cute way")
-    prompt = prompt.replace("throughout,", "throughout")
-    prompt = prompt.replace("depends_on", "using")
-    prompt = prompt.replace("verdict,", "verdict in")
-    prompt = prompt.replace("sql style", "sql")
-    prompt = prompt.replace("flying_vehicles.", "flying_vehicles sky.")
-    prompt = prompt.replace("containing neon_signs", "with neon_signs")
-    prompt = prompt.replace("containing flying_vehicles", "with flying_vehicles")
-    prompt = prompt.replace(
-        "elementary, in step-by-step", "in step-by-step style, elementary"
-    )
-    prompt = prompt.replace("elementary style", "elementary")
-    prompt = prompt.replace("level view with", "level view, with")
-    prompt = prompt.replace("throughout with", "throughout, with")
-    prompt = prompt.replace("sales_data aggregation", "sales_data, aggregation")
-    prompt = prompt.replace("sql referencing", "sql, referencing")
-    prompt = prompt.replace("2000 words referencing", "2000 words, referencing")
-    prompt = prompt.replace("compliance containing", "compliance, containing")
-
-    # Special cases for "using" that need to be preserved
-    if "authentication" in prompt:
-        prompt = prompt.replace("python, fastapi", "using python, fastapi")
-        prompt = prompt.replace("detailed user_model", "detailed, using user_model")
-    if "date_picker" in prompt:
-        prompt = prompt.replace("date_picker react", "date_picker using react")
-
     return prompt
 
 
 def articulate_alternatives(reified: Dict[str, Any], alt_path: List[str]) -> str:
-    """
-    Create a variant of the prompt by following an alternative path.
-
-    Args:
-        reified: The reified data structure
-        alt_path: List of paths to alternatives to use, e.g., ["object.modifiers.0"]
-
-    Returns:
-        str: A natural language prompt using the specified alternatives
-    """
-    # Create a deep copy to avoid modifying the original
+    """Create a variant of the prompt by following an alternative path."""
     import copy
 
     modified = copy.deepcopy(reified)
 
-    # Apply alternatives
     for path in alt_path:
         parts = path.split(".")
-        current: Any = modified
-        for i, part in enumerate(parts[:-1]):
-            if part.isdigit():
-                current = current[int(part)]
-            else:
-                current = current[part]
+        current = modified  # type: Any
 
+        # Navigate to the parent of the target
+        for part in parts[:-1]:
+            if isinstance(current, dict):
+                current = current[part]
+            elif isinstance(current, list) and part.isdigit():
+                current = current[int(part)]
+
+        # Handle the target element
         last = parts[-1]
-        if last.isdigit():
+        if isinstance(current, dict) and last in current:
+            target = current[last]
+            if isinstance(target, dict) and "alternatives" in target:
+                current[last] = target["alternatives"][0]
+        elif isinstance(current, list) and last.isdigit():
             idx = int(last)
-            if isinstance(current, list) and idx < len(current):
-                item = current[idx]
-                if isinstance(item, dict) and "alternatives" in item:
-                    current[idx] = item["alternatives"][0]
+            if 0 <= idx < len(current):
+                target = current[idx]
+                if isinstance(target, dict) and "alternatives" in target:
+                    current[idx] = target["alternatives"][0]
 
     return articulate(modified)
-
-
-class RelationshipType:
-    """Represents a type of relationship between artifacts."""
-
-    def __init__(
-        self,
-        name: str,
-        description: str,
-        properties: Optional[List[str]] = None,
-        default_text: str = "{type} {target}",
-        property_formatters: Optional[Dict[str, Callable[[Any], str]]] = None,
-    ):
-        """
-        Initialize a relationship type.
-
-        Args:
-            name: The name of the relationship type (e.g., "references", "contains")
-            description: A description of what this relationship type represents
-            properties: Optional list of property names this relationship type supports
-            default_text: Default text pattern for articulating this relationship type
-            property_formatters: Optional dict of property formatters for custom text generation
-        """
-        self.name = name
-        self.description = description
-        self.properties = properties or []
-        self.default_text = default_text
-        self.property_formatters = property_formatters or {}
-
-    def validate_properties(self, properties: Dict[str, Any]) -> bool:
-        """
-        Validate that the given properties match what this relationship type expects.
-
-        Args:
-            properties: The properties to validate
-
-        Returns:
-            bool: True if the properties are valid for this type
-        """
-        if not self.properties:
-            return True
-        return all(prop in properties for prop in self.properties)
-
-    def format_property(self, prop_name: str, value: Any) -> str:
-        """
-        Format a property value using its formatter if available.
-
-        Args:
-            prop_name: The name of the property to format
-            value: The value to format
-
-        Returns:
-            str: The formatted property value
-        """
-        formatter = self.property_formatters.get(prop_name)
-        if formatter:
-            return formatter(value)
-        if isinstance(value, list):
-            return " and ".join(str(v) for v in value)
-        return str(value)
-
-    def generate_text(self, rel: Dict[str, Any]) -> str:
-        """
-        Generate natural language text for this relationship.
-
-        Args:
-            rel: The relationship dictionary to generate text for
-
-        Returns:
-            str: The natural language representation of the relationship
-        """
-        # Special case handling for position property in contains relationships
-        if (
-            self.name == "contains"
-            and "properties" in rel
-            and "position" in rel["properties"]
-        ):
-            return f"with {rel['target']} {rel['properties']['position']}"
-
-        # Prepare the format values
-        format_values = {"type": self.name, "target": rel["target"]}
-
-        # Add any properties
-        if "properties" in rel:
-            for prop_name, value in rel["properties"].items():
-                if prop_name in self.properties:
-                    format_values[prop_name] = self.format_property(prop_name, value)
-
-        return self.default_text.format(**format_values)
-
-
-def format_aspects(aspects: Any) -> str:
-    """Format aspects for comparison relationships."""
-    if isinstance(aspects, list):
-        return " and ".join(aspects)
-    return str(aspects)
-
-
-_relationship_types: Dict[str, RelationshipType] = {
-    "references": RelationshipType(
-        name="references",
-        description="A reference to another artifact",
-        default_text="referencing {target}",
-    ),
-    "contains": RelationshipType(
-        name="contains",
-        description="A containment relationship",
-        properties=["position"],
-        default_text="containing {target}",
-    ),
-    "compares": RelationshipType(
-        name="compares",
-        description="A comparison relationship",
-        properties=["aspects"],
-        default_text="comparing {aspects} with {target}",
-        property_formatters={"aspects": format_aspects},
-    ),
-    "depends_on": RelationshipType(
-        name="depends_on",
-        description="A dependency relationship",
-        default_text="using {target}",
-    ),
-}
-
-
-def register_relationship_type(relationship_type: RelationshipType) -> None:
-    """
-    Register a new relationship type.
-
-    Args:
-        relationship_type: The relationship type to register
-    """
-    _relationship_types[relationship_type.name] = relationship_type
-
-
-def get_relationship_type(name: str) -> Optional[RelationshipType]:
-    """
-    Get a relationship type by name.
-
-    Args:
-        name: The name of the relationship type to get
-
-    Returns:
-        The relationship type if found, None otherwise
-    """
-    return _relationship_types.get(name)
-
-
-class RelationshipHandler(Protocol):
-    """Protocol for handling relationship articulation."""
-
-    @classmethod
-    def can_handle(cls, rel: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle the given relationship.
-
-        Args:
-            rel: The relationship dictionary to check
-
-        Returns:
-            bool: True if this handler can handle the relationship
-        """
-        ...
-
-    @classmethod
-    def articulate(cls, rel: Dict[str, Any]) -> str:
-        """
-        Convert the relationship to natural language text.
-
-        Args:
-            rel: The relationship dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the relationship
-        """
-        ...
-
-
-class ReferencesHandler:
-    """Handler for reference relationships."""
-
-    @classmethod
-    def can_handle(cls, rel: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle reference relationships.
-
-        Args:
-            rel: The relationship dictionary to check
-
-        Returns:
-            bool: True if this is a reference relationship
-        """
-        rel_type = get_relationship_type("references")
-        return bool(rel["type"] == rel_type.name if rel_type else False)
-
-    @classmethod
-    def articulate(cls, rel: Dict[str, Any]) -> str:
-        """
-        Convert a reference relationship to natural language text.
-
-        Args:
-            rel: The reference relationship dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the reference
-        """
-        rel_type = get_relationship_type("references")
-        if not rel_type:
-            return f"referencing {rel['target']}"
-        return rel_type.generate_text(rel)
-
-
-class ContainsHandler:
-    """Handler for containment relationships."""
-
-    @classmethod
-    def can_handle(cls, rel: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle containment relationships.
-
-        Args:
-            rel: The relationship dictionary to check
-
-        Returns:
-            bool: True if this is a containment relationship
-        """
-        rel_type = get_relationship_type("contains")
-        return bool(rel["type"] == rel_type.name if rel_type else False)
-
-    @classmethod
-    def articulate(cls, rel: Dict[str, Any]) -> str:
-        """
-        Convert a containment relationship to natural language text.
-
-        Args:
-            rel: The containment relationship dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the containment
-        """
-        rel_type = get_relationship_type("contains")
-        if not rel_type:
-            return f"containing {rel['target']}"
-        return rel_type.generate_text(rel)
-
-
-class ComparesHandler:
-    """Handler for comparison relationships."""
-
-    @classmethod
-    def can_handle(cls, rel: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle comparison relationships.
-
-        Args:
-            rel: The relationship dictionary to check
-
-        Returns:
-            bool: True if this is a comparison relationship
-        """
-        rel_type = get_relationship_type("compares")
-        return bool(rel["type"] == rel_type.name if rel_type else False)
-
-    @classmethod
-    def articulate(cls, rel: Dict[str, Any]) -> str:
-        """
-        Convert a comparison relationship to natural language text.
-
-        Args:
-            rel: The comparison relationship dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the comparison
-        """
-        rel_type = get_relationship_type("compares")
-        if not rel_type:
-            return f"comparing {rel['properties']['aspects']} with {rel['target']}"
-        return rel_type.generate_text(rel)
-
-
-class DependsOnHandler:
-    """Handler for dependency relationships."""
-
-    @classmethod
-    def can_handle(cls, rel: Dict[str, Any]) -> bool:
-        """
-        Check if this handler can handle dependency relationships.
-
-        Args:
-            rel: The relationship dictionary to check
-
-        Returns:
-            bool: True if this is a dependency relationship
-        """
-        rel_type = get_relationship_type("depends_on")
-        return bool(rel["type"] == rel_type.name if rel_type else False)
-
-    @classmethod
-    def articulate(cls, rel: Dict[str, Any]) -> str:
-        """
-        Convert a dependency relationship to natural language text.
-
-        Args:
-            rel: The dependency relationship dictionary to articulate
-
-        Returns:
-            str: The natural language representation of the dependency
-        """
-        rel_type = get_relationship_type("depends_on")
-        if not rel_type:
-            return f"using {rel['target']}"
-        return rel_type.generate_text(rel)
-
-
-_relationship_handlers: List[Type[RelationshipHandler]] = [
-    ReferencesHandler,
-    ContainsHandler,
-    ComparesHandler,
-    DependsOnHandler,
-]
-
-
-def register_relationship_handler(handler: Type[RelationshipHandler]) -> None:
-    """
-    Register a new relationship handler.
-
-    Args:
-        handler: The handler class to register
-    """
-    _relationship_handlers.append(handler)
-
-
-def _get_handler_for_relationship(
-    rel: Dict[str, Any]
-) -> Optional[Type[RelationshipHandler]]:
-    """
-    Find a handler for the given relationship.
-
-    Args:
-        rel: The relationship dictionary to find a handler for
-
-    Returns:
-        The handler class if found, None otherwise
-    """
-    for handler in _relationship_handlers:
-        if handler.can_handle(rel):
-            return handler
-    return None
-

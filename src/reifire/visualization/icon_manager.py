@@ -8,6 +8,18 @@ from reifire.icon_registry import IconRegistry
 class IconManager:
     """Manages icon fetching and registration for visualizations."""
 
+    # Generic fallback icons for different types
+    FALLBACK_ICONS = {
+        "default": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg",
+        "object": "https://raw.githubusercontent.com/primer/octicons/main/icons/package-24.svg",
+        "modifier": "https://raw.githubusercontent.com/primer/octicons/main/icons/gear-24.svg",
+        "type": "https://raw.githubusercontent.com/primer/octicons/main/icons/file-code-24.svg",
+        "artifact": "https://raw.githubusercontent.com/primer/octicons/main/icons/file-24.svg",
+        "attribute": "https://raw.githubusercontent.com/primer/octicons/main/icons/list-unordered-24.svg",
+        "alternative": "https://raw.githubusercontent.com/primer/octicons/main/icons/git-branch-24.svg",
+        "relationship": "https://raw.githubusercontent.com/primer/octicons/main/icons/link-24.svg",
+    }
+
     def __init__(
         self, icon_registry: IconRegistry, noun_project_client: NounProjectClient
     ):
@@ -50,7 +62,11 @@ class IconManager:
                         print(f"  Updated placeholder with real icon URL: {icon_url}")
                         vis_props["image"] = icon_url
                     else:
-                        print("  Failed to fetch real icon")
+                        # Use fallback icon based on component type
+                        component_type = obj.get("type", "default").lower()
+                        fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
+                        print(f"  Using fallback icon: {fallback_url}")
+                        vis_props["image"] = fallback_url
             return vis_props
 
         # If an icon is specified directly, use that
@@ -66,7 +82,8 @@ class IconManager:
         icon_name = obj.get("name", "") or obj.get("type", "")
         if not icon_name:
             print("  No name or type found to fetch icon for")
-            return {}
+            # Use default fallback icon
+            return {"image": self.FALLBACK_ICONS["default"], "source": "fallback"}
 
         print(f"  Attempting to fetch icon for: {icon_name}")
         # Try to get or fetch an icon
@@ -75,8 +92,11 @@ class IconManager:
             print(f"  Successfully got icon URL: {icon_url}")
             return {"image": icon_url, "name": icon_name, "source": "nounproject"}
 
-        print("  No icon found or fetched")
-        return {}
+        print("  No icon found or fetched, using fallback")
+        # Use fallback icon based on component type
+        component_type = obj.get("type", "default").lower()
+        fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
+        return {"image": fallback_url, "name": icon_name, "source": "fallback"}
 
     def _get_or_fetch_icon(self, term: str) -> Optional[str]:
         """Get an icon from the registry or fetch it from the Noun Project.
@@ -109,21 +129,17 @@ class IconManager:
             # Get the first icon's details
             icon_data = search_results["icons"][0]
             icon_id = str(icon_data["id"])  # Ensure icon_id is a string
-            print(f"  Found icon with ID: {icon_id}, fetching details...")
+            print(f"  Found icon with ID: {icon_id}")
 
-            icon_details = self.noun_project_client.get_icon(icon_id)
-            if not icon_details.get("icon"):
-                print("  No icon data in response")
-                return None
-
-            preview_url = icon_details["icon"].get("preview_url")
+            # Use thumbnail_url directly from search results
+            preview_url = icon_data.get("thumbnail_url")
             if not isinstance(preview_url, str):
-                print("  Icon data missing preview URL")
+                print("  Icon data missing thumbnail URL")
                 return None
 
             print(f"  Got icon URL: {preview_url}")
             print("  Registering icon for future use")
-            self.icon_registry.associate_icon(term, icon_id, {"preview_url": preview_url})
+            self.icon_registry.register_icon(term, preview_url)
             return preview_url
 
         except Exception as e:

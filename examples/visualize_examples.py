@@ -45,11 +45,11 @@ def main():
     examples_dir = Path(__file__).parent
     example_files = [
         "basic_illustration.json",
-        # "code_generation.json",
-        # "data_analysis.json",
-        # "content_generation.json",
-        # "complex_visual_scene.json",
-        # "ui_component.json"
+        "code_generation.json",
+        "data_analysis.json",
+        "content_generation.json",
+        "complex_visual_scene.json",
+        "ui_component.json"
     ]
 
     # Create output directory

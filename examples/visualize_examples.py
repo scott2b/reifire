@@ -13,17 +13,33 @@ from reifire.icon_registry import IconRegistry
 def main():
     """Run the visualization example."""
     # Check for Noun Project credentials
-    api_key = os.environ.get("NOUN_PROJECT_KEY")
-    api_secret = os.environ.get("NOUN_PROJECT_SECRET")
+    api_key = os.environ.get("NOUN_PROJECT_API_KEY")
+    api_secret = os.environ.get("NOUN_PROJECT_API_SECRET")
     
     if not api_key or not api_secret:
         print("Warning: Noun Project credentials not found in environment variables.")
-        print("Set NOUN_PROJECT_KEY and NOUN_PROJECT_SECRET to enable icon fetching.")
+        print("Set NOUN_PROJECT_API_KEY and NOUN_PROJECT_API_SECRET to enable icon fetching.")
         print("Continuing without icon support...")
-        api_key = "dummy"
-        api_secret = "dummy"
+        # Initialize renderer without icon support
+        renderer = HTMLRenderer()
     else:
         print(f"Found Noun Project credentials (key starts with: {api_key[:4]})")
+        # Initialize components with icon support
+        icon_registry = IconRegistry()
+        try:
+            noun_project_client = NounProjectClient(
+                api_key=api_key,
+                api_secret=api_secret
+            )
+            icon_manager = IconManager(icon_registry, noun_project_client)
+            # Initialize renderer with icon-enabled processor
+            renderer = HTMLRenderer()
+            renderer.processor.icon_manager = icon_manager  # Set the icon manager on the renderer's processor
+            print("Successfully initialized icon support")
+        except Exception as e:
+            print(f"Warning: Failed to initialize icon support: {e}")
+            print("Continuing without icon support...")
+            renderer = HTMLRenderer()
 
     # Load example JSON files
     examples_dir = Path(__file__).parent
@@ -39,24 +55,6 @@ def main():
     # Create output directory
     output_dir = examples_dir / "visualizations"
     output_dir.mkdir(exist_ok=True)
-
-    # Initialize components
-    icon_registry = IconRegistry()
-    try:
-        noun_project_client = NounProjectClient(
-            api_key=api_key,
-            api_secret=api_secret
-        )
-        icon_manager = IconManager(icon_registry, noun_project_client)
-        
-        # Initialize renderer with icon-enabled processor
-        renderer = HTMLRenderer()
-        renderer.processor.icon_manager = icon_manager  # Set the icon manager on the renderer's processor
-        print("Successfully initialized icon support")
-    except Exception as e:
-        print(f"Warning: Failed to initialize icon support: {e}")
-        print("Continuing without icon support...")
-        renderer = HTMLRenderer()
 
     # Process each example
     for filename in example_files:

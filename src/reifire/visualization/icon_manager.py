@@ -123,7 +123,7 @@ class IconManager:
 
             print(f"  Got icon URL: {preview_url}")
             print("  Registering icon for future use")
-            self.icon_registry.register_icon(term, preview_url)
+            self.icon_registry.associate_icon(term, icon_id, {"preview_url": preview_url})
             return preview_url
 
         except Exception as e:

@@ -146,14 +146,16 @@ class NounProjectClient:
             print("No icon data in response")
             return {"error": "no_data"}
 
-        if "preview_url" not in icon_data and "preview_url_84" in icon_data:
-            icon_data["preview_url"] = icon_data["preview_url_84"]
-
-        if "preview_url" not in icon_data and "icon_url" in icon_data:
-            icon_data["preview_url"] = icon_data["icon_url"]
+        # Try all possible URL fields
+        url_fields = ["preview_url", "preview_url_84", "icon_url", "thumbnail_url"]
+        for field in url_fields:
+            if field in icon_data and icon_data[field]:
+                icon_data["preview_url"] = icon_data[field]
+                break
 
         if "preview_url" not in icon_data:
             print("No preview URL available")
+            return {"error": "no_preview_url"}
 
         print(f"Got icon data with preview URL: {icon_data.get('preview_url')}")
         cache_file.write_text(json.dumps(icon_data))

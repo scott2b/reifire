@@ -3,6 +3,7 @@
 from typing import Dict, Any, Optional
 from .nounproject import NounProjectClient
 from reifire.icon_registry import IconRegistry
+from .material_icons import MaterialIconProvider
 
 
 class IconManager:
@@ -18,6 +19,34 @@ class IconManager:
         "attribute": "https://raw.githubusercontent.com/primer/octicons/main/icons/list-unordered-24.svg",
         "alternative": "https://raw.githubusercontent.com/primer/octicons/main/icons/git-branch-24.svg",
         "relationship": "https://raw.githubusercontent.com/primer/octicons/main/icons/link-24.svg",
+        # Add more specific fallbacks for UI components
+        "ui_component": "https://raw.githubusercontent.com/primer/octicons/main/icons/browser-24.svg",
+        "form_element": "https://raw.githubusercontent.com/primer/octicons/main/icons/form-24.svg",
+        "navigation": "https://raw.githubusercontent.com/primer/octicons/main/icons/navigation-24.svg",
+        "data_display": "https://raw.githubusercontent.com/primer/octicons/main/icons/graph-24.svg",
+        "feedback": "https://raw.githubusercontent.com/primer/octicons/main/icons/comment-24.svg",
+        "layout": "https://raw.githubusercontent.com/primer/octicons/main/icons/layout-24.svg",
+        # Add more specific fallbacks for technical components
+        "api": "https://raw.githubusercontent.com/primer/octicons/main/icons/api-24.svg",
+        "database": "https://raw.githubusercontent.com/primer/octicons/main/icons/database-24.svg",
+        "security": "https://raw.githubusercontent.com/primer/octicons/main/icons/shield-lock-24.svg",
+        "analytics": "https://raw.githubusercontent.com/primer/octicons/main/icons/graph-24.svg",
+        "deployment": "https://raw.githubusercontent.com/primer/octicons/main/icons/rocket-24.svg",
+    }
+
+    # Component type categorization
+    COMPONENT_CATEGORIES = {
+        "ui_component": ["button", "input", "select", "checkbox", "radio", "slider", "switch", "date", "time", "color"],
+        "form_element": ["form", "field", "label", "textarea", "validation", "submit"],
+        "navigation": ["menu", "nav", "sidebar", "breadcrumb", "pagination", "tabs"],
+        "data_display": ["table", "list", "grid", "chart", "graph", "tree", "timeline"],
+        "feedback": ["alert", "toast", "notification", "progress", "spinner", "loading"],
+        "layout": ["container", "row", "column", "card", "panel", "section", "header", "footer"],
+        "api": ["endpoint", "route", "request", "response", "client", "server"],
+        "database": ["query", "schema", "model", "migration", "index"],
+        "security": ["auth", "permission", "role", "token", "encryption"],
+        "analytics": ["metric", "report", "dashboard", "tracking", "monitor"],
+        "deployment": ["build", "release", "version", "environment", "config"],
     }
 
     def __init__(
@@ -31,51 +60,49 @@ class IconManager:
         """
         self.icon_registry = icon_registry
         self.noun_project_client = noun_project_client
+        self.material_provider = MaterialIconProvider()
+
+    def _get_component_category(self, term: str) -> str:
+        """Determine the category of a component based on its name.
+        
+        Args:
+            term: The term to categorize
+            
+        Returns:
+            The category name for the term
+        """
+        normalized = term.lower()
+        for category, terms in self.COMPONENT_CATEGORIES.items():
+            if any(t in normalized for t in terms):
+                return category
+        return "default"
 
     def get_visualization_properties(self, obj: Dict[str, Any]) -> Dict[str, Any]:
-        """Get visualization properties for an object, including fetching icons if needed.
+        """Get visualization properties for an object.
 
         Args:
             obj: The object to get visualization properties for
 
         Returns:
-            A dictionary of visualization properties including icon information
+            A dictionary of visualization properties
         """
-        print(
-            f"\nProcessing visualization for: {obj.get('name', obj.get('type', 'unnamed'))}"
-        )
-
-        # If visualization properties are already set, try to fetch a real icon
-        if "visualization" in obj and obj["visualization"]:
-            vis_props = dict(
-                obj["visualization"]
-            )  # Create a copy to avoid modifying original
-            print(f"  Found existing visualization properties: {vis_props}")
-
-            if vis_props.get("source") == "nounproject":
-                # Try to get a real icon for the name
-                icon_name = vis_props.get("name", "")
-                print(f"  Noun Project icon specified with name: {icon_name}")
-                if icon_name:
-                    icon_url = self._get_or_fetch_icon(icon_name)
+        # If visualization properties are already specified, use those
+        if "visualization" in obj:
+            vis_props = obj["visualization"]
+            if "name" in vis_props and "source" in vis_props:
+                if vis_props["source"] == "nounproject":
+                    print(f"  Noun Project icon specified with name: {vis_props['name']}")
+                    icon_url = self._get_or_fetch_icon(vis_props["name"])
                     if icon_url:
                         print(f"  Updated placeholder with real icon URL: {icon_url}")
                         vis_props["image"] = icon_url
                     else:
-                        # Use fallback icon based on component type
-                        component_type = obj.get("type", "default").lower()
-                        fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
-                        print(f"  Using fallback icon: {fallback_url}")
-                        vis_props["image"] = fallback_url
-            else:
-                # For non-Noun Project sources, check if image is a valid URL or absolute path
-                image = vis_props.get("image", "")
-                if not image or not (image.startswith("http") or image.startswith("/")):
-                    # Use fallback icon based on component type
-                    component_type = obj.get("type", "default").lower()
-                    fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
-                    print(f"  Using fallback icon for {vis_props.get('source', 'unknown')} source: {fallback_url}")
-                    vis_props["image"] = fallback_url
+                        print("  Using fallback icon for failed Noun Project fetch")
+                        category = self._get_component_category(vis_props["name"])
+                        vis_props["image"] = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS["default"])
+                elif vis_props["source"] in ["openai", "custom", "colors"]:
+                    print(f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}")
+                    vis_props["image"] = self.FALLBACK_ICONS["default"]
             return vis_props
 
         # If an icon is specified directly, use that
@@ -99,22 +126,24 @@ class IconManager:
         icon_url = self._get_or_fetch_icon(icon_name)
         if icon_url:
             print(f"  Successfully got icon URL: {icon_url}")
-            return {"image": icon_url, "name": icon_name, "source": "nounproject"}
+            source = "material" if icon_url.startswith("/") else "nounproject"
+            return {"image": icon_url, "name": icon_name, "source": source}
 
         print("  No icon found or fetched, using fallback")
-        # Use fallback icon based on component type
+        # Use fallback icon based on component category and type
+        category = self._get_component_category(icon_name)
         component_type = obj.get("type", "default").lower()
-        fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
+        fallback_url = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"]))
         return {"image": fallback_url, "name": icon_name, "source": "fallback"}
 
     def _get_or_fetch_icon(self, term: str) -> Optional[str]:
-        """Get an icon from the registry or fetch it from the Noun Project.
+        """Get an icon from the registry or fetch it from available sources.
 
         Args:
             term: The term to get or fetch an icon for
 
         Returns:
-            The URL of the icon if found or fetched, None otherwise
+            The URL or path of the icon if found or fetched, None otherwise
         """
         print(f"  Looking up icon for term: {term}")
 
@@ -124,7 +153,15 @@ class IconManager:
             print(f"  Found icon in registry: {icon_url}")
             return icon_url
 
-        print("  Icon not in registry, attempting to fetch from Noun Project...")
+        # Try Material Design Icons if available
+        if self.material_provider.is_available():
+            print("  Checking Material Design Icons...")
+            if icon_path := self.material_provider.get_icon_path(term):
+                print(f"  Found Material Design icon: {icon_path}")
+                self.icon_registry.register_icon(term, icon_path)
+                return icon_path
+
+        print("  Icon not found in Material Design Icons, attempting to fetch from Noun Project...")
         # Try to fetch from Noun Project
         try:
             # Search for icons matching the term

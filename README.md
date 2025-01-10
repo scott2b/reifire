@@ -200,3 +200,16 @@ reifire/
 ├── setup.py         # Package setup
 └── tox.ini          # Test automation config
 ```
+
+## Icons
+
+If avaiable, Material Icons are first checked for a suitable icon. Get the latest icons with the download instructions at https://developers.google.com/fonts/docs/material_icons/
+
+Unzip the icons and set the environment variable `MATERIAL_ICONS_DIR` to the path of the unzipped icons.
+
+The Noun Project API is used as a fallback. Set the following environment variables to use it:
+
+```
+NOUNPROJECT_API_KEY=your_api_key
+NOUNPROJECT_API_SECRET=your_secret
+```

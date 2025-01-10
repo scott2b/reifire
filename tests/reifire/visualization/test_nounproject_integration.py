@@ -1,3 +1,5 @@
+"""Integration tests for Noun Project API client."""
+
 import os
 import pytest
 from typing import Generator
@@ -5,7 +7,6 @@ from reifire.visualization.nounproject import NounProjectClient
 from pathlib import Path
 import tempfile
 import requests
-import webbrowser
 
 
 @pytest.fixture
@@ -23,28 +24,24 @@ def api_client() -> Generator[NounProjectClient, None, None]:
         )
 
 
-def download_and_open_icon(url: str, save_dir: Path, filename: str) -> None:
-    """Download an icon and open it in the default viewer."""
+def download_icon(url: str, save_dir: Path, filename: str) -> Path:
+    """Download an icon and return its path."""
     save_path = save_dir / filename
     print(f"Downloading from: {url}")
     response = requests.get(url)
     response.raise_for_status()
     save_path.write_bytes(response.content)
     print(f"Saved to: {save_path}")
-    webbrowser.open(f"file://{save_path.absolute()}")
+    return save_path
 
 
 @pytest.mark.integration
-def test_search_icons_integration(api_client: NounProjectClient) -> None:
+def test_search_icons_integration(api_client: NounProjectClient, nounproject_icons_dir: Path) -> None:
     """Test that we can actually search for icons."""
     result = api_client.search_icons("computer")
     print(f"\nGot {len(result.get('icons', []))} results")
     assert "icons" in result
     assert len(result["icons"]) > 0
-
-    # Create a directory for downloaded icons
-    icon_dir = Path.cwd() / "downloaded_icons"
-    icon_dir.mkdir(exist_ok=True)
 
     print("\nSearch Results:")
     for i, icon in enumerate(result["icons"][:5]):  # Show first 5 results
@@ -54,17 +51,18 @@ def test_search_icons_integration(api_client: NounProjectClient) -> None:
         print(f"   Tags: {', '.join(icon.get('tags', []))}")
         if "thumbnail_url" in icon:
             print(f"   Thumbnail: {icon['thumbnail_url']}")
-            # Download and open the icon
-            download_and_open_icon(
-                icon["thumbnail_url"], icon_dir, f"icon_{icon['id']}.png"
+            # Download the icon
+            icon_path = download_icon(
+                icon["thumbnail_url"], nounproject_icons_dir, f"icon_{icon['id']}.png"
             )
+            assert icon_path.exists()
         else:
             print("   No thumbnail URL available")
         print()
 
 
 @pytest.mark.integration
-def test_get_icon_integration(api_client: NounProjectClient) -> None:
+def test_get_icon_integration(api_client: NounProjectClient, nounproject_icons_dir: Path) -> None:
     """Test that we can fetch a specific icon."""
     # First search for an icon
     search_result = api_client.search_icons("computer", limit=1)
@@ -79,6 +77,11 @@ def test_get_icon_integration(api_client: NounProjectClient) -> None:
     print(f"Tags: {', '.join(icon.get('tags', []))}")
     if "thumbnail_url" in icon:
         print(f"Thumbnail URL: {icon['thumbnail_url']}")
+        # Download the icon
+        icon_path = download_icon(
+            icon["thumbnail_url"], nounproject_icons_dir, f"icon_{icon['id']}.png"
+        )
+        assert icon_path.exists()
     print(f"License: {icon.get('license_description', 'N/A')}")
     if "term" in icon:
         print(f"Term: {icon['term']}")

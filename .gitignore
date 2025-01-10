@@ -1,5 +1,8 @@
 .envrc
 .python-version
+.DS_Store
+
+downloaded_icons/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

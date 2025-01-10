@@ -3,3 +3,4 @@ include README.md
 include DATASPEC.md
 recursive-include examples *.json
 recursive-include tests *.py 
+include requirements.txt 

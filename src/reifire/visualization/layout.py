@@ -9,12 +9,12 @@ class ConnectionType(Enum):
     """Types of connections between components."""
 
     PARENT_CHILD = "parent-child"  # Basic hierarchical relationship
-    INHERITANCE = "inheritance"    # Class/type inheritance
-    COMPOSITION = "composition"    # Strong ownership/containment
-    AGGREGATION = "aggregation"   # Weak ownership/containment
-    DEPENDENCY = "dependency"      # Uses/depends on
-    ASSOCIATION = "association"    # General relationship
-    REFERENCE = "reference"       # References/points to
+    INHERITANCE = "inheritance"  # Class/type inheritance
+    COMPOSITION = "composition"  # Strong ownership/containment
+    AGGREGATION = "aggregation"  # Weak ownership/containment
+    DEPENDENCY = "dependency"  # Uses/depends on
+    ASSOCIATION = "association"  # General relationship
+    REFERENCE = "reference"  # References/points to
 
 
 @dataclass
@@ -80,14 +80,21 @@ class LayoutComponent:
     properties: Dict[str, Any] = field(default_factory=dict)
     connections: List[Connection] = field(default_factory=list)
 
-    def add_connection(self, target_id: str, conn_type: ConnectionType, properties: Optional[Dict[str, Any]] = None) -> None:
+    def add_connection(
+        self,
+        target_id: str,
+        conn_type: ConnectionType,
+        properties: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """Add a connection to another component."""
-        self.connections.append(Connection(
-            source_id=self.id,
-            target_id=target_id,
-            type=conn_type,
-            properties=properties or {}
-        ))
+        self.connections.append(
+            Connection(
+                source_id=self.id,
+                target_id=target_id,
+                type=conn_type,
+                properties=properties or {},
+            )
+        )
 
 
 class LayoutEngine:
@@ -138,15 +145,15 @@ class LayoutEngine:
         source_id: str,
         target_id: str,
         conn_type: ConnectionType,
-        properties: Optional[Dict[str, Any]] = None
+        properties: Optional[Dict[str, Any]] = None,
     ) -> None:
         """Add a connection between components."""
         source = self.components.get(source_id)
         target = self.components.get(target_id)
-        
+
         if not source or not target:
             raise ValueError("Source or target component not found")
-            
+
         source.add_connection(target_id, conn_type, properties)
 
     def get_all_connections(self) -> List[Connection]:

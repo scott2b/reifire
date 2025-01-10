@@ -3,9 +3,11 @@
 import pytest
 from pathlib import Path
 from reifire.visualization.htmlrenderer import HTMLRenderer
+from typing import Dict, Any
+
 
 @pytest.fixture
-def sample_data():
+def sample_data() -> Dict[str, Any]:
     """Sample JSON data for testing."""
     return {
         "object": {
@@ -13,8 +15,8 @@ def sample_data():
             "visualization": {
                 "source": "nounproject",
                 "name": "test",
-                "image": "test.svg"
-            }
+                "image": "test.svg",
+            },
         },
         "type": {
             "name": "test_type",
@@ -22,8 +24,8 @@ def sample_data():
             "visualization": {
                 "source": "nounproject",
                 "name": "type_test",
-                "image": "type.svg"
-            }
+                "image": "type.svg",
+            },
         },
         "artifact": {
             "type": "test_artifact",
@@ -34,57 +36,59 @@ def sample_data():
                     "visualization": {
                         "source": "nounproject",
                         "name": "attr1",
-                        "image": "attr1.svg"
-                    }
+                        "image": "attr1.svg",
+                    },
                 }
-            ]
-        }
+            ],
+        },
     }
 
-def test_renderer_initialization():
+
+def test_renderer_initialization() -> None:
     """Test renderer initialization."""
     renderer = HTMLRenderer()
-    assert renderer.env is not None
-    assert renderer.processor is not None
+    assert renderer.template_dir.exists()
+    assert renderer.template_dir.is_dir()
 
-def test_render_basic(sample_data, tmp_path):
+
+def test_render_basic(sample_data: Dict[str, Any], tmp_path: Path) -> None:
     """Test basic rendering functionality."""
     renderer = HTMLRenderer()
     output_file = tmp_path / "test.html"
-    
+
     # Render to string
     html = renderer.render(sample_data)
     assert isinstance(html, str)
     assert "test_object" in html
     assert "test_type" in html
     assert "attr1" in html
-    
+
     # Render to file
     html = renderer.render(sample_data, output_file=output_file)
     assert output_file.exists()
     assert output_file.read_text() == html
 
-def test_component_to_dict():
+
+def test_component_to_dict() -> None:
     """Test component conversion to dictionary."""
     renderer = HTMLRenderer()
-    components, _ = renderer.processor.process_json({
-        "object": {
-            "name": "test",
-            "visualization": {
-                "source": "test",
+    components, _ = renderer.processor.process_json(
+        {
+            "object": {
                 "name": "test",
-                "image": "test.svg"
-            }
-        },
-        "type": {
-            "name": "test_type",
-            "category": "test"
+                "visualization": {
+                    "source": "test",
+                    "name": "test",
+                    "image": "test.svg",
+                },
+            },
+            "type": {"name": "test_type", "category": "test"},
         }
-    })
-    
+    )
+
     component = components[0]
     component_dict = renderer._component_to_dict(component)
-    
+
     assert component_dict["id"] == component.id
     assert component_dict["type"] == component.type
     assert component_dict["label"] == component.label
@@ -94,30 +98,27 @@ def test_component_to_dict():
     assert component_dict["height"] == component.height
     assert component_dict["properties"] == component.properties
 
-def test_connection_to_dict():
+
+def test_connection_to_dict() -> None:
     """Test connection conversion to dictionary."""
     renderer = HTMLRenderer()
-    _, connections = renderer.processor.process_json({
-        "object": {
-            "name": "test"
-        },
-        "type": {
-            "name": "test_type"
-        }
-    })
-    
+    _, connections = renderer.processor.process_json(
+        {"object": {"name": "test"}, "type": {"name": "test_type"}}
+    )
+
     connection = connections[0]
     connection_dict = renderer._connection_to_dict(connection)
-    
+
     assert connection_dict["source"] == connection.source
     assert connection_dict["target"] == connection.target
     assert connection_dict["type"] == connection.type
     assert connection_dict["properties"] == connection.properties
 
-def test_render_complex(sample_data, tmp_path):
+
+def test_render_complex(sample_data: Dict[str, Any], tmp_path: Path) -> None:
     """Test rendering with complex data structures."""
     renderer = HTMLRenderer()
-    
+
     # Add some complex structures to the sample data
     sample_data["artifact"]["relationships"] = [
         {
@@ -127,8 +128,8 @@ def test_render_complex(sample_data, tmp_path):
             "visualization": {
                 "source": "nounproject",
                 "name": "dependency",
-                "image": "dependency.svg"
-            }
+                "image": "dependency.svg",
+            },
         }
     ]
     sample_data["artifact"]["attributes"][0]["alternatives"] = [
@@ -138,16 +139,16 @@ def test_render_complex(sample_data, tmp_path):
             "visualization": {
                 "source": "nounproject",
                 "name": "alt",
-                "image": "alt.svg"
-            }
+                "image": "alt.svg",
+            },
         }
     ]
-    
+
     # Render
     html = renderer.render(sample_data)
-    
+
     # Check for complex elements
     assert "depends_on" in html
+    assert "alt_value" in html
     assert "component1" in html
     assert "component2" in html
-    assert "alt_value" in html 

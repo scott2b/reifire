@@ -5,6 +5,28 @@ from enum import Enum
 from typing import Dict, List, Optional, Any, Tuple
 
 
+class ConnectionType(Enum):
+    """Types of connections between components."""
+
+    PARENT_CHILD = "parent-child"  # Basic hierarchical relationship
+    INHERITANCE = "inheritance"    # Class/type inheritance
+    COMPOSITION = "composition"    # Strong ownership/containment
+    AGGREGATION = "aggregation"   # Weak ownership/containment
+    DEPENDENCY = "dependency"      # Uses/depends on
+    ASSOCIATION = "association"    # General relationship
+    REFERENCE = "reference"       # References/points to
+
+
+@dataclass
+class Connection:
+    """Represents a connection between two components."""
+
+    source_id: str
+    target_id: str
+    type: ConnectionType
+    properties: Dict[str, Any] = field(default_factory=dict)
+
+
 class LayoutType(Enum):
     """Types of layouts supported by the engine."""
 
@@ -56,6 +78,16 @@ class LayoutComponent:
     children: List["LayoutComponent"] = field(default_factory=list)
     parent: Optional["LayoutComponent"] = None
     properties: Dict[str, Any] = field(default_factory=dict)
+    connections: List[Connection] = field(default_factory=list)
+
+    def add_connection(self, target_id: str, conn_type: ConnectionType, properties: Optional[Dict[str, Any]] = None) -> None:
+        """Add a connection to another component."""
+        self.connections.append(Connection(
+            source_id=self.id,
+            target_id=target_id,
+            type=conn_type,
+            properties=properties or {}
+        ))
 
 
 class LayoutEngine:
@@ -91,6 +123,8 @@ class LayoutEngine:
             if parent:
                 component.parent = parent
                 parent.children.append(component)
+                # Add implicit parent-child connection
+                component.add_connection(parent_id, ConnectionType.PARENT_CHILD)
             else:
                 raise ValueError(f"Parent component {parent_id} not found")
         elif not self.root:
@@ -98,6 +132,29 @@ class LayoutEngine:
 
         self.components[id] = component
         return component
+
+    def add_connection(
+        self,
+        source_id: str,
+        target_id: str,
+        conn_type: ConnectionType,
+        properties: Optional[Dict[str, Any]] = None
+    ) -> None:
+        """Add a connection between components."""
+        source = self.components.get(source_id)
+        target = self.components.get(target_id)
+        
+        if not source or not target:
+            raise ValueError("Source or target component not found")
+            
+        source.add_connection(target_id, conn_type, properties)
+
+    def get_all_connections(self) -> List[Connection]:
+        """Get all connections in the layout."""
+        connections = []
+        for component in self.components.values():
+            connections.extend(component.connections)
+        return connections
 
     def layout(self) -> Dict[str, Tuple[Position, Size]]:
         """Calculate positions for all components based on layout type."""

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualization Test</title>
+    <style>
+        .canvas {
+            width: 800px;
+            height: 600px;
+            border: 1px solid #ccc;
+            margin: 20px;
+            position: relative;
+        }
+        
+        .component {
+            position: absolute;
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: move;
+            z-index: 1;
+        }
+        
+        .component:hover {
+            background: #bbdefb;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection {
+            stroke: #2196f3;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas" id="canvas">
+        <svg id="connections"></svg>
+        <div class="component" id="main" style="left: 100px; top: 50px; width: 150px;">
+            Main Component
+        </div>
+        <div class="component" id="attr1" style="left: 50px; top: 200px; width: 120px;">
+            Attribute 1
+        </div>
+        <div class="component" id="attr2" style="left: 200px; top: 200px; width: 120px;">
+            Attribute 2
+        </div>
+    </div>
+
+    <script>
+        const svg = document.getElementById('connections');
+        const main = document.getElementById('main');
+        const attr1 = document.getElementById('attr1');
+        const attr2 = document.getElementById('attr2');
+
+        // Create SVG lines
+        const line1 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const line2 = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line1.classList.add('connection');
+        line2.classList.add('connection');
+        svg.appendChild(line1);
+        svg.appendChild(line2);
+
+        function updateConnections() {
+            const mainRect = main.getBoundingClientRect();
+            const attr1Rect = attr1.getBoundingClientRect();
+            const attr2Rect = attr2.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
+
+            // Update line positions relative to canvas
+            line1.setAttribute('x1', mainRect.left + mainRect.width/2 - canvasRect.left);
+            line1.setAttribute('y1', mainRect.top + mainRect.height/2 - canvasRect.top);
+            line1.setAttribute('x2', attr1Rect.left + attr1Rect.width/2 - canvasRect.left);
+            line1.setAttribute('y2', attr1Rect.top + attr1Rect.height/2 - canvasRect.top);
+
+            line2.setAttribute('x1', mainRect.left + mainRect.width/2 - canvasRect.left);
+            line2.setAttribute('y1', mainRect.top + mainRect.height/2 - canvasRect.top);
+            line2.setAttribute('x2', attr2Rect.left + attr2Rect.width/2 - canvasRect.left);
+            line2.setAttribute('y2', attr2Rect.top + attr2Rect.height/2 - canvasRect.top);
+        }
+
+        // Make components draggable
+        document.querySelectorAll('.component').forEach(component => {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+
+                if (e.target === component) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+
+                    component.style.transform = 
+                        `translate(${currentX}px, ${currentY}px)`;
+                    
+                    updateConnections();
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+        });
+
+        // Initial connection drawing
+        updateConnections();
+    </script>
+</body>
+</html> 

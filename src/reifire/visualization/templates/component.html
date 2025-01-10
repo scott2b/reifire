@@ -1,0 +1,9 @@
+<div class="component" 
+     id="{{ id }}"
+     data-type="{{ type }}"
+     style="left: {{ x }}px; top: {{ y }}px; width: {{ width }}px;">
+    {% if properties.visualization and properties.visualization.image %}
+    <img class="icon" src="{{ properties.visualization.image }}" alt="{{ properties.visualization.name }}">
+    {% endif %}
+    {{ label }}
+</div> 

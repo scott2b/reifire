@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reifire Visualization</title>
+    <style>
+        .canvas {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .component {
+            position: absolute;
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: move;
+            z-index: 1;
+            transition: all 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 150px;
+        }
+        
+        .component:hover {
+            background: #bbdefb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .component.selected {
+            border-color: #1565c0;
+            background: #90caf9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .component .icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .component .label {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .component[data-type="object"] {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .component[data-type="type"] {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .component[data-type="artifact"] {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .component[data-type="attribute"] {
+            background: #f3e5f5;
+            border-color: #9c27b0;
+        }
+
+        .component[data-type="relationship"] {
+            background: #fce4ec;
+            border-color: #e91e63;
+        }
+
+        .component[data-type="alternative"] {
+            background: #e8eaf6;
+            border-color: #3f51b5;
+            border-style: dashed;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection {
+            stroke: #2196f3;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+            transition: all 0.2s;
+        }
+
+        .connection:hover {
+            stroke-width: 3;
+            filter: brightness(1.2);
+        }
+
+        .connection[data-type="type"] {
+            stroke: #4caf50;
+        }
+
+        .connection[data-type="attribute"] {
+            stroke: #9c27b0;
+        }
+
+        .connection[data-type="alternative"] {
+            stroke: #3f51b5;
+            stroke-dasharray: 4,4;
+        }
+
+        .connection[data-type="relationship"] {
+            stroke: #e91e63;
+        }
+
+        .connection[data-type="artifact"] {
+            stroke: #ff9800;
+        }
+
+        .connection-label {
+            font-size: 12px;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas" id="canvas">
+        <svg id="connections">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#2196f3"/>
+                </marker>
+            </defs>
+        </svg>
+        
+        <div class="component" 
+             id="object_0"
+             data-type="object"
+             style="left: 0px; top: 0px;">
+            
+            <span class="label">date_picker</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_1"
+             data-type="modifier"
+             style="left: 200px; top: 100px;">
+            
+            <span class="label">range: multi</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_2"
+             data-type="modifier"
+             style="left: 200px; top: 200px;">
+            
+            <span class="label">range: single</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_3"
+             data-type="modifier"
+             style="left: 200px; top: 300px;">
+            
+            <span class="label">scope: calendar</span>
+        </div>
+        
+        <div class="component" 
+             id="type_4"
+             data-type="type"
+             style="left: 0px; top: 400px;">
+            
+            <span class="label">component</span>
+        </div>
+        
+        <div class="component" 
+             id="artifact_5"
+             data-type="artifact"
+             style="left: 0px; top: 500px;">
+            
+            <span class="label">artifact</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_6"
+             data-type="attribute"
+             style="left: 0px; top: 600px;">
+            
+            <span class="label">framework: react</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_7"
+             data-type="attribute"
+             style="left: 0px; top: 700px;">
+            
+            <span class="label">style_system: tailwind</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_8"
+             data-type="attribute"
+             style="left: 0px; top: 800px;">
+            
+            <span class="label">theme: dark</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_9"
+             data-type="attribute"
+             style="left: 200px; top: 900px;">
+            
+            <span class="label">theme: light</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_10"
+             data-type="attribute"
+             style="left: 0px; top: 900px;">
+            
+            <span class="label">accessibility: wcag_aa</span>
+        </div>
+        
+        <div class="component" 
+             id="rel_11"
+             data-type="relationship"
+             style="left: 0px; top: 1000px;">
+            
+            <span class="label">contains: date_picker -> calendar_grid</span>
+        </div>
+        
+        <div class="component" 
+             id="rel_12"
+             data-type="relationship"
+             style="left: 0px; top: 1100px;">
+            
+            <span class="label">contains: date_picker -> time_selector</span>
+        </div>
+        
+    </div>
+
+    <script>
+        // Store component and connection data
+        const components = [{"height": 50, "id": "object_0", "label": "date_picker", "properties": {"visualization": {}}, "type": "object", "width": 150, "x": 0, "y": 0}, {"height": 40, "id": "mod_1", "label": "range: multi", "properties": {"visualization": {}}, "type": "modifier", "width": 120, "x": 200, "y": 100}, {"height": 40, "id": "mod_2", "label": "range: single", "properties": {"visualization": {}}, "type": "modifier", "width": 120, "x": 200, "y": 200}, {"height": 40, "id": "mod_3", "label": "scope: calendar", "properties": {"visualization": {}}, "type": "modifier", "width": 120, "x": 200, "y": 300}, {"height": 50, "id": "type_4", "label": "component", "properties": {"category": "interactive", "visualization": {}}, "type": "type", "width": 150, "x": 0, "y": 400}, {"height": 50, "id": "artifact_5", "label": "artifact", "properties": {"type": "ui_element", "visualization": {}}, "type": "artifact", "width": 150, "x": 0, "y": 500}, {"height": 40, "id": "attr_6", "label": "framework: react", "properties": {"visualization": {}}, "type": "attribute", "width": 120, "x": 0, "y": 600}, {"height": 40, "id": "attr_7", "label": "style_system: tailwind", "properties": {"visualization": {}}, "type": "attribute", "width": 120, "x": 0, "y": 700}, {"height": 40, "id": "attr_8", "label": "theme: dark", "properties": {"visualization": {}}, "type": "attribute", "width": 120, "x": 0, "y": 800}, {"height": 40, "id": "attr_9", "label": "theme: light", "properties": {"visualization": {}}, "type": "attribute", "width": 120, "x": 200, "y": 900}, {"height": 40, "id": "attr_10", "label": "accessibility: wcag_aa", "properties": {"visualization": {}}, "type": "attribute", "width": 120, "x": 0, "y": 900}, {"height": 40, "id": "rel_11", "label": "contains: date_picker -\u003e calendar_grid", "properties": {"properties": {"interaction": "clickable"}, "visualization": {}}, "type": "relationship", "width": 200, "x": 0, "y": 1000}, {"height": 40, "id": "rel_12", "label": "contains: date_picker -\u003e time_selector", "properties": {"properties": {"optional": true}, "visualization": {}}, "type": "relationship", "width": 200, "x": 0, "y": 1100}];
+        const connections = [{"properties": {}, "source": "mod_1", "target": "mod_2", "type": "alternative"}, {"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "mod_3", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_4", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_5", "type": "artifact"}, {"properties": {}, "source": "artifact_5", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "attr_7", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "attr_8", "type": "attribute"}, {"properties": {}, "source": "attr_8", "target": "attr_9", "type": "alternative"}, {"properties": {}, "source": "artifact_5", "target": "attr_10", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "rel_11", "type": "relationship"}, {"properties": {}, "source": "rel_11", "target": "rel_date_picker_calendar_grid", "type": "contains"}, {"properties": {}, "source": "artifact_5", "target": "rel_12", "type": "relationship"}, {"properties": {}, "source": "rel_12", "target": "rel_date_picker_time_selector", "type": "contains"}];
+        
+        // Initialize SVG connections
+        const svg = document.getElementById('connections');
+        
+        // Create SVG connections
+        connections.forEach(conn => {
+            const source = document.getElementById(conn.source);
+            const target = document.getElementById(conn.target);
+            
+            if (source && target) {
+                const sourceRect = source.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                line.classList.add('connection');
+                line.dataset.type = conn.type;
+                
+                // Calculate path
+                const sourceX = sourceRect.left + sourceRect.width/2;
+                const sourceY = sourceRect.top + sourceRect.height/2;
+                const targetX = targetRect.left + targetRect.width/2;
+                const targetY = targetRect.top + targetRect.height/2;
+                
+                // Create curved path
+                const dx = targetX - sourceX;
+                const dy = targetY - sourceY;
+                const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
+                const path = `M ${sourceX} ${sourceY} 
+                             C ${sourceX + curve} ${sourceY},
+                               ${targetX - curve} ${targetY},
+                               ${targetX} ${targetY}`;
+                               
+                line.setAttribute('d', path);
+                svg.appendChild(line);
+                
+                // Add label if properties exist
+                if (conn.properties && Object.keys(conn.properties).length > 0) {
+                    const label = document.createElement('div');
+                    label.className = 'connection-label';
+                    label.textContent = conn.type;
+                    label.style.position = 'absolute';
+                    label.style.left = `${(sourceX + targetX)/2}px`;
+                    label.style.top = `${(sourceY + targetY)/2}px`;
+                    document.body.appendChild(label);
+                }
+            }
+        });
+
+        // Make components draggable
+        document.querySelectorAll('.component').forEach(component => {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+                
+                if (e.target === component) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    
+                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reifire Visualization</title>
+    <style>
+        .canvas {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .component {
+            position: absolute;
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: move;
+            z-index: 1;
+            transition: all 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 150px;
+        }
+        
+        .component:hover {
+            background: #bbdefb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .component.selected {
+            border-color: #1565c0;
+            background: #90caf9;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .component .icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .component .label {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .component[data-type="object"] {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .component[data-type="type"] {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .component[data-type="artifact"] {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .component[data-type="attribute"] {
+            background: #f3e5f5;
+            border-color: #9c27b0;
+        }
+
+        .component[data-type="relationship"] {
+            background: #fce4ec;
+            border-color: #e91e63;
+        }
+
+        .component[data-type="alternative"] {
+            background: #e8eaf6;
+            border-color: #3f51b5;
+            border-style: dashed;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection {
+            stroke: #2196f3;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+            transition: all 0.2s;
+        }
+
+        .connection:hover {
+            stroke-width: 3;
+            filter: brightness(1.2);
+        }
+
+        .connection[data-type="type"] {
+            stroke: #4caf50;
+        }
+
+        .connection[data-type="attribute"] {
+            stroke: #9c27b0;
+        }
+
+        .connection[data-type="alternative"] {
+            stroke: #3f51b5;
+            stroke-dasharray: 4,4;
+        }
+
+        .connection[data-type="relationship"] {
+            stroke: #e91e63;
+        }
+
+        .connection[data-type="artifact"] {
+            stroke: #ff9800;
+        }
+
+        .connection-label {
+            font-size: 12px;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas" id="canvas">
+        <svg id="connections">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#2196f3"/>
+                </marker>
+            </defs>
+        </svg>
+        
+        <div class="component" 
+             id="object_0"
+             data-type="object"
+             style="left: 0px; top: 0px;">
+            
+            <span class="label">sales_data</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_1"
+             data-type="modifier"
+             style="left: 200px; top: 100px;">
+            
+            <img class="icon" 
+                 src="quarter_time.svg" 
+                 alt="quarter_calendar"
+                 title="quarter_calendar">
+            
+            <span class="label">time_range: last_quarter</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_2"
+             data-type="modifier"
+             style="left: 200px; top: 200px;">
+            
+            <img class="icon" 
+                 src="year_time.svg" 
+                 alt="yearly_calendar"
+                 title="yearly_calendar">
+            
+            <span class="label">time_range: last_year</span>
+        </div>
+        
+        <div class="component" 
+             id="mod_3"
+             data-type="modifier"
+             style="left: 200px; top: 300px;">
+            
+            <img class="icon" 
+                 src="na_region.svg" 
+                 alt="north_america_map"
+                 title="north_america_map">
+            
+            <span class="label">region: north_america</span>
+        </div>
+        
+        <div class="component" 
+             id="type_4"
+             data-type="type"
+             style="left: 0px; top: 400px;">
+            
+            <img class="icon" 
+                 src="analytics_icon.svg" 
+                 alt="data_analytics"
+                 title="data_analytics">
+            
+            <span class="label">analysis</span>
+        </div>
+        
+        <div class="component" 
+             id="artifact_5"
+             data-type="artifact"
+             style="left: 0px; top: 500px;">
+            
+            <img class="icon" 
+                 src="query_flow.svg" 
+                 alt="data_flow"
+                 title="data_flow">
+            
+            <span class="label">artifact</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_6"
+             data-type="attribute"
+             style="left: 0px; top: 600px;">
+            
+            <img class="icon" 
+                 src="aggregate.svg" 
+                 alt="data_aggregation"
+                 title="data_aggregation">
+            
+            <span class="label">operation: aggregation</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_7"
+             data-type="attribute"
+             style="left: 0px; top: 700px;">
+            
+            <img class="icon" 
+                 src="grouping.svg" 
+                 alt="group_by"
+                 title="group_by">
+            
+            <span class="label">grouping: ['product_category', 'month']</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_8"
+             data-type="attribute"
+             style="left: 0px; top: 800px;">
+            
+            <img class="icon" 
+                 src="metrics.svg" 
+                 alt="metrics_chart"
+                 title="metrics_chart">
+            
+            <span class="label">metrics: ['revenue', 'growth_rate']</span>
+        </div>
+        
+        <div class="component" 
+             id="attr_9"
+             data-type="attribute"
+             style="left: 0px; top: 900px;">
+            
+            <img class="icon" 
+                 src="sql_icon.svg" 
+                 alt="sql_code"
+                 title="sql_code">
+            
+            <span class="label">format: sql</span>
+        </div>
+        
+        <div class="component" 
+             id="rel_10"
+             data-type="relationship"
+             style="left: 0px; top: 1000px;">
+            
+            <img class="icon" 
+                 src="join_tables.svg" 
+                 alt="data_join"
+                 title="data_join">
+            
+            <span class="label">references: sales_data -> product_catalog</span>
+        </div>
+        
+    </div>
+
+    <script>
+        // Store component and connection data
+        const components = [{"height": 50, "id": "object_0", "label": "sales_data", "properties": {"visualization": {}}, "type": "object", "width": 150, "x": 0, "y": 0}, {"height": 40, "id": "mod_1", "label": "time_range: last_quarter", "properties": {"visualization": {"image": "quarter_time.svg", "name": "quarter_calendar", "source": "nounproject"}}, "type": "modifier", "width": 120, "x": 200, "y": 100}, {"height": 40, "id": "mod_2", "label": "time_range: last_year", "properties": {"visualization": {"image": "year_time.svg", "name": "yearly_calendar", "source": "nounproject"}}, "type": "modifier", "width": 120, "x": 200, "y": 200}, {"height": 40, "id": "mod_3", "label": "region: north_america", "properties": {"visualization": {"image": "na_region.svg", "name": "north_america_map", "source": "nounproject"}}, "type": "modifier", "width": 120, "x": 200, "y": 300}, {"height": 50, "id": "type_4", "label": "analysis", "properties": {"category": "data", "visualization": {"image": "analytics_icon.svg", "name": "data_analytics", "source": "nounproject"}}, "type": "type", "width": 150, "x": 0, "y": 400}, {"height": 50, "id": "artifact_5", "label": "artifact", "properties": {"type": "query", "visualization": {"image": "query_flow.svg", "name": "data_flow", "properties": {"layout": "flow_diagram", "show_steps": true}, "source": "custom"}}, "type": "artifact", "width": 150, "x": 0, "y": 500}, {"height": 40, "id": "attr_6", "label": "operation: aggregation", "properties": {"visualization": {"image": "aggregate.svg", "name": "data_aggregation", "source": "nounproject"}}, "type": "attribute", "width": 120, "x": 0, "y": 600}, {"height": 40, "id": "attr_7", "label": "grouping: [\u0027product_category\u0027, \u0027month\u0027]", "properties": {"visualization": {"image": "grouping.svg", "name": "group_by", "source": "nounproject"}}, "type": "attribute", "width": 120, "x": 0, "y": 700}, {"height": 40, "id": "attr_8", "label": "metrics: [\u0027revenue\u0027, \u0027growth_rate\u0027]", "properties": {"visualization": {"image": "metrics.svg", "name": "metrics_chart", "source": "nounproject"}}, "type": "attribute", "width": 120, "x": 0, "y": 800}, {"height": 40, "id": "attr_9", "label": "format: sql", "properties": {"visualization": {"image": "sql_icon.svg", "name": "sql_code", "source": "nounproject"}}, "type": "attribute", "width": 120, "x": 0, "y": 900}, {"height": 40, "id": "rel_10", "label": "references: sales_data -\u003e product_catalog", "properties": {"visualization": {"image": "join_tables.svg", "name": "data_join", "properties": {"join_type": "left"}, "source": "nounproject"}}, "type": "relationship", "width": 200, "x": 0, "y": 1000}];
+        const connections = [{"properties": {}, "source": "mod_1", "target": "mod_2", "type": "alternative"}, {"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "mod_3", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_4", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_5", "type": "artifact"}, {"properties": {}, "source": "artifact_5", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "attr_7", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "attr_8", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "attr_9", "type": "attribute"}, {"properties": {}, "source": "artifact_5", "target": "rel_10", "type": "relationship"}, {"properties": {}, "source": "rel_10", "target": "rel_sales_data_product_catalog", "type": "references"}];
+        
+        // Initialize SVG connections
+        const svg = document.getElementById('connections');
+        
+        // Create SVG connections
+        connections.forEach(conn => {
+            const source = document.getElementById(conn.source);
+            const target = document.getElementById(conn.target);
+            
+            if (source && target) {
+                const sourceRect = source.getBoundingClientRect();
+                const targetRect = target.getBoundingClientRect();
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                line.classList.add('connection');
+                line.dataset.type = conn.type;
+                
+                // Calculate path
+                const sourceX = sourceRect.left + sourceRect.width/2;
+                const sourceY = sourceRect.top + sourceRect.height/2;
+                const targetX = targetRect.left + targetRect.width/2;
+                const targetY = targetRect.top + targetRect.height/2;
+                
+                // Create curved path
+                const dx = targetX - sourceX;
+                const dy = targetY - sourceY;
+                const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
+                const path = `M ${sourceX} ${sourceY} 
+                             C ${sourceX + curve} ${sourceY},
+                               ${targetX - curve} ${targetY},
+                               ${targetX} ${targetY}`;
+                               
+                line.setAttribute('d', path);
+                svg.appendChild(line);
+                
+                // Add label if properties exist
+                if (conn.properties && Object.keys(conn.properties).length > 0) {
+                    const label = document.createElement('div');
+                    label.className = 'connection-label';
+                    label.textContent = conn.type;
+                    label.style.position = 'absolute';
+                    label.style.left = `${(sourceX + targetX)/2}px`;
+                    label.style.top = `${(sourceY + targetY)/2}px`;
+                    document.body.appendChild(label);
+                }
+            }
+        });
+
+        // Make components draggable
+        document.querySelectorAll('.component').forEach(component => {
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+                
+                if (e.target === component) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    
+                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                }
+            }
+
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+        });
+    </script>
+</body>
+</html> 

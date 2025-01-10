@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Reifire Visualization</title>
+    <style>
+        .canvas {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: #f5f5f5;
+            padding: 20px;
+            overflow: auto;
+        }
+        
+        .component {
+            position: absolute;
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: move;
+            z-index: 1;
+            transition: all 0.2s;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 150px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            transform: translate(0, 0);
+        }
+        
+        .component:hover {
+            background: #bbdefb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+        }
+
+        .component .icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .component .label {
+            flex: 1;
+            font-size: 14px;
+            color: #333;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .component[data-type="object"] {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            font-weight: bold;
+        }
+
+        .component[data-type="modifier"] {
+            background: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .component[data-type="type"] {
+            background: #f3e5f5;
+            border-color: #9c27b0;
+        }
+
+        .component[data-type="artifact"] {
+            background: #fff3e0;
+            border-color: #ff9800;
+            font-weight: bold;
+        }
+
+        .component[data-type="attribute"] {
+            background: #e8eaf6;
+            border-color: #3f51b5;
+        }
+
+        .component[data-type="alternative"] {
+            background: #fce4ec;
+            border-color: #e91e63;
+            border-style: dashed;
+        }
+
+        .component[data-type="relationship"] {
+            background: #f5f5f5;
+            border-color: #9e9e9e;
+            border-style: solid;
+        }
+
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .connection {
+            stroke: #2196f3;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+            transition: all 0.2s;
+        }
+
+        .connection:hover {
+            stroke-width: 3;
+            filter: brightness(1.2);
+        }
+
+        .connection[data-type="modifier"] {
+            stroke: #4caf50;
+            marker-end: url(#arrowhead-modifier);
+        }
+
+        .connection[data-type="type"] {
+            stroke: #9c27b0;
+            marker-end: url(#arrowhead-type);
+        }
+
+        .connection[data-type="artifact"] {
+            stroke: #ff9800;
+            marker-end: url(#arrowhead-artifact);
+        }
+
+        .connection[data-type="attribute"] {
+            stroke: #3f51b5;
+            marker-end: url(#arrowhead-attribute);
+        }
+
+        .connection[data-type="alternative"] {
+            stroke: #e91e63;
+            stroke-dasharray: 4,4;
+            marker-end: url(#arrowhead-alternative);
+        }
+
+        .connection[data-type="relationship"] {
+            stroke: #9e9e9e;
+            marker-end: url(#arrowhead-relationship);
+        }
+
+        .connection-label {
+            font-size: 12px;
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas" id="canvas">
+        <svg id="connections">
+            <defs>
+                <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#2196f3"/>
+                </marker>
+                <marker id="arrowhead-modifier" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#4caf50"/>
+                </marker>
+                <marker id="arrowhead-type" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#9c27b0"/>
+                </marker>
+                <marker id="arrowhead-artifact" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#ff9800"/>
+                </marker>
+                <marker id="arrowhead-attribute" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#3f51b5"/>
+                </marker>
+                <marker id="arrowhead-alternative" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#e91e63"/>
+                </marker>
+                <marker id="arrowhead-relationship" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#9e9e9e"/>
+                </marker>
+            </defs>
+        </svg>
+        <div class="component" 
+             id="object_0"
+             data-type="object"
+             style="left: 0px; top: 50px; width: 200px;">
+            <span class="label">Cthulhu</span>
+        </div>
+        <div class="component" 
+             id="mod_1"
+             data-type="modifier"
+             style="left: 500px; top: 150px; width: 180px;">
+            <img class="icon" 
+                 src="baby_icon.svg" 
+                 alt="baby"
+                 title="baby">
+            <span class="label">age: baby</span>
+        </div>
+        <div class="component" 
+             id="mod_2"
+             data-type="modifier"
+             style="left: 550px; top: 250px; width: 180px;">
+            <img class="icon" 
+                 src="default.svg" 
+                 alt="default_age"
+                 title="default_age">
+            <span class="label">age</span>
+        </div>
+        <div class="component" 
+             id="type_3"
+             data-type="type"
+             style="left: 250px; top: 350px; width: 200px;">
+            <img class="icon" 
+                 src="art_palette.svg" 
+                 alt="art_illustration"
+                 title="art_illustration">
+            <span class="label">illustration</span>
+        </div>
+        <div class="component" 
+             id="artifact_4"
+             data-type="artifact"
+             style="left: 500px; top: 450px; width: 200px;">
+            <img class="icon" 
+                 src="cthulhu.png" 
+                 alt="cthulhu"
+                 title="cthulhu">
+            <span class="label">artifact</span>
+        </div>
+        <div class="component" 
+             id="attr_5"
+             data-type="attribute"
+             style="left: 500px; top: 550px; width: 180px;">
+            <img class="icon" 
+                 src="kids_drawing.svg" 
+                 alt="children_art"
+                 title="children_art">
+            <span class="label">style: children&#39;s illustration</span>
+        </div>
+        <div class="component" 
+             id="attr_6"
+             data-type="alternative"
+             style="left: 800px; top: 650px; width: 180px;">
+            <img class="icon" 
+                 src="fantasy_dark.svg" 
+                 alt="dark_fantasy"
+                 title="dark_fantasy">
+            <span class="label">style: dark fantasy</span>
+        </div>
+        <div class="component" 
+             id="attr_7"
+             data-type="attribute"
+             style="left: 500px; top: 650px; width: 180px;">
+            <img class="icon" 
+                 src="cute_monster.svg" 
+                 alt="scary_cute"
+                 title="scary_cute">
+            <span class="label">mood: scary-cute</span>
+        </div>
+        <div class="component" 
+             id="attr_8"
+             data-type="alternative"
+             style="left: 800px; top: 750px; width: 180px;">
+            <img class="icon" 
+                 src="horror.svg" 
+                 alt="terrifying"
+                 title="terrifying">
+            <span class="label">mood: terrifying</span>
+        </div>
+        <div class="component" 
+             id="attr_9"
+             data-type="attribute"
+             style="left: 500px; top: 750px; width: 180px;">
+            <span class="label">color scheme</span>
+        </div>
+    </div>
+
+    <script>
+        // Store component and connection data
+        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {}}, "type": "object", "width": 200, "x": 0, "y": 50}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "baby_icon.svg", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 500, "y": 150}, {"height": 50, "id": "mod_2", "label": "age", "properties": {"visualization": {"image": "default.svg", "name": "default_age", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 550, "y": 250}, {"height": 60, "id": "type_3", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "art_palette.svg", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 250, "y": 350}, {"height": 60, "id": "artifact_4", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "cthulhu.png", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 500, "y": 450}, {"height": 50, "id": "attr_5", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "kids_drawing.svg", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 500, "y": 550}, {"height": 50, "id": "attr_6", "label": "style: dark fantasy", "properties": {"visualization": {"image": "fantasy_dark.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 650}, {"height": 50, "id": "attr_7", "label": "mood: scary-cute", "properties": {"visualization": {"image": "cute_monster.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 500, "y": 650}, {"height": 50, "id": "attr_8", "label": "mood: terrifying", "properties": {"visualization": {"image": "horror.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 750}, {"height": 50, "id": "attr_9", "label": "color scheme", "properties": {"visualization": {"images": ["brown.svg", "green.svg", "purple.svg"], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 500, "y": 750}];
+        const connectionData = [{"properties": {}, "source": "mod_1", "target": "mod_2", "type": "alternative"}, {"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_3", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_4", "type": "artifact"}, {"properties": {}, "source": "artifact_4", "target": "attr_5", "type": "attribute"}, {"properties": {}, "source": "attr_5", "target": "attr_6", "type": "alternative"}, {"properties": {}, "source": "artifact_4", "target": "attr_7", "type": "attribute"}, {"properties": {}, "source": "attr_7", "target": "attr_8", "type": "alternative"}, {"properties": {}, "source": "artifact_4", "target": "attr_9", "type": "attribute"}];
+        
+        // Initialize SVG connections
+        const svg = document.getElementById('connections');
+        const canvas = document.getElementById('canvas');
+        
+        // Create SVG connections
+        function createConnections() {
+            connectionData.forEach(conn => {
+                const source = document.getElementById(conn.source);
+                const target = document.getElementById(conn.target);
+                
+                if (source && target) {
+                    const sourceRect = source.getBoundingClientRect();
+                    const targetRect = target.getBoundingClientRect();
+                    const canvasRect = canvas.getBoundingClientRect();
+                    
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    line.classList.add('connection');
+                    line.dataset.type = conn.type;
+                    
+                    // Calculate path relative to canvas
+                    const sourceX = sourceRect.left - canvasRect.left + sourceRect.width/2;
+                    const sourceY = sourceRect.top - canvasRect.top + sourceRect.height/2;
+                    const targetX = targetRect.left - canvasRect.left + targetRect.width/2;
+                    const targetY = targetRect.top - canvasRect.top + targetRect.height/2;
+                    
+                    // Create curved path
+                    const dx = targetX - sourceX;
+                    const dy = targetY - sourceY;
+                    const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
+                    const path = `M ${sourceX} ${sourceY} 
+                                 C ${sourceX + curve} ${sourceY},
+                                   ${targetX - curve} ${targetY},
+                                   ${targetX} ${targetY}`;
+                                   
+                    line.setAttribute('d', path);
+                    svg.appendChild(line);
+                    
+                    // Add label if properties exist
+                    if (conn.properties && Object.keys(conn.properties).length > 0) {
+                        const label = document.createElement('div');
+                        label.className = 'connection-label';
+                        label.textContent = conn.type;
+                        label.style.left = `${(sourceX + targetX)/2}px`;
+                        label.style.top = `${(sourceY + targetY)/2}px`;
+                        canvas.appendChild(label);
+                    }
+                }
+            });
+        }
+
+        // Make components draggable
+        document.querySelectorAll('.component').forEach(component => {
+            let isDragging = false;
+            let currentX = 0;
+            let currentY = 0;
+            let initialX = 0;
+            let initialY = 0;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                const rect = component.getBoundingClientRect();
+                xOffset = rect.left - component.offsetLeft;
+                yOffset = rect.top - component.offsetTop;
+                
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+                
+                if (e.target === component || component.contains(e.target)) {
+                    isDragging = true;
+                    component.style.cursor = 'grabbing';
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    
+                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    updateConnections();
+                }
+            }
+
+            function dragEnd(e) {
+                if (isDragging) {
+                    isDragging = false;
+                    component.style.cursor = 'grab';
+                    
+                    // Update the component's position
+                    const left = parseInt(component.style.left) + currentX;
+                    const top = parseInt(component.style.top) + currentY;
+                    component.style.left = `${left}px`;
+                    component.style.top = `${top}px`;
+                    component.style.transform = 'translate(0, 0)';
+                    
+                    // Reset offsets
+                    currentX = 0;
+                    currentY = 0;
+                    xOffset = 0;
+                    yOffset = 0;
+                }
+            }
+        });
+
+        // Update all connections
+        function updateConnections() {
+            // Remove existing connections
+            while (svg.lastChild) {
+                if (svg.lastChild.tagName === 'defs') break;
+                svg.removeChild(svg.lastChild);
+            }
+            document.querySelectorAll('.connection-label').forEach(label => label.remove());
+
+            // Recreate connections
+            createConnections();
+        }
+
+        // Initial connection creation
+        createConnections();
+
+        // Update connections on window resize
+        window.addEventListener('resize', updateConnections);
+    </script>
+</body>
+</html> 

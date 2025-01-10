@@ -126,6 +126,9 @@
   - [ ] Add support for hierarchical visualization
   - [ ] Implement relationship visualization
   - [ ] Add interactive component generation
+  - [ ] Double-click to add new components
+  - [ ] Right-click menu for operations (delete/rename)
+  - [ ] Different connection types (inheritance, composition, etc.)
 
 ### UI Integration
 - [ ] Create visualization component library
@@ -133,6 +136,7 @@
   - [ ] Add interactive element support
   - [ ] Create component styling system
   - [ ] Add animation support
+  - [ ] Noun Project icon integration
 
 ### Asset Management
 - [ ] Implement asset management system
@@ -140,6 +144,7 @@
   - [ ] Add SVG optimization
   - [ ] Implement asset preloading
   - [ ] Add export capabilities
+  - [ ] Save/export diagram functionality
 
 ### Configuration and Customization
 - [ ] Add visualization configuration system

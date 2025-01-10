@@ -428,6 +428,105 @@
                     }
                 }
             );
+
+            // Add Remove Connection option if the component has connections
+            const hasConnections = connectionData.some(conn => 
+                conn.source === component.id || conn.target === component.id
+            );
+            
+            if (hasConnections) {
+                items.push(
+                    {type: 'separator'},
+                    {
+                        label: 'Remove Connections',
+                        action: () => {
+                            // Find all connections for this component
+                            const componentConnections = connectionData.filter(conn => 
+                                conn.source === component.id || conn.target === component.id
+                            );
+                            
+                            // Remove each connection and update the prompt
+                            componentConnections.forEach(conn => {
+                                // Remove the connection from connectionData
+                                const index = connectionData.indexOf(conn);
+                                if (index > -1) {
+                                    connectionData.splice(index, 1);
+                                }
+                                
+                                // For modifier connections, we want to remove the modifier's value
+                                const modifierComponent = document.getElementById(conn.source);
+                                const targetComponent = document.getElementById(conn.target);
+                                
+                                if (modifierComponent && targetComponent) {
+                                    // Get the component that is the modifier (usually the source)
+                                    const isSourceModifier = modifierComponent.dataset.type === 'modifier';
+                                    const modifierLabel = isSourceModifier ? 
+                                        modifierComponent.querySelector('.label') : 
+                                        targetComponent.querySelector('.label');
+                                    
+                                    if (modifierLabel) {
+                                        const modifierText = modifierLabel.textContent;
+                                        // Extract the value part (e.g., "baby" from "age: baby")
+                                        const modifierValue = modifierText.includes(': ') ? 
+                                            modifierText.split(': ')[1] : 
+                                            modifierText;
+                                        
+                                        // Update the prompt text
+                                        const promptText = document.querySelector('.prompt-text');
+                                        if (promptText) {
+                                            const value = modifierValue.trim();
+                                            
+                                            // Handle compound terms (like "scary-cute")
+                                            if (value.includes('-')) {
+                                                // Split compound term and remove each part
+                                                const parts = value.split('-');
+                                                parts.forEach(part => {
+                                                    const partRegex = new RegExp(`\\b${part}\\b|(?:^|\\s|-)${part}(?=\\s|$|-)`, 'g');
+                                                    promptText.textContent = promptText.textContent.replace(partRegex, '');
+                                                });
+                                                // Also try to remove the full compound term
+                                                const fullRegex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                promptText.textContent = promptText.textContent.replace(fullRegex, '');
+                                            } else {
+                                                // For single terms, use the original regex
+                                                const regex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                promptText.textContent = promptText.textContent.replace(regex, '');
+                                            }
+                                            
+                                            // Clean up the text
+                                            promptText.textContent = promptText.textContent
+                                                // Remove extra spaces
+                                                .replace(/\s+/g, ' ')
+                                                // Clean up dashes with spaces around them
+                                                .replace(/\s*-\s*/g, '-')
+                                                // Clean up multiple dashes
+                                                .replace(/-+/g, '-')
+                                                // Remove orphaned dashes (dashes without words on both sides)
+                                                .replace(/\s-\s|\s-(?=\s|$)|-(?=\s|$)|\b-\b|-\s/g, ' ')
+                                                // Clean up commas
+                                                .replace(/,\s*,/g, ',')
+                                                .replace(/,\s*\./g, '.')
+                                                .replace(/\s*,\s*$/, '')
+                                                // Remove any remaining hyphenated word if one part is missing
+                                                .replace(/\b\w+(-\s|\s-|\s*-\s*$)|\b(-\s|\s-|\s*-\s*)\w+\b/g, '')
+                                                // Final trim and space cleanup
+                                                .trim()
+                                                .replace(/\s+/g, ' ');
+                                            
+                                            // Log for debugging
+                                            console.log('Removing modifier value:', value);
+                                            console.log('New prompt:', promptText.textContent);
+                                        }
+                                    }
+                                }
+                            });
+                            
+                            // Redraw connections
+                            updateConnections();
+                        }
+                    }
+                );
+            }
             
             if (type === 'object' || type === 'artifact') {
                 items.push(

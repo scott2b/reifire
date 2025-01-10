@@ -224,13 +224,13 @@
         <div class="component" 
              id="object_0"
              data-type="object"
-             style="left: 0px; top: 50px; width: 200px;">
+             style="left: 50px; top: 0px; width: 200px;">
             <span class="label">Cthulhu</span>
         </div>
         <div class="component" 
              id="mod_1"
              data-type="modifier"
-             style="left: 500px; top: 150px; width: 180px;">
+             style="left: 300px; top: 100px; width: 180px;">
             <img class="icon" 
                  src="baby_icon.svg" 
                  alt="baby"
@@ -238,19 +238,9 @@
             <span class="label">age: baby</span>
         </div>
         <div class="component" 
-             id="mod_2"
-             data-type="modifier"
-             style="left: 550px; top: 250px; width: 180px;">
-            <img class="icon" 
-                 src="default.svg" 
-                 alt="default_age"
-                 title="default_age">
-            <span class="label">age</span>
-        </div>
-        <div class="component" 
-             id="type_3"
+             id="type_2"
              data-type="type"
-             style="left: 250px; top: 350px; width: 200px;">
+             style="left: 300px; top: 200px; width: 200px;">
             <img class="icon" 
                  src="art_palette.svg" 
                  alt="art_illustration"
@@ -258,9 +248,9 @@
             <span class="label">illustration</span>
         </div>
         <div class="component" 
-             id="artifact_4"
+             id="artifact_3"
              data-type="artifact"
-             style="left: 500px; top: 450px; width: 200px;">
+             style="left: 550px; top: 300px; width: 200px;">
             <img class="icon" 
                  src="cthulhu.png" 
                  alt="cthulhu"
@@ -268,9 +258,9 @@
             <span class="label">artifact</span>
         </div>
         <div class="component" 
-             id="attr_5"
+             id="attr_4"
              data-type="attribute"
-             style="left: 500px; top: 550px; width: 180px;">
+             style="left: 550px; top: 400px; width: 180px;">
             <img class="icon" 
                  src="kids_drawing.svg" 
                  alt="children_art"
@@ -278,9 +268,9 @@
             <span class="label">style: children&#39;s illustration</span>
         </div>
         <div class="component" 
-             id="attr_6"
+             id="attr_5"
              data-type="alternative"
-             style="left: 800px; top: 650px; width: 180px;">
+             style="left: 800px; top: 500px; width: 180px;">
             <img class="icon" 
                  src="fantasy_dark.svg" 
                  alt="dark_fantasy"
@@ -288,9 +278,9 @@
             <span class="label">style: dark fantasy</span>
         </div>
         <div class="component" 
-             id="attr_7"
+             id="attr_6"
              data-type="attribute"
-             style="left: 500px; top: 650px; width: 180px;">
+             style="left: 550px; top: 600px; width: 180px;">
             <img class="icon" 
                  src="cute_monster.svg" 
                  alt="scary_cute"
@@ -298,9 +288,9 @@
             <span class="label">mood: scary-cute</span>
         </div>
         <div class="component" 
-             id="attr_8"
+             id="attr_7"
              data-type="alternative"
-             style="left: 800px; top: 750px; width: 180px;">
+             style="left: 800px; top: 700px; width: 180px;">
             <img class="icon" 
                  src="horror.svg" 
                  alt="terrifying"
@@ -308,17 +298,17 @@
             <span class="label">mood: terrifying</span>
         </div>
         <div class="component" 
-             id="attr_9"
+             id="attr_8"
              data-type="attribute"
-             style="left: 500px; top: 750px; width: 180px;">
+             style="left: 550px; top: 800px; width: 180px;">
             <span class="label">color scheme</span>
         </div>
     </div>
 
     <script>
         // Store component and connection data
-        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {}}, "type": "object", "width": 200, "x": 0, "y": 50}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "baby_icon.svg", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 500, "y": 150}, {"height": 50, "id": "mod_2", "label": "age", "properties": {"visualization": {"image": "default.svg", "name": "default_age", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 550, "y": 250}, {"height": 60, "id": "type_3", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "art_palette.svg", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 250, "y": 350}, {"height": 60, "id": "artifact_4", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "cthulhu.png", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 500, "y": 450}, {"height": 50, "id": "attr_5", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "kids_drawing.svg", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 500, "y": 550}, {"height": 50, "id": "attr_6", "label": "style: dark fantasy", "properties": {"visualization": {"image": "fantasy_dark.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 650}, {"height": 50, "id": "attr_7", "label": "mood: scary-cute", "properties": {"visualization": {"image": "cute_monster.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 500, "y": 650}, {"height": 50, "id": "attr_8", "label": "mood: terrifying", "properties": {"visualization": {"image": "horror.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 750}, {"height": 50, "id": "attr_9", "label": "color scheme", "properties": {"visualization": {"images": ["brown.svg", "green.svg", "purple.svg"], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 500, "y": 750}];
-        const connectionData = [{"properties": {}, "source": "mod_1", "target": "mod_2", "type": "alternative"}, {"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_3", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_4", "type": "artifact"}, {"properties": {}, "source": "artifact_4", "target": "attr_5", "type": "attribute"}, {"properties": {}, "source": "attr_5", "target": "attr_6", "type": "alternative"}, {"properties": {}, "source": "artifact_4", "target": "attr_7", "type": "attribute"}, {"properties": {}, "source": "attr_7", "target": "attr_8", "type": "alternative"}, {"properties": {}, "source": "artifact_4", "target": "attr_9", "type": "attribute"}];
+        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {}}, "type": "object", "width": 200, "x": 50, "y": 0}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "baby_icon.svg", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 300, "y": 100}, {"height": 60, "id": "type_2", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "art_palette.svg", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 300, "y": 200}, {"height": 60, "id": "artifact_3", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "cthulhu.png", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 550, "y": 300}, {"height": 50, "id": "attr_4", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "kids_drawing.svg", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 400}, {"height": 50, "id": "attr_5", "label": "style: dark fantasy", "properties": {"visualization": {"image": "fantasy_dark.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 500}, {"height": 50, "id": "attr_6", "label": "mood: scary-cute", "properties": {"visualization": {"image": "cute_monster.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 600}, {"height": 50, "id": "attr_7", "label": "mood: terrifying", "properties": {"visualization": {"image": "horror.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 700}, {"height": 50, "id": "attr_8", "label": "color scheme", "properties": {"visualization": {"images": ["brown.svg", "green.svg", "purple.svg"], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 550, "y": 800}];
+        const connectionData = [{"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_2", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_3", "type": "artifact"}, {"properties": {}, "source": "artifact_3", "target": "attr_4", "type": "attribute"}, {"properties": {}, "source": "attr_4", "target": "attr_5", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "attr_6", "target": "attr_7", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_8", "type": "attribute"}];
         
         // Initialize SVG connections
         const svg = document.getElementById('connections');

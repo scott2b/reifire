@@ -1,11 +1,30 @@
 """Example script demonstrating the visualization system."""
 
 import json
+import os
+import sys
 from pathlib import Path
 from reifire.visualization.htmlrenderer import HTMLRenderer
+from reifire.visualization.icon_manager import IconManager
+from reifire.visualization.nounproject import NounProjectClient
+from reifire.icon_registry import IconRegistry
+
 
 def main():
     """Run the visualization example."""
+    # Check for Noun Project credentials
+    api_key = os.environ.get("NOUN_PROJECT_KEY")
+    api_secret = os.environ.get("NOUN_PROJECT_SECRET")
+    
+    if not api_key or not api_secret:
+        print("Warning: Noun Project credentials not found in environment variables.")
+        print("Set NOUN_PROJECT_KEY and NOUN_PROJECT_SECRET to enable icon fetching.")
+        print("Continuing without icon support...")
+        api_key = "dummy"
+        api_secret = "dummy"
+    else:
+        print(f"Found Noun Project credentials (key starts with: {api_key[:4]})")
+
     # Load example JSON files
     examples_dir = Path(__file__).parent
     example_files = [
@@ -21,8 +40,23 @@ def main():
     output_dir = examples_dir / "visualizations"
     output_dir.mkdir(exist_ok=True)
 
-    # Initialize renderer
-    renderer = HTMLRenderer()
+    # Initialize components
+    icon_registry = IconRegistry()
+    try:
+        noun_project_client = NounProjectClient(
+            api_key=api_key,
+            api_secret=api_secret
+        )
+        icon_manager = IconManager(icon_registry, noun_project_client)
+        
+        # Initialize renderer with icon-enabled processor
+        renderer = HTMLRenderer()
+        renderer.processor.icon_manager = icon_manager  # Set the icon manager on the renderer's processor
+        print("Successfully initialized icon support")
+    except Exception as e:
+        print(f"Warning: Failed to initialize icon support: {e}")
+        print("Continuing without icon support...")
+        renderer = HTMLRenderer()
 
     # Process each example
     for filename in example_files:
@@ -49,25 +83,14 @@ def main():
             print(f"- Artifact: {data['artifact'].get('type')}")
             if "attributes" in data["artifact"]:
                 print(f"  - Attributes: {len(data['artifact']['attributes'])}")
-                for attr in data["artifact"]["attributes"]:
-                    print(f"    - {attr.get('name')}: {attr.get('value', '')}")
-                    if "alternatives" in attr:
-                        print(f"      - Alternatives: {len(attr['alternatives'])}")
+            if "relationships" in data["artifact"]:
+                print(f"  - Relationships: {len(data['artifact']['relationships'])}")
         
-        # Generate visualization
-        output_file = output_dir / f"{filename.replace('.json', '.html')}"
-        components, connections = renderer.processor.process_json(data)
-        
-        print("\nGenerated components:")
-        for comp in components:
-            print(f"- {comp.type}: {comp.label}")
-        
-        print("\nGenerated connections:")
-        for conn in connections:
-            print(f"- {conn.source} -> {conn.target} ({conn.type})")
-        
-        renderer.render(data, output_file=output_file)
-        print(f"\nGenerated {output_file}")
+        # Render visualization
+        output_path = output_dir / f"{filename.replace('.json', '.html')}"
+        renderer.render(data, output_file=output_path)
+        print(f"Generated visualization: {output_path}")
+
 
 if __name__ == "__main__":
     main() 

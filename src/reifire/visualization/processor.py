@@ -2,6 +2,7 @@
 
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
+from .icon_manager import IconManager
 
 
 @dataclass
@@ -31,7 +32,12 @@ class VisualizationConnection:
 class VisualizationProcessor:
     """Processes JSON data into visualization components."""
 
-    def __init__(self) -> None:
+    def __init__(self, icon_manager: Optional[IconManager] = None) -> None:
+        """Initialize the visualization processor.
+
+        Args:
+            icon_manager: Optional IconManager instance for handling icons
+        """
         self.components: List[VisualizationComponent] = []
         self.connections: List[VisualizationConnection] = []
         self.current_y = 0  # Start at 0 for test compatibility
@@ -39,6 +45,7 @@ class VisualizationProcessor:
         self.x_offset = 250  # Increased horizontal spacing for better readability
         self.level_offset = 50  # Additional offset for nested components
         self.base_x = 50  # Base x position for the leftmost components
+        self.icon_manager = icon_manager
 
     def process_json(
         self, data: Dict[str, Any]
@@ -109,7 +116,11 @@ class VisualizationProcessor:
             # Process relationships
             if "relationships" in data["artifact"]:
                 for rel in data["artifact"]["relationships"]:
-                    self._add_relationship_component(rel)
+                    rel_id = self._add_relationship_component(rel)
+                    # Add connections to source and target
+                    if "source" in rel and "target" in rel:
+                        self._add_connection(rel["source"], rel_id, "source", {})
+                        self._add_connection(rel_id, rel["target"], "target", {})
 
         return self.components, self.connections
 
@@ -119,9 +130,13 @@ class VisualizationProcessor:
         """Add a component for an object."""
         component_id = f"{type_name}_{len(self.components)}"
 
-        # Extract visualization properties
-        vis_props = obj.get("visualization", {})
-        if not vis_props and "icon" in obj:
+        # Get visualization properties using IconManager if available
+        vis_props = {}
+        if self.icon_manager:
+            vis_props = self.icon_manager.get_visualization_properties(obj)
+        elif "visualization" in obj:
+            vis_props = obj.get("visualization", {})
+        elif "icon" in obj:
             vis_props = {"image": obj["icon"], "name": obj.get("name", type_name)}
 
         # Create component with proper properties
@@ -161,9 +176,13 @@ class VisualizationProcessor:
         """Add a component for a modifier."""
         component_id = f"mod_{len(self.components)}"
 
-        # Extract visualization properties
-        vis_props = modifier.get("visualization", {})
-        if not vis_props and "icon" in modifier:
+        # Get visualization properties using IconManager if available
+        vis_props = {}
+        if self.icon_manager:
+            vis_props = self.icon_manager.get_visualization_properties(modifier)
+        elif "visualization" in modifier:
+            vis_props = modifier.get("visualization", {})
+        elif "icon" in modifier:
             vis_props = {
                 "image": modifier["icon"],
                 "name": modifier.get("name", "Modifier"),
@@ -196,15 +215,6 @@ class VisualizationProcessor:
 
         self.components.append(component)
         self.current_y += self.spacing
-
-        # Process alternatives if present
-        if "alternatives" in modifier:
-            for alt in modifier["alternatives"]:
-                alt_id = self._add_modifier_component(alt, x_offset + self.level_offset)
-                self._add_connection(
-                    component_id, alt_id, "alternative", alt.get("properties", {})
-                )
-
         return component_id
 
     def _add_attribute_component(
@@ -213,10 +223,17 @@ class VisualizationProcessor:
         """Add a component for an attribute."""
         component_id = f"attr_{len(self.components)}"
 
-        # Extract visualization properties
-        vis_props = attr.get("visualization", {})
-        if not vis_props and "icon" in attr:
-            vis_props = {"image": attr["icon"], "name": attr.get("name", "Attribute")}
+        # Get visualization properties using IconManager if available
+        vis_props = {}
+        if self.icon_manager:
+            vis_props = self.icon_manager.get_visualization_properties(attr)
+        elif "visualization" in attr:
+            vis_props = attr.get("visualization", {})
+        elif "icon" in attr:
+            vis_props = {
+                "image": attr["icon"],
+                "name": attr.get("name", "Attribute"),
+            }
 
         # Create label with name and value
         label = f"{attr.get('name', 'Attribute')}"
@@ -226,9 +243,9 @@ class VisualizationProcessor:
         # Create component
         component = VisualizationComponent(
             id=component_id,
-            type="attribute" if not is_alternative else "alternative",
+            type="alternative" if is_alternative else "attribute",
             label=label,
-            x=x_offset + (self.level_offset if is_alternative else 0),
+            x=x_offset,
             y=self.current_y,
             width=180,
             height=50,
@@ -244,34 +261,20 @@ class VisualizationProcessor:
         )
 
         self.components.append(component)
-        if not is_alternative:
-            self.current_y += self.spacing
-
+        self.current_y += self.spacing
         return component_id
-
-    def _add_connection(
-        self,
-        source_id: str,
-        target_id: str,
-        connection_type: str,
-        properties: Optional[Dict[str, Any]] = None,
-    ) -> None:
-        """Add a connection between components."""
-        connection = VisualizationConnection(
-            source=source_id,
-            target=target_id,
-            type=connection_type,
-            properties=properties or {},
-        )
-        self.connections.append(connection)
 
     def _add_relationship_component(self, rel: Dict[str, Any]) -> str:
         """Add a component for a relationship."""
         component_id = f"rel_{len(self.components)}"
 
-        # Extract visualization properties
-        vis_props = rel.get("visualization", {})
-        if not vis_props and "icon" in rel:
+        # Get visualization properties using IconManager if available
+        vis_props = {}
+        if self.icon_manager:
+            vis_props = self.icon_manager.get_visualization_properties(rel)
+        elif "visualization" in rel:
+            vis_props = rel.get("visualization", {})
+        elif "icon" in rel:
             vis_props = {"image": rel["icon"], "name": rel.get("name", "Relationship")}
 
         # Create label with source and target
@@ -301,10 +304,23 @@ class VisualizationProcessor:
 
         self.components.append(component)
         self.current_y += self.spacing
-
-        # Add connections to source and target
-        if "source" in rel and "target" in rel:
-            self._add_connection(rel["source"], component_id, "source", {})
-            self._add_connection(component_id, rel["target"], "target", {})
-
         return component_id
+
+    def _add_connection(
+        self,
+        source_id: str,
+        target_id: str,
+        connection_type: str,
+        properties: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Add a connection between components."""
+        if properties is None:
+            properties = {}
+
+        connection = VisualizationConnection(
+            source=source_id,
+            target=target_id,
+            type=connection_type,
+            properties=properties,
+        )
+        self.connections.append(connection)

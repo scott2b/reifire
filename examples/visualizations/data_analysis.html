@@ -387,6 +387,96 @@
                 }
             });
 
+            // Check if this component has an alternative
+            const hasAlternative = componentData.some(comp => {
+                return comp.type === 'alternative' && connectionData.some(conn => 
+                    conn.type === 'alternative' && 
+                    (conn.target === comp.id || conn.source === comp.id)
+                );
+            });
+
+            if (hasAlternative) {
+                // Find if this is the original or alternative component
+                const altConnection = connectionData.find(conn => 
+                    conn.type === 'alternative' && 
+                    (conn.source === component.id || conn.target === component.id)
+                );
+
+                if (altConnection) {
+                    // Find both components involved in the alternative connection
+                    const currentComp = componentData.find(comp => comp.id === component.id);
+                    const otherComponentId = altConnection.source === component.id ? 
+                        altConnection.target : altConnection.source;
+                    const otherComp = componentData.find(comp => comp.id === otherComponentId);
+
+                    // The alternative is the one with type 'alternative'
+                    const isAlternative = currentComp.type === 'alternative';
+                    
+                    items.push(
+                        {type: 'separator'},
+                        {
+                            label: isAlternative ? 'Switch to Original' : 'Switch to Alternative',
+                            action: () => {
+                                if (otherComp) {
+                                    // Get the current and alternative values
+                                    const currentLabel = component.querySelector('.label');
+                                    const currentText = currentLabel.textContent;
+                                    const currentValue = currentText.includes(': ') ? 
+                                        currentText.split(': ')[1] : 
+                                        currentText;
+                                    
+                                    const otherValue = otherComp.label.includes(': ') ? 
+                                        otherComp.label.split(': ')[1] : 
+                                        otherComp.label;
+                                    
+                                    // Update the prompt text
+                                    const promptText = document.querySelector('.prompt-text');
+                                    if (promptText) {
+                                        // Create regex patterns that handle both simple and compound terms
+                                        // Add lookahead/lookbehind to preserve spaces
+                                        const currentRegex = new RegExp(`(?<=^|\\s)(${currentValue})(?=\\s|$|\\b)`, 'g');
+                                        promptText.textContent = promptText.textContent.replace(currentRegex, otherValue);
+                                        
+                                        // Clean up the text
+                                        promptText.textContent = promptText.textContent
+                                            .replace(/\s+/g, ' ')
+                                            .trim();
+                                        
+                                        // Log for debugging
+                                        console.log('Switching from:', currentValue, 'to:', otherValue);
+                                        console.log('Component types - Current:', currentComp.type, 'Other:', otherComp.type);
+                                        console.log('New prompt:', promptText.textContent);
+                                    }
+                                    
+                                    // Update the component's label
+                                    if (currentText.includes(': ')) {
+                                        const prefix = currentText.split(': ')[0];
+                                        currentLabel.textContent = `${prefix}: ${otherValue}`;
+                                    } else {
+                                        currentLabel.textContent = otherValue;
+                                    }
+
+                                    // Update component types
+                                    const originalType = isAlternative ? otherComp.type : currentComp.type;
+                                    component.dataset.type = isAlternative ? originalType : 'alternative';
+                                    
+                                    // Swap the connection target and source
+                                    const index = connectionData.indexOf(altConnection);
+                                    connectionData[index] = {
+                                        ...altConnection,
+                                        source: altConnection.target,
+                                        target: altConnection.source
+                                    };
+                                    
+                                    // Update the visualization
+                                    updateConnections();
+                                }
+                            }
+                        }
+                    );
+                }
+            }
+
             items.push(
                 {type: 'separator'},
                 {
@@ -588,68 +678,199 @@
             }
         });
 
-        // Make components draggable and handle context menu
-        document.querySelectorAll('.component').forEach(component => {
-            let isDragging = false;
-            let currentX = 0;
-            let currentY = 0;
-            let initialX = 0;
-            let initialY = 0;
-            let xOffset = 0;
-            let yOffset = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make components draggable and handle context menu
+            document.querySelectorAll('.component').forEach(component => {
+                let isDragging = false;
+                let currentX = 0;
+                let currentY = 0;
+                let initialX = 0;
+                let initialY = 0;
+                let xOffset = 0;
+                let yOffset = 0;
 
-            component.addEventListener('mousedown', dragStart);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', dragEnd);
-            component.addEventListener('contextmenu', (e) => showContextMenu(e, component));
+                // Add draggable attribute
+                component.setAttribute('draggable', 'true');
 
-            function dragStart(e) {
-                if (e.button !== 0) return; // Only handle left click for dragging
-                
-                const rect = component.getBoundingClientRect();
-                xOffset = rect.left - component.offsetLeft;
-                yOffset = rect.top - component.offsetTop;
-                
-                initialX = e.clientX - xOffset;
-                initialY = e.clientY - yOffset;
-                
-                if (e.target === component || component.contains(e.target)) {
-                    isDragging = true;
-                    component.style.cursor = 'grabbing';
+                function dragStart(e) {
+                    if (e.type === 'dragstart') {
+                        // Allow dragging both alternatives and main components that have alternatives
+                        const hasAltConnection = connectionData.some(conn => 
+                            conn.type === 'alternative' && 
+                            (conn.source === component.id || conn.target === component.id)
+                        );
+                        if (hasAltConnection) {
+                            e.dataTransfer.setData('text/plain', component.id);
+                            component.classList.add('dragging');
+                        }
+                    } else if (e.button === 0) { // Left mouse button
+                        const rect = component.getBoundingClientRect();
+                        xOffset = rect.left - component.offsetLeft;
+                        yOffset = rect.top - component.offsetTop;
+                        initialX = e.clientX - xOffset;
+                        initialY = e.clientY - yOffset;
+                        isDragging = true;
+                    }
                 }
-            }
 
-            function drag(e) {
-                if (isDragging) {
-                    e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                    
-                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                    updateConnections();
-                }
-            }
-
-            function dragEnd(e) {
-                if (isDragging) {
+                function dragEnd(e) {
+                    if (e.type === 'dragend') {
+                        component.classList.remove('dragging');
+                    }
                     isDragging = false;
-                    component.style.cursor = 'grab';
-                    
-                    // Update the component's position
-                    const left = parseInt(component.style.left) + currentX;
-                    const top = parseInt(component.style.top) + currentY;
-                    component.style.left = `${left}px`;
-                    component.style.top = `${top}px`;
-                    component.style.transform = 'translate(0, 0)';
-                    
-                    // Reset offsets
-                    currentX = 0;
-                    currentY = 0;
-                    xOffset = 0;
-                    yOffset = 0;
+                    initialX = currentX;
+                    initialY = currentY;
                 }
-            }
+
+                function dragOver(e) {
+                    e.preventDefault();
+                    // Only show drop effect if this is a valid target for the alternative
+                    if (e.dataTransfer.types.includes('text/plain')) {
+                        const draggedId = e.dataTransfer.getData('text/plain');
+                        const isValidTarget = connectionData.some(conn => 
+                            conn.type === 'alternative' && 
+                            ((conn.source === component.id && conn.target === draggedId) ||
+                             (conn.target === component.id && conn.source === draggedId))
+                        );
+                        if (isValidTarget) {
+                            component.classList.add('drop-target');
+                        }
+                    }
+                }
+
+                function drop(e) {
+                    e.preventDefault();
+                    component.classList.remove('drop-target');
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    const draggedElement = document.getElementById(draggedId);
+                    
+                    // Check if this is a valid alternative swap
+                    const altConnection = connectionData.find(conn => 
+                        conn.type === 'alternative' && 
+                        ((conn.source === component.id && conn.target === draggedId) ||
+                         (conn.target === component.id && conn.source === draggedId))
+                    );
+
+                    if (altConnection && draggedElement) {
+                        // Get the values for both components
+                        const currentLabel = component.querySelector('.label');
+                        const currentText = currentLabel.textContent;
+                        const currentValue = currentText.includes(': ') ? 
+                            currentText.split(': ')[1] : 
+                            currentText;
+                        
+                        const draggedLabel = draggedElement.querySelector('.label');
+                        const draggedText = draggedLabel.textContent;
+                        const draggedValue = draggedText.includes(': ') ? 
+                            draggedText.split(': ')[1] : 
+                            draggedText;
+                        
+                        // Update the prompt text
+                        const promptText = document.querySelector('.prompt-text');
+                        if (promptText) {
+                            // First remove the current value
+                            const currentRegex = new RegExp(`(?<=^|\\s)(${currentValue})(?=\\s|$|\\b)`, 'g');
+                            promptText.textContent = promptText.textContent.replace(currentRegex, draggedValue);
+                            promptText.textContent = promptText.textContent.replace(/\s+/g, ' ').trim();
+                        }
+                        
+                        // Swap the labels
+                        if (currentText.includes(': ')) {
+                            const prefix = currentText.split(': ')[0];
+                            currentLabel.textContent = `${prefix}: ${draggedValue}`;
+                            draggedLabel.textContent = `${prefix}: ${currentValue}`;
+                        } else {
+                            currentLabel.textContent = draggedValue;
+                            draggedLabel.textContent = currentValue;
+                        }
+
+                        // Get original positions before any transforms
+                        const currentRect = component.getBoundingClientRect();
+                        const draggedRect = draggedElement.getBoundingClientRect();
+                        const canvasRect = canvas.getBoundingClientRect();
+                        
+                        // Calculate positions relative to canvas
+                        const currentLeft = currentRect.left - canvasRect.left;
+                        const currentTop = currentRect.top - canvasRect.top;
+                        const draggedLeft = draggedRect.left - canvasRect.left;
+                        const draggedTop = draggedRect.top - canvasRect.top;
+                        
+                        // Reset any existing transforms
+                        component.style.transform = 'none';
+                        draggedElement.style.transform = 'none';
+                        
+                        // Set absolute positions
+                        component.style.left = `${draggedLeft}px`;
+                        component.style.top = `${draggedTop}px`;
+                        draggedElement.style.left = `${currentLeft}px`;
+                        draggedElement.style.top = `${currentTop}px`;
+                        
+                        // Update the connection data
+                        const index = connectionData.findIndex(conn => 
+                            conn.type === 'alternative' && 
+                            (conn.source === component.id || conn.target === component.id)
+                        );
+                        if (index !== -1) {
+                            // Always make the dragged item the source
+                            connectionData[index] = {
+                                ...connectionData[index],
+                                source: draggedId,
+                                target: component.id
+                            };
+                        }
+                        
+                        // Update componentData
+                        const currentCompIndex = componentData.findIndex(comp => comp.id === component.id);
+                        const draggedCompIndex = componentData.findIndex(comp => comp.id === draggedId);
+                        if (currentCompIndex !== -1 && draggedCompIndex !== -1) {
+                            // Swap the labels
+                            [componentData[currentCompIndex].label, componentData[draggedCompIndex].label] = 
+                            [componentData[draggedCompIndex].label, componentData[currentCompIndex].label];
+                        }
+                        
+                        // Update connections
+                        updateConnections();
+                    }
+                }
+
+                // Add event listeners
+                component.addEventListener('dragstart', dragStart);
+                component.addEventListener('dragend', dragEnd);
+                component.addEventListener('dragover', dragOver);
+                component.addEventListener('drop', drop);
+                component.addEventListener('mousedown', dragStart);
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging && e.button !== 2) { // Not right click
+                        e.preventDefault();
+                        currentX = e.clientX - initialX;
+                        currentY = e.clientY - initialY;
+                        component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                        updateConnections();
+                    }
+                });
+                document.addEventListener('mouseup', dragEnd);
+                component.addEventListener('contextmenu', (e) => showContextMenu(e, component));
+            });
         });
+
+        // Add styles for drag and drop
+        const style = document.createElement('style');
+        style.textContent = `
+            .draggable-alternative {
+                cursor: grab;
+            }
+            .draggable-alternative:active {
+                cursor: grabbing;
+            }
+            .dragging {
+                opacity: 0.5;
+            }
+            .drop-target {
+                box-shadow: 0 0 10px rgba(33, 150, 243, 0.8);
+                transform: scale(1.05);
+            }
+        `;
+        document.head.appendChild(style);
 
         // Create SVG connections
         function createConnections() {

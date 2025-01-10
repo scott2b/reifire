@@ -23,41 +23,53 @@ def save_icon_to_assets(source_path: Path, dest_dir: Path) -> None:
 
 
 @pytest.fixture
-def icon_provider(material_icons_dir: Path) -> Generator[MaterialIconProvider, None, None]:
+def icon_provider(
+    material_icons_dir: Path,
+) -> Generator[MaterialIconProvider, None, None]:
     """Create a Material Design Icons provider with environment configuration."""
     source_dir = os.environ.get("MATERIAL_DESIGN_ICONS_DIR")
-    logger.debug(f"Material Design Icons source directory from environment: {source_dir}")
-    
+    logger.debug(
+        f"Material Design Icons source directory from environment: {source_dir}"
+    )
+
     if not source_dir:
         pytest.skip("MATERIAL_DESIGN_ICONS_DIR not found in environment")
-    
+
     source_path = Path(source_dir)
     if not source_path.exists():
-        pytest.skip(f"Material Design Icons source directory does not exist: {source_path}")
-    
+        pytest.skip(
+            f"Material Design Icons source directory does not exist: {source_path}"
+        )
+
     # Use source directory directly
     os.environ["MATERIAL_DESIGN_ICONS_DIR"] = str(source_path)
     provider = MaterialIconProvider()
-    
+
     if not provider.is_available():
         logger.debug("Material Design Icons provider not available")
         pytest.skip("Material Design Icons provider not available")
-    
-    logger.debug(f"Successfully initialized Material Design Icons provider with directory: {source_path}")
+
+    logger.debug(
+        f"Successfully initialized Material Design Icons provider with directory: {source_path}"
+    )
     yield provider
 
 
 @pytest.mark.integration
-def test_icon_loading(icon_provider: MaterialIconProvider, material_icons_dir: Path) -> None:
+def test_icon_loading(
+    icon_provider: MaterialIconProvider, material_icons_dir: Path
+) -> None:
     """Test that we can load Material Design icons."""
     # Verify that icons were loaded
     assert icon_provider._available_icons
     total_icons = sum(len(icons) for icons in icon_provider._available_icons.values())
     print(f"\nLoaded {total_icons} Material Design icons")
-    
+
     # Print some example categories and icons
     print("\nExample categories and icons:")
-    for category, icons in list(icon_provider._available_icons.items())[:5]:  # Show first 5 categories
+    for category, icons in list(icon_provider._available_icons.items())[
+        :5
+    ]:  # Show first 5 categories
         print(f"\nCategory: {category}")
         print(f"Number of icons: {len(icons)}")
         if icons:
@@ -70,7 +82,9 @@ def test_icon_loading(icon_provider: MaterialIconProvider, material_icons_dir: P
 
 
 @pytest.mark.integration
-def test_semantic_matching(icon_provider: MaterialIconProvider, material_icons_dir: Path) -> None:
+def test_semantic_matching(
+    icon_provider: MaterialIconProvider, material_icons_dir: Path
+) -> None:
     """Test semantic matching of terms to icons."""
     test_terms = [
         "settings",  # Direct match
@@ -84,7 +98,7 @@ def test_semantic_matching(icon_provider: MaterialIconProvider, material_icons_d
         "calendar",  # Common UI element
         "schedule",  # Semantic match for calendar
     ]
-    
+
     print("\nTesting semantic matching:")
     for term in test_terms:
         icon_path = icon_provider.get_icon_path(term)
@@ -98,7 +112,9 @@ def test_semantic_matching(icon_provider: MaterialIconProvider, material_icons_d
 
 
 @pytest.mark.integration
-def test_term_variations(icon_provider: MaterialIconProvider, material_icons_dir: Path) -> None:
+def test_term_variations(
+    icon_provider: MaterialIconProvider, material_icons_dir: Path
+) -> None:
     """Test matching of term variations."""
     variations = [
         ("delete", "remove"),  # Synonyms
@@ -107,12 +123,12 @@ def test_term_variations(icon_provider: MaterialIconProvider, material_icons_dir
         ("calendar", "date"),  # Related concepts
         ("warning", "alert"),  # Similar meanings
     ]
-    
+
     print("\nTesting term variations:")
     for term1, term2 in variations:
         path1 = icon_provider.get_icon_path(term1)
         path2 = icon_provider.get_icon_path(term2)
-        
+
         print(f"\nTerm pair: {term1} / {term2}")
         if path1:
             print(f"Icon for {term1}: {path1}")
@@ -120,13 +136,15 @@ def test_term_variations(icon_provider: MaterialIconProvider, material_icons_dir
         if path2:
             print(f"Icon for {term2}: {path2}")
             save_icon_to_assets(Path(path2), material_icons_dir)
-        
+
         # At least one term in each pair should find an icon
         assert path1 is not None or path2 is not None
 
 
 @pytest.mark.integration
-def test_ui_component_terms(icon_provider: MaterialIconProvider, material_icons_dir: Path) -> None:
+def test_ui_component_terms(
+    icon_provider: MaterialIconProvider, material_icons_dir: Path
+) -> None:
     """Test matching of common UI component terms."""
     ui_terms = [
         "button",
@@ -140,7 +158,7 @@ def test_ui_component_terms(icon_provider: MaterialIconProvider, material_icons_
         "progress",
         "slider",
     ]
-    
+
     print("\nTesting UI component terms:")
     matches = 0
     for term in ui_terms:
@@ -152,14 +170,16 @@ def test_ui_component_terms(icon_provider: MaterialIconProvider, material_icons_
             save_icon_to_assets(Path(icon_path), material_icons_dir)
         else:
             print(f"\nNo icon found for {term}")
-    
+
     # We should find icons for at least some UI terms
     assert matches > 0
     print(f"\nFound icons for {matches} out of {len(ui_terms)} UI terms")
 
 
 @pytest.mark.integration
-def test_technical_terms(icon_provider: MaterialIconProvider, material_icons_dir: Path) -> None:
+def test_technical_terms(
+    icon_provider: MaterialIconProvider, material_icons_dir: Path
+) -> None:
     """Test matching of technical and development-related terms."""
     tech_terms = [
         "code",
@@ -173,7 +193,7 @@ def test_technical_terms(icon_provider: MaterialIconProvider, material_icons_dir
         "sync",
         "analytics",
     ]
-    
+
     print("\nTesting technical terms:")
     matches = 0
     for term in tech_terms:
@@ -185,7 +205,7 @@ def test_technical_terms(icon_provider: MaterialIconProvider, material_icons_dir
             save_icon_to_assets(Path(icon_path), material_icons_dir)
         else:
             print(f"\nNo icon found for {term}")
-    
+
     # We should find icons for at least some technical terms
     assert matches > 0
-    print(f"\nFound icons for {matches} out of {len(tech_terms)} technical terms") 
+    print(f"\nFound icons for {matches} out of {len(tech_terms)} technical terms")

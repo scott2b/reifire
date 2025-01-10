@@ -25,4 +25,4 @@ def material_icons_dir(test_icons_dir: Path) -> Path:
     """Get the directory for Material Design test icons."""
     icons_dir = test_icons_dir / "material_design"
     icons_dir.mkdir(exist_ok=True)
-    return icons_dir 
+    return icons_dir

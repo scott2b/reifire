@@ -36,12 +36,39 @@ class IconManager:
 
     # Component type categorization
     COMPONENT_CATEGORIES = {
-        "ui_component": ["button", "input", "select", "checkbox", "radio", "slider", "switch", "date", "time", "color"],
+        "ui_component": [
+            "button",
+            "input",
+            "select",
+            "checkbox",
+            "radio",
+            "slider",
+            "switch",
+            "date",
+            "time",
+            "color",
+        ],
         "form_element": ["form", "field", "label", "textarea", "validation", "submit"],
         "navigation": ["menu", "nav", "sidebar", "breadcrumb", "pagination", "tabs"],
         "data_display": ["table", "list", "grid", "chart", "graph", "tree", "timeline"],
-        "feedback": ["alert", "toast", "notification", "progress", "spinner", "loading"],
-        "layout": ["container", "row", "column", "card", "panel", "section", "header", "footer"],
+        "feedback": [
+            "alert",
+            "toast",
+            "notification",
+            "progress",
+            "spinner",
+            "loading",
+        ],
+        "layout": [
+            "container",
+            "row",
+            "column",
+            "card",
+            "panel",
+            "section",
+            "header",
+            "footer",
+        ],
         "api": ["endpoint", "route", "request", "response", "client", "server"],
         "database": ["query", "schema", "model", "migration", "index"],
         "security": ["auth", "permission", "role", "token", "encryption"],
@@ -64,10 +91,10 @@ class IconManager:
 
     def _get_component_category(self, term: str) -> str:
         """Determine the category of a component based on its name.
-        
+
         Args:
             term: The term to categorize
-            
+
         Returns:
             The category name for the term
         """
@@ -91,7 +118,9 @@ class IconManager:
             vis_props = obj["visualization"]
             if "name" in vis_props and "source" in vis_props:
                 if vis_props["source"] == "nounproject":
-                    print(f"  Noun Project icon specified with name: {vis_props['name']}")
+                    print(
+                        f"  Noun Project icon specified with name: {vis_props['name']}"
+                    )
                     icon_url = self._get_or_fetch_icon(vis_props["name"])
                     if icon_url:
                         print(f"  Updated placeholder with real icon URL: {icon_url}")
@@ -99,9 +128,13 @@ class IconManager:
                     else:
                         print("  Using fallback icon for failed Noun Project fetch")
                         category = self._get_component_category(vis_props["name"])
-                        vis_props["image"] = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS["default"])
+                        vis_props["image"] = self.FALLBACK_ICONS.get(
+                            category, self.FALLBACK_ICONS["default"]
+                        )
                 elif vis_props["source"] in ["openai", "custom", "colors"]:
-                    print(f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}")
+                    print(
+                        f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}"
+                    )
                     vis_props["image"] = self.FALLBACK_ICONS["default"]
             return vis_props
 
@@ -133,7 +166,10 @@ class IconManager:
         # Use fallback icon based on component category and type
         category = self._get_component_category(icon_name)
         component_type = obj.get("type", "default").lower()
-        fallback_url = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"]))
+        fallback_url = self.FALLBACK_ICONS.get(
+            category,
+            self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"]),
+        )
         return {"image": fallback_url, "name": icon_name, "source": "fallback"}
 
     def _get_or_fetch_icon(self, term: str) -> Optional[str]:
@@ -161,7 +197,9 @@ class IconManager:
                 self.icon_registry.register_icon(term, icon_path)
                 return icon_path
 
-        print("  Icon not found in Material Design Icons, attempting to fetch from Noun Project...")
+        print(
+            "  Icon not found in Material Design Icons, attempting to fetch from Noun Project..."
+        )
         # Try to fetch from Noun Project
         try:
             # Search for icons matching the term

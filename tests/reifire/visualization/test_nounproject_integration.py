@@ -36,7 +36,9 @@ def download_icon(url: str, save_dir: Path, filename: str) -> Path:
 
 
 @pytest.mark.integration
-def test_search_icons_integration(api_client: NounProjectClient, nounproject_icons_dir: Path) -> None:
+def test_search_icons_integration(
+    api_client: NounProjectClient, nounproject_icons_dir: Path
+) -> None:
     """Test that we can actually search for icons."""
     result = api_client.search_icons("computer")
     print(f"\nGot {len(result.get('icons', []))} results")
@@ -62,7 +64,9 @@ def test_search_icons_integration(api_client: NounProjectClient, nounproject_ico
 
 
 @pytest.mark.integration
-def test_get_icon_integration(api_client: NounProjectClient, nounproject_icons_dir: Path) -> None:
+def test_get_icon_integration(
+    api_client: NounProjectClient, nounproject_icons_dir: Path
+) -> None:
     """Test that we can fetch a specific icon."""
     # First search for an icon
     search_result = api_client.search_icons("computer", limit=1)

@@ -11,6 +11,33 @@
             background: #f5f5f5;
             padding: 20px;
             overflow: auto;
+            margin-top: 60px;
+        }
+        
+        .prompt-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .prompt-label {
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .prompt-text {
+            flex: 1;
+            font-size: 16px;
+            color: #333;
         }
         
         .component {
@@ -188,6 +215,10 @@
     </style>
 </head>
 <body>
+    <div class="prompt-section">
+        <span class="prompt-label">Prompt:</span>
+        <span class="prompt-text">Create a future tokyo cityscape in cyberpunk style, night, rain, street level view, with neon signs throughout with flying vehicles in the sky.</span>
+    </div>
     <div class="canvas" id="canvas">
         <svg id="connections">
             <defs>

@@ -11,6 +11,7 @@ from reifire.visualization.icon_manager import IconManager
 from reifire.visualization.nounproject import NounProjectClient
 from reifire.visualization.material_icons import MaterialIconProvider
 from reifire.icon_registry import IconRegistry
+from reifire.articulation import articulate
 import logging
 
 # Configure logging
@@ -145,6 +146,10 @@ def main():
             
         with open(json_path) as f:
             data = json.load(f)
+        
+        # Generate articulated prompt
+        prompt = articulate(data)
+        data["metadata"]["articulated_prompt"] = prompt
         
         # Set current visualization for tracking
         if hasattr(renderer.processor, 'icon_manager'):

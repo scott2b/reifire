@@ -50,6 +50,7 @@ class HTMLRenderer:
             "metadata": {
                 "title": data.get("metadata", {}).get("title", "Reifire Visualization"),
                 "description": data.get("metadata", {}).get("description", ""),
+                "articulated_prompt": data.get("metadata", {}).get("articulated_prompt", ""),
                 "visualization_config": (
                     data.get("metadata", {}).get("visualization_config", {})
                 ),

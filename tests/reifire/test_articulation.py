@@ -5,6 +5,8 @@ from pathlib import Path
 from typing import Any, Dict
 
 from reifire.articulation import articulate, articulate_alternatives
+from reifire.reification import ReifiedConcept
+from reifire.visualization.metadata import IconMetadata
 
 
 def load_example(name: str) -> Dict[str, Any]:
@@ -119,3 +121,19 @@ def test_alternatives() -> None:
         "in dark fantasy style."
     )
     assert alt_prompt == expected
+
+
+def test_reified_concept_serialization() -> None:
+    """Test serialization of reified concepts."""
+    data = {"type": "test", "value": 42}
+    concept = ReifiedConcept(data)
+    concept.icon = IconMetadata(icon_id="123", term="test")
+
+    serialized = concept.to_dict()
+    assert serialized["type"] == "test"
+    assert serialized["value"] == 42
+    assert serialized["_icon"]["icon_id"] == "123"
+
+    restored = ReifiedConcept.from_dict(serialized)
+    assert restored.icon is not None
+    assert restored.icon.icon_id == "123"

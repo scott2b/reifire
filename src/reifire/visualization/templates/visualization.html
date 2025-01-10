@@ -309,10 +309,27 @@
                     label: 'Rename',
                     action: () => {
                         const label = component.querySelector('.label');
-                        const currentName = label.textContent;
+                        const labelText = label.textContent;
+                        // Extract the actual value, handling cases with prefixes like "region: "
+                        const currentName = labelText.includes(': ') ? labelText.split(': ')[1] : labelText;
                         const newName = prompt('Enter new name:', currentName);
                         if (newName && newName !== currentName) {
-                            label.textContent = newName;
+                            // Update the label, preserving any prefix
+                            label.textContent = labelText.includes(': ') ? 
+                                labelText.split(': ')[0] + ': ' + newName : 
+                                newName;
+                            
+                            // Update the prompt text
+                            const promptText = document.querySelector('.prompt-text');
+                            if (promptText) {
+                                // Create a regex that matches the word boundary to avoid partial word matches
+                                const regex = new RegExp(`\\b${currentName}\\b`, 'g');
+                                promptText.textContent = promptText.textContent.replace(regex, newName);
+                                
+                                // Log for debugging
+                                console.log('Replacing:', currentName, 'with:', newName);
+                                console.log('New prompt:', promptText.textContent);
+                            }
                         }
                     }
                 }

@@ -6,11 +6,15 @@ from pathlib import Path
 
 def read_requirements(filename: str) -> list[str]:
     """Read requirements from file."""
+    print(f"Looking for requirements in: {Path(filename).absolute()}")
     try:
-        return [line.strip() 
+        reqs = [line.strip() 
                 for line in Path(filename).read_text().splitlines()
                 if line.strip() and not line.startswith('#')]
+        print(f"Found requirements: {reqs}")
+        return reqs
     except FileNotFoundError:
+        print(f"WARNING: Could not find {filename}")
         return []  # Return empty list if file not found
 
 setup(

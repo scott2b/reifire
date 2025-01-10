@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Reifire Visualization</title>
     <style>
+        /* Base styles */
         .canvas {
             width: 100%;
             height: 100vh;
@@ -40,6 +41,7 @@
             color: #333;
         }
         
+        /* Component styles */
         .component {
             position: absolute;
             background: #e3f2fd;
@@ -70,6 +72,19 @@
             object-fit: contain;
         }
 
+        .component .color-swatches {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .component .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
         .component .label {
             flex: 1;
             font-size: 14px;
@@ -79,6 +94,7 @@
             text-overflow: ellipsis;
         }
 
+        /* Component types */
         .component[data-type="object"] {
             background: #e3f2fd;
             border-color: #2196f3;
@@ -118,6 +134,7 @@
             border-style: solid;
         }
 
+        /* Connection styles */
         svg {
             position: absolute;
             top: 0;
@@ -252,101 +269,60 @@
                 </marker>
             </defs>
         </svg>
-        <div class="component" 
-             id="object_0"
-             data-type="object"
-             style="left: 50px; top: 0px; width: 200px;">
-            <img class="icon" 
-                 src="https://static.thenounproject.com/png/3778842-84.png" 
-                 alt="Cthulhu"
-                 title="Cthulhu">
+
+        <div class="component" data-type="object" id="object_0" data-id="object_0"
+            style="left: 50px; top: 0px; width: 200px; height: 60px;">
+                        <img class="icon" src="https://static.thenounproject.com/png/3778842-84.png" alt="Cthulhu">
             <span class="label">Cthulhu</span>
         </div>
-        <div class="component" 
-             id="mod_1"
-             data-type="modifier"
-             style="left: 300px; top: 100px; width: 180px;">
-            <img class="icon" 
-                 src="https://static.thenounproject.com/png/2101342-84.png" 
-                 alt="baby"
-                 title="baby">
+        <div class="component" data-type="modifier" id="mod_1" data-id="mod_1"
+            style="left: 300px; top: 100px; width: 180px; height: 50px;">
+                        <img class="icon" src="https://static.thenounproject.com/png/2101342-84.png" alt="baby">
             <span class="label">age: baby</span>
         </div>
-        <div class="component" 
-             id="type_2"
-             data-type="type"
-             style="left: 300px; top: 200px; width: 200px;">
-            <img class="icon" 
-                 src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" 
-                 alt="art_illustration"
-                 title="art_illustration">
+        <div class="component" data-type="type" id="type_2" data-id="type_2"
+            style="left: 300px; top: 200px; width: 200px; height: 60px;">
+                        <img class="icon" src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" alt="art_illustration">
             <span class="label">illustration</span>
         </div>
-        <div class="component" 
-             id="artifact_3"
-             data-type="artifact"
-             style="left: 550px; top: 300px; width: 200px;">
-            <img class="icon" 
-                 src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" 
-                 alt="cthulhu"
-                 title="cthulhu">
+        <div class="component" data-type="artifact" id="artifact_3" data-id="artifact_3"
+            style="left: 550px; top: 300px; width: 200px; height: 60px;">
+                        <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="cthulhu">
             <span class="label">artifact</span>
         </div>
-        <div class="component" 
-             id="attr_4"
-             data-type="attribute"
-             style="left: 550px; top: 400px; width: 180px;">
-            <img class="icon" 
-                 src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" 
-                 alt="children_art"
-                 title="children_art">
+        <div class="component" data-type="attribute" id="attr_4" data-id="attr_4"
+            style="left: 550px; top: 400px; width: 180px; height: 50px;">
+                        <img class="icon" src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" alt="children_art">
             <span class="label">style: children&#39;s illustration</span>
         </div>
-        <div class="component" 
-             id="attr_5"
-             data-type="alternative"
-             style="left: 800px; top: 500px; width: 180px;">
-            <img class="icon" 
-                 src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" 
-                 alt="dark_fantasy"
-                 title="dark_fantasy">
+        <div class="component" data-type="alternative" id="attr_5" data-id="attr_5"
+            style="left: 800px; top: 500px; width: 180px; height: 50px;">
+                        <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="dark_fantasy">
             <span class="label">style: dark fantasy</span>
         </div>
-        <div class="component" 
-             id="attr_6"
-             data-type="attribute"
-             style="left: 550px; top: 600px; width: 180px;">
-            <img class="icon" 
-                 src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" 
-                 alt="scary_cute"
-                 title="scary_cute">
+        <div class="component" data-type="attribute" id="attr_6" data-id="attr_6"
+            style="left: 550px; top: 600px; width: 180px; height: 50px;">
+                        <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="scary_cute">
             <span class="label">mood: scary-cute</span>
         </div>
-        <div class="component" 
-             id="attr_7"
-             data-type="alternative"
-             style="left: 800px; top: 700px; width: 180px;">
-            <img class="icon" 
-                 src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" 
-                 alt="terrifying"
-                 title="terrifying">
+        <div class="component" data-type="alternative" id="attr_7" data-id="attr_7"
+            style="left: 800px; top: 700px; width: 180px; height: 50px;">
+                        <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="terrifying">
             <span class="label">mood: terrifying</span>
         </div>
-        <div class="component" 
-             id="attr_8"
-             data-type="attribute"
-             style="left: 550px; top: 800px; width: 180px;">
-            <img class="icon" 
-                 src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" 
-                 alt="brown-green-purple"
-                 title="brown-green-purple">
+        <div class="component" data-type="attribute" id="attr_8" data-id="attr_8"
+            style="left: 550px; top: 800px; width: 180px; height: 50px;">
+                    <div class="color-swatches">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=" alt="Color swatch">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=" alt="Color swatch">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4=" alt="Color swatch">
+                    </div>
             <span class="label">color scheme</span>
         </div>
     </div>
-
     <script>
         // Store component and connection data
-        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/3778842-84.png", "name": "Cthulhu", "source": "nounproject"}}, "type": "object", "width": 200, "x": 50, "y": 0}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/2101342-84.png", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 300, "y": 100}, {"height": 60, "id": "type_2", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 300, "y": 200}, {"height": 60, "id": "artifact_3", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 550, "y": 300}, {"height": 50, "id": "attr_4", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 400}, {"height": 50, "id": "attr_5", "label": "style: dark fantasy", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 500}, {"height": 50, "id": "attr_6", "label": "mood: scary-cute", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 600}, {"height": 50, "id": "attr_7", "label": "mood: terrifying", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 700}, {"height": 50, "id": "attr_8", "label": "color scheme", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "images": ["brown.svg", "green.svg", "purple.svg"], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 550, "y": 800}];
+        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/3778842-84.png", "name": "Cthulhu", "source": "nounproject"}}, "type": "object", "width": 200, "x": 50, "y": 0}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/2101342-84.png", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 300, "y": 100}, {"height": 60, "id": "type_2", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 300, "y": 200}, {"height": 60, "id": "artifact_3", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 550, "y": 300}, {"height": 50, "id": "attr_4", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 400}, {"height": 50, "id": "attr_5", "label": "style: dark fantasy", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 500}, {"height": 50, "id": "attr_6", "label": "mood: scary-cute", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 600}, {"height": 50, "id": "attr_7", "label": "mood: terrifying", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 700}, {"height": 50, "id": "attr_8", "label": "color scheme", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4="], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 550, "y": 800}];
         const connectionData = [{"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_2", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_3", "type": "artifact"}, {"properties": {}, "source": "artifact_3", "target": "attr_4", "type": "attribute"}, {"properties": {}, "source": "attr_4", "target": "attr_5", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "attr_6", "target": "attr_7", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_8", "type": "attribute"}];
         
         // Initialize SVG connections
@@ -431,11 +407,6 @@
                                         promptText.textContent = promptText.textContent
                                             .replace(/\s+/g, ' ')
                                             .trim();
-                                        
-                                        // Log for debugging
-                                        console.log('Switching from:', currentValue, 'to:', otherValue);
-                                        console.log('Component types - Current:', currentComp.type, 'Other:', otherComp.type);
-                                        console.log('New prompt:', promptText.textContent);
                                     }
                                     
                                     // Update the component's label
@@ -489,10 +460,6 @@
                                 // Create a regex that matches the word boundary to avoid partial word matches
                                 const regex = new RegExp(`\\b${currentName}\\b`, 'g');
                                 promptText.textContent = promptText.textContent.replace(regex, newName);
-                                
-                                // Log for debugging
-                                console.log('Replacing:', currentName, 'with:', newName);
-                                console.log('New prompt:', promptText.textContent);
                             }
                         }
                     }
@@ -517,112 +484,78 @@
                             
                             // Remove each connection and update the prompt
                             componentConnections.forEach(conn => {
-                                // Remove the connection from connectionData
                                 const index = connectionData.indexOf(conn);
                                 if (index > -1) {
-                                    connectionData.splice(index, 1);
-                                }
-                                
-                                // For modifier connections, we want to remove the modifier's value
-                                const modifierComponent = document.getElementById(conn.source);
-                                const targetComponent = document.getElementById(conn.target);
-                                
-                                if (modifierComponent && targetComponent) {
                                     // Get the component that is the modifier (usually the source)
-                                    const isSourceModifier = modifierComponent.dataset.type === 'modifier';
-                                    const modifierLabel = isSourceModifier ? 
-                                        modifierComponent.querySelector('.label') : 
-                                        targetComponent.querySelector('.label');
+                                    const modifierComponent = document.getElementById(conn.source);
+                                    const targetComponent = document.getElementById(conn.target);
                                     
-                                    if (modifierLabel) {
-                                        const modifierText = modifierLabel.textContent;
-                                        // Extract the value part (e.g., "baby" from "age: baby")
-                                        const modifierValue = modifierText.includes(': ') ? 
-                                            modifierText.split(': ')[1] : 
-                                            modifierText;
+                                    if (modifierComponent && targetComponent) {
+                                        // Get the component that is the modifier (usually the source)
+                                        const isSourceModifier = modifierComponent.dataset.type === 'modifier';
+                                        const modifierLabel = isSourceModifier ? 
+                                            modifierComponent.querySelector('.label') : 
+                                            targetComponent.querySelector('.label');
                                         
-                                        // Update the prompt text
-                                        const promptText = document.querySelector('.prompt-text');
-                                        if (promptText) {
-                                            const value = modifierValue.trim();
+                                        if (modifierLabel) {
+                                            const modifierText = modifierLabel.textContent;
+                                            // Extract the value part (e.g., "baby" from "age: baby")
+                                            const modifierValue = modifierText.includes(': ') ? 
+                                                modifierText.split(': ')[1] : 
+                                                modifierText;
                                             
-                                            // Handle compound terms (like "scary-cute")
-                                            if (value.includes('-')) {
-                                                // Split compound term and remove each part
-                                                const parts = value.split('-');
-                                                parts.forEach(part => {
-                                                    const partRegex = new RegExp(`\\b${part}\\b|(?:^|\\s|-)${part}(?=\\s|$|-)`, 'g');
-                                                    promptText.textContent = promptText.textContent.replace(partRegex, '');
-                                                });
-                                                // Also try to remove the full compound term
-                                                const fullRegex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
-                                                promptText.textContent = promptText.textContent.replace(fullRegex, '');
-                                            } else {
-                                                // For single terms, use the original regex
-                                                const regex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
-                                                promptText.textContent = promptText.textContent.replace(regex, '');
+                                            // Update the prompt text
+                                            const promptText = document.querySelector('.prompt-text');
+                                            if (promptText) {
+                                                const value = modifierValue.trim();
+                                                
+                                                // Handle compound terms (like "scary-cute")
+                                                if (value.includes('-')) {
+                                                    // Split compound term and remove each part
+                                                    const parts = value.split('-');
+                                                    parts.forEach(part => {
+                                                        const partRegex = new RegExp(`\\b${part}\\b|(?:^|\\s|-)${part}(?=\\s|$|-)`, 'g');
+                                                        promptText.textContent = promptText.textContent.replace(partRegex, '');
+                                                    });
+                                                    // Also try to remove the full compound term
+                                                    const fullRegex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                    promptText.textContent = promptText.textContent.replace(fullRegex, '');
+                                                } else {
+                                                    // For single terms, use word boundary regex
+                                                    const regex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                    promptText.textContent = promptText.textContent.replace(regex, '');
+                                                }
+                                                
+                                                // Clean up the text
+                                                promptText.textContent = promptText.textContent
+                                                    // Remove extra spaces
+                                                    .replace(/\s+/g, ' ')
+                                                    // Clean up dashes with spaces around them
+                                                    .replace(/\s*-\s*/g, '-')
+                                                    // Clean up multiple dashes
+                                                    .replace(/-+/g, '-')
+                                                    // Remove orphaned dashes
+                                                    .replace(/\s-\s|\s-(?=\s|$)|-(?=\s|$)|\b-\b|-\s/g, ' ')
+                                                    // Clean up commas
+                                                    .replace(/,\s*,/g, ',')
+                                                    .replace(/,\s*\./g, '.')
+                                                    .replace(/\s*,\s*$/, '')
+                                                    // Remove any remaining hyphenated word if one part is missing
+                                                    .replace(/\b\w+(-\s|\s-|\s*-\s*$)|\b(-\s|\s-|\s*-\s*)\w+\b/g, '')
+                                                    // Final trim and space cleanup
+                                                    .trim()
+                                                    .replace(/\s+/g, ' ');
                                             }
-                                            
-                                            // Clean up the text
-                                            promptText.textContent = promptText.textContent
-                                                // Remove extra spaces
-                                                .replace(/\s+/g, ' ')
-                                                // Clean up dashes with spaces around them
-                                                .replace(/\s*-\s*/g, '-')
-                                                // Clean up multiple dashes
-                                                .replace(/-+/g, '-')
-                                                // Remove orphaned dashes (dashes without words on both sides)
-                                                .replace(/\s-\s|\s-(?=\s|$)|-(?=\s|$)|\b-\b|-\s/g, ' ')
-                                                // Clean up commas
-                                                .replace(/,\s*,/g, ',')
-                                                .replace(/,\s*\./g, '.')
-                                                .replace(/\s*,\s*$/, '')
-                                                // Remove any remaining hyphenated word if one part is missing
-                                                .replace(/\b\w+(-\s|\s-|\s*-\s*$)|\b(-\s|\s-|\s*-\s*)\w+\b/g, '')
-                                                // Final trim and space cleanup
-                                                .trim()
-                                                .replace(/\s+/g, ' ');
-                                            
-                                            // Log for debugging
-                                            console.log('Removing modifier value:', value);
-                                            console.log('New prompt:', promptText.textContent);
                                         }
                                     }
+                                    
+                                    // Remove the connection from connectionData
+                                    connectionData.splice(index, 1);
                                 }
                             });
                             
-                            // Redraw connections
+                            // Update the visualization
                             updateConnections();
-                        }
-                    }
-                );
-            }
-            
-            if (type === 'object' || type === 'artifact') {
-                items.push(
-                    {type: 'separator'},
-                    {
-                        label: 'Add Attribute',
-                        action: () => {
-                            console.log('Add attribute to', component.id);
-                        }
-                    },
-                    {
-                        label: 'Add Modifier',
-                        action: () => {
-                            console.log('Add modifier to', component.id);
-                        }
-                    }
-                );
-            }
-            
-            if (type === 'attribute') {
-                items.push(
-                    {type: 'separator'},
-                    {
-                        label: 'Add Alternative',
-                        action: () => {
-                            console.log('Add alternative to', component.id);
                         }
                     }
                 );
@@ -668,202 +601,198 @@
             }
         });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Make components draggable and handle context menu
-            document.querySelectorAll('.component').forEach(component => {
-                let isDragging = false;
-                let currentX = 0;
-                let currentY = 0;
-                let initialX = 0;
-                let initialY = 0;
-                let xOffset = 0;
-                let yOffset = 0;
+        // Make components draggable
+        document.querySelectorAll('.component').forEach(component => {
+            let isDragging = false;
+            let currentX = 0;
+            let currentY = 0;
+            let initialX = 0;
+            let initialY = 0;
+            let xOffset = 0;
+            let yOffset = 0;
 
-                // Add draggable attribute
-                component.setAttribute('draggable', 'true');
-
-                function dragStart(e) {
-                    if (e.type === 'dragstart') {
-                        // Allow dragging both alternatives and main components that have alternatives
-                        const hasAltConnection = connectionData.some(conn => 
-                            conn.type === 'alternative' && 
-                            (conn.source === component.id || conn.target === component.id)
-                        );
-                        if (hasAltConnection) {
-                            e.dataTransfer.setData('text/plain', component.id);
-                            component.classList.add('dragging');
-                        }
-                    } else if (e.button === 0) { // Left mouse button
-                        const rect = component.getBoundingClientRect();
-                        xOffset = rect.left - component.offsetLeft;
-                        yOffset = rect.top - component.offsetTop;
-                        initialX = e.clientX - xOffset;
-                        initialY = e.clientY - yOffset;
+            function dragStart(e) {
+                if (e.type === "mousedown" && e.button === 0) { // Only left mouse button
+                    const rect = component.getBoundingClientRect();
+                    xOffset = rect.left - component.offsetLeft;
+                    yOffset = rect.top - component.offsetTop;
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
+                    
+                    if (e.target === component || component.contains(e.target)) {
                         isDragging = true;
                     }
                 }
+            }
 
-                function dragEnd(e) {
-                    if (e.type === 'dragend') {
-                        component.classList.remove('dragging');
-                    }
-                    isDragging = false;
-                    initialX = currentX;
-                    initialY = currentY;
-                }
+            function dragEnd(e) {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
 
-                function dragOver(e) {
+            function drag(e) {
+                if (isDragging) {
                     e.preventDefault();
-                    // Only show drop effect if this is a valid target for the alternative
-                    if (e.dataTransfer.types.includes('text/plain')) {
-                        const draggedId = e.dataTransfer.getData('text/plain');
-                        const isValidTarget = connectionData.some(conn => 
-                            conn.type === 'alternative' && 
-                            ((conn.source === component.id && conn.target === draggedId) ||
-                             (conn.target === component.id && conn.source === draggedId))
-                        );
-                        if (isValidTarget) {
-                            component.classList.add('drop-target');
-                        }
-                    }
-                }
-
-                function drop(e) {
-                    e.preventDefault();
-                    component.classList.remove('drop-target');
-                    const draggedId = e.dataTransfer.getData('text/plain');
-                    const draggedElement = document.getElementById(draggedId);
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
                     
-                    // Check if this is a valid alternative swap
-                    const altConnection = connectionData.find(conn => 
+                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    updateConnections();
+                }
+            }
+
+            // Add HTML5 drag and drop for alternatives
+            component.setAttribute('draggable', 'true');
+
+            component.addEventListener('dragstart', (e) => {
+                // Only allow dragging if this is part of an alternative connection
+                const hasAltConnection = connectionData.some(conn => 
+                    conn.type === 'alternative' && 
+                    (conn.source === component.id || conn.target === component.id)
+                );
+                if (hasAltConnection) {
+                    e.dataTransfer.setData('text/plain', component.id);
+                    component.classList.add('dragging');
+                } else {
+                    e.preventDefault(); // Prevent dragging if not an alternative
+                }
+            });
+
+            component.addEventListener('dragend', () => {
+                component.classList.remove('dragging');
+            });
+
+            component.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                // Only show drop effect if this is a valid target for the alternative
+                if (e.dataTransfer.types.includes('text/plain')) {
+                    const draggedId = e.dataTransfer.getData('text/plain');
+                    const isValidTarget = connectionData.some(conn => 
                         conn.type === 'alternative' && 
                         ((conn.source === component.id && conn.target === draggedId) ||
                          (conn.target === component.id && conn.source === draggedId))
                     );
-
-                    if (altConnection && draggedElement) {
-                        // Get the values for both components
-                        const currentLabel = component.querySelector('.label');
-                        const currentText = currentLabel.textContent;
-                        const currentValue = currentText.includes(': ') ? 
-                            currentText.split(': ')[1] : 
-                            currentText;
-                        
-                        const draggedLabel = draggedElement.querySelector('.label');
-                        const draggedText = draggedLabel.textContent;
-                        const draggedValue = draggedText.includes(': ') ? 
-                            draggedText.split(': ')[1] : 
-                            draggedText;
-                        
-                        // Update the prompt text
-                        const promptText = document.querySelector('.prompt-text');
-                        if (promptText) {
-                            // First remove the current value
-                            const currentRegex = new RegExp(`(?<=^|\\s)(${currentValue})(?=\\s|$|\\b)`, 'g');
-                            promptText.textContent = promptText.textContent.replace(currentRegex, draggedValue);
-                            promptText.textContent = promptText.textContent.replace(/\s+/g, ' ').trim();
-                        }
-                        
-                        // Swap the labels
-                        if (currentText.includes(': ')) {
-                            const prefix = currentText.split(': ')[0];
-                            currentLabel.textContent = `${prefix}: ${draggedValue}`;
-                            draggedLabel.textContent = `${prefix}: ${currentValue}`;
-                        } else {
-                            currentLabel.textContent = draggedValue;
-                            draggedLabel.textContent = currentValue;
-                        }
-
-                        // Get original positions before any transforms
-                        const currentRect = component.getBoundingClientRect();
-                        const draggedRect = draggedElement.getBoundingClientRect();
-                        const canvasRect = canvas.getBoundingClientRect();
-                        
-                        // Calculate positions relative to canvas
-                        const currentLeft = currentRect.left - canvasRect.left;
-                        const currentTop = currentRect.top - canvasRect.top;
-                        const draggedLeft = draggedRect.left - canvasRect.left;
-                        const draggedTop = draggedRect.top - canvasRect.top;
-                        
-                        // Reset any existing transforms
-                        component.style.transform = 'none';
-                        draggedElement.style.transform = 'none';
-                        
-                        // Set absolute positions
-                        component.style.left = `${draggedLeft}px`;
-                        component.style.top = `${draggedTop}px`;
-                        draggedElement.style.left = `${currentLeft}px`;
-                        draggedElement.style.top = `${currentTop}px`;
-                        
-                        // Update the connection data
-                        const index = connectionData.findIndex(conn => 
-                            conn.type === 'alternative' && 
-                            (conn.source === component.id || conn.target === component.id)
-                        );
-                        if (index !== -1) {
-                            // Always make the dragged item the source
-                            connectionData[index] = {
-                                ...connectionData[index],
-                                source: draggedId,
-                                target: component.id
-                            };
-                        }
-                        
-                        // Update componentData
-                        const currentCompIndex = componentData.findIndex(comp => comp.id === component.id);
-                        const draggedCompIndex = componentData.findIndex(comp => comp.id === draggedId);
-                        if (currentCompIndex !== -1 && draggedCompIndex !== -1) {
-                            // Swap the labels
-                            [componentData[currentCompIndex].label, componentData[draggedCompIndex].label] = 
-                            [componentData[draggedCompIndex].label, componentData[currentCompIndex].label];
-                        }
-                        
-                        // Update connections
-                        updateConnections();
+                    if (isValidTarget) {
+                        component.classList.add('drop-target');
                     }
                 }
-
-                // Add event listeners
-                component.addEventListener('dragstart', dragStart);
-                component.addEventListener('dragend', dragEnd);
-                component.addEventListener('dragover', dragOver);
-                component.addEventListener('drop', drop);
-                component.addEventListener('mousedown', dragStart);
-                document.addEventListener('mousemove', (e) => {
-                    if (isDragging && e.button !== 2) { // Not right click
-                        e.preventDefault();
-                        currentX = e.clientX - initialX;
-                        currentY = e.clientY - initialY;
-                        component.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                        updateConnections();
-                    }
-                });
-                document.addEventListener('mouseup', dragEnd);
-                component.addEventListener('contextmenu', (e) => showContextMenu(e, component));
             });
-        });
 
-        // Add styles for drag and drop
-        const style = document.createElement('style');
-        style.textContent = `
-            .draggable-alternative {
-                cursor: grab;
-            }
-            .draggable-alternative:active {
-                cursor: grabbing;
-            }
-            .dragging {
-                opacity: 0.5;
-            }
-            .drop-target {
-                box-shadow: 0 0 10px rgba(33, 150, 243, 0.8);
-                transform: scale(1.05);
-            }
-        `;
-        document.head.appendChild(style);
+            component.addEventListener('dragleave', () => {
+                component.classList.remove('drop-target');
+            });
+
+            component.addEventListener('drop', (e) => {
+                e.preventDefault();
+                component.classList.remove('drop-target');
+                const draggedId = e.dataTransfer.getData('text/plain');
+                const draggedElement = document.getElementById(draggedId);
+                
+                // Check if this is a valid alternative swap
+                const altConnection = connectionData.find(conn => 
+                    conn.type === 'alternative' && 
+                    ((conn.source === component.id && conn.target === draggedId) ||
+                     (conn.target === component.id && conn.source === draggedId))
+                );
+
+                if (altConnection && draggedElement) {
+                    // Get the values for both components
+                    const currentLabel = component.querySelector('.label');
+                    const currentText = currentLabel.textContent;
+                    const currentValue = currentText.includes(': ') ? 
+                        currentText.split(': ')[1] : 
+                        currentText;
+                    
+                    const draggedLabel = draggedElement.querySelector('.label');
+                    const draggedText = draggedLabel.textContent;
+                    const draggedValue = draggedText.includes(': ') ? 
+                        draggedText.split(': ')[1] : 
+                        draggedText;
+                    
+                    // Update the prompt text
+                    const promptText = document.querySelector('.prompt-text');
+                    if (promptText) {
+                        // Create regex patterns that handle both simple and compound terms
+                        const currentRegex = new RegExp(`\\b${currentValue}\\b`, 'g');
+                        promptText.textContent = promptText.textContent.replace(currentRegex, draggedValue);
+                        promptText.textContent = promptText.textContent.replace(/\s+/g, ' ').trim();
+                    }
+                    
+                    // Swap the labels
+                    if (currentText.includes(': ')) {
+                        const prefix = currentText.split(': ')[0];
+                        currentLabel.textContent = `${prefix}: ${draggedValue}`;
+                        draggedLabel.textContent = `${prefix}: ${currentValue}`;
+                    } else {
+                        currentLabel.textContent = draggedValue;
+                        draggedLabel.textContent = currentValue;
+                    }
+
+                    // Get original positions before any transforms
+                    const currentRect = component.getBoundingClientRect();
+                    const draggedRect = draggedElement.getBoundingClientRect();
+                    const canvasRect = canvas.getBoundingClientRect();
+                    
+                    // Calculate positions relative to canvas
+                    const currentLeft = currentRect.left - canvasRect.left;
+                    const currentTop = currentRect.top - canvasRect.top;
+                    const draggedLeft = draggedRect.left - canvasRect.left;
+                    const draggedTop = draggedRect.top - canvasRect.top;
+                    
+                    // Reset any existing transforms
+                    component.style.transform = 'none';
+                    draggedElement.style.transform = 'none';
+                    
+                    // Set absolute positions
+                    component.style.left = `${draggedLeft}px`;
+                    component.style.top = `${draggedTop}px`;
+                    draggedElement.style.left = `${currentLeft}px`;
+                    draggedElement.style.top = `${currentTop}px`;
+                    
+                    // Update the connection data
+                    const index = connectionData.indexOf(altConnection);
+                    if (index !== -1) {
+                        // Swap source and target
+                        connectionData[index] = {
+                            ...altConnection,
+                            source: altConnection.target,
+                            target: altConnection.source
+                        };
+                    }
+                    
+                    // Update componentData
+                    const currentCompIndex = componentData.findIndex(comp => comp.id === component.id);
+                    const draggedCompIndex = componentData.findIndex(comp => comp.id === draggedId);
+                    if (currentCompIndex !== -1 && draggedCompIndex !== -1) {
+                        // Swap the labels
+                        [componentData[currentCompIndex].label, componentData[draggedCompIndex].label] = 
+                        [componentData[draggedCompIndex].label, componentData[currentCompIndex].label];
+                    }
+                    
+                    // Update connections
+                    updateConnections();
+                }
+            });
+
+            // Regular mouse event listeners for dragging
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+            component.addEventListener('contextmenu', (e) => showContextMenu(e, component));
+        });
 
         // Create SVG connections
         function createConnections() {
+            // Clear existing connections first
+            while (svg.lastChild) {
+                if (svg.lastChild.tagName === 'defs') break;
+                svg.removeChild(svg.lastChild);
+            }
+
+            // Create new connections
             connectionData.forEach(conn => {
                 const source = document.getElementById(conn.source);
                 const target = document.getElementById(conn.target);
@@ -872,10 +801,6 @@
                     const sourceRect = source.getBoundingClientRect();
                     const targetRect = target.getBoundingClientRect();
                     const canvasRect = canvas.getBoundingClientRect();
-                    
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    line.classList.add('connection');
-                    line.dataset.type = conn.type;
                     
                     // Calculate path relative to canvas
                     const sourceX = sourceRect.left - canvasRect.left + sourceRect.width/2;
@@ -887,38 +812,25 @@
                     const dx = targetX - sourceX;
                     const dy = targetY - sourceY;
                     const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
-                    const path = `M ${sourceX} ${sourceY} 
-                                 C ${sourceX + curve} ${sourceY},
-                                   ${targetX - curve} ${targetY},
-                                   ${targetX} ${targetY}`;
-                                   
-                    line.setAttribute('d', path);
-                    svg.appendChild(line);
                     
-                    // Add label if properties exist
-                    if (conn.properties && Object.keys(conn.properties).length > 0) {
-                        const label = document.createElement('div');
-                        label.className = 'connection-label';
-                        label.textContent = conn.type;
-                        label.style.left = `${(sourceX + targetX)/2}px`;
-                        label.style.top = `${(sourceY + targetY)/2}px`;
-                        canvas.appendChild(label);
-                    }
+                    // Create the SVG path element
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    line.classList.add('connection');
+                    line.dataset.type = conn.type;
+                    
+                    // Set the path data
+                    const path = `M ${sourceX} ${sourceY} C ${sourceX + curve} ${sourceY}, ${targetX - curve} ${targetY}, ${targetX} ${targetY}`;
+                    line.setAttribute('d', path);
+                    
+                    // Add to SVG
+                    svg.appendChild(line);
                 }
             });
         }
 
         // Update all connections
         function updateConnections() {
-            // Remove existing connections
-            while (svg.lastChild) {
-                if (svg.lastChild.tagName === 'defs') break;
-                svg.removeChild(svg.lastChild);
-            }
-            document.querySelectorAll('.connection-label').forEach(label => label.remove());
-
-            // Recreate connections
-            createConnections();
+            requestAnimationFrame(createConnections);
         }
 
         // Initial connection creation

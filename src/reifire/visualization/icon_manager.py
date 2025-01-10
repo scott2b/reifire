@@ -1,9 +1,11 @@
 """Icon management for visualizations."""
 
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from .nounproject import NounProjectClient
 from reifire.icon_registry import IconRegistry
 from .material_icons import MaterialIconProvider
+from .color_swatch import ColorSwatchGenerator
+import base64
 
 
 class IconManager:
@@ -116,11 +118,27 @@ class IconManager:
         # If visualization properties are already specified, use those
         if "visualization" in obj:
             vis_props = obj["visualization"]
+            
+            # Handle color swatches
+            if vis_props.get("source") == "colors":
+                print(f"  Generating color swatches for: {vis_props.get('name', '')}")
+                colors = vis_props["name"].split("-")
+                swatches = ColorSwatchGenerator.generate_swatches(colors)
+                
+                # Convert SVG strings to data URLs
+                data_urls = []
+                for swatch in swatches:
+                    b64 = base64.b64encode(swatch.encode()).decode()
+                    data_urls.append(f"data:image/svg+xml;base64,{b64}")
+                
+                vis_props["images"] = data_urls
+                vis_props["source"] = "colors"
+                return vis_props
+            
+            # Handle existing icon sources
             if "name" in vis_props and "source" in vis_props:
                 if vis_props["source"] == "nounproject":
-                    print(
-                        f"  Noun Project icon specified with name: {vis_props['name']}"
-                    )
+                    print(f"  Noun Project icon specified with name: {vis_props['name']}")
                     icon_url = self._get_or_fetch_icon(vis_props["name"])
                     if icon_url:
                         print(f"  Updated placeholder with real icon URL: {icon_url}")
@@ -128,13 +146,9 @@ class IconManager:
                     else:
                         print("  Using fallback icon for failed Noun Project fetch")
                         category = self._get_component_category(vis_props["name"])
-                        vis_props["image"] = self.FALLBACK_ICONS.get(
-                            category, self.FALLBACK_ICONS["default"]
-                        )
-                elif vis_props["source"] in ["openai", "custom", "colors"]:
-                    print(
-                        f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}"
-                    )
+                        vis_props["image"] = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS["default"])
+                elif vis_props["source"] in ["openai", "custom"]:
+                    print(f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}")
                     vis_props["image"] = self.FALLBACK_ICONS["default"]
             return vis_props
 

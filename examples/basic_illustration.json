@@ -5,10 +5,20 @@
             {
                 "name": "age",
                 "value": "baby",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "baby",
+                    "image": "baby_icon.svg"
+                },
                 "alternatives": [
                     {
                         "name": "age",
-                        "value": null
+                        "value": null,
+                        "visualization": {
+                            "source": "nounproject",
+                            "name": "default_age",
+                            "image": "default.svg"
+                        }
                     }
                 ]
             }
@@ -16,7 +26,12 @@
     },
     "type": {
         "name": "illustration",
-        "category": "visual"
+        "category": "visual",
+        "visualization": {
+            "source": "nounproject",
+            "name": "art_illustration",
+            "image": "art_palette.svg"
+        }
     },
     "artifact": {
         "type": "image",
@@ -24,20 +39,40 @@
             {
                 "name": "style",
                 "value": "children's illustration",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "children_art",
+                    "image": "kids_drawing.svg"
+                },
                 "alternatives": [
                     {
                         "name": "style",
-                        "value": "dark fantasy"
+                        "value": "dark fantasy",
+                        "visualization": {
+                            "source": "nounproject",
+                            "name": "dark_fantasy",
+                            "image": "fantasy_dark.svg"
+                        }
                     }
                 ]
             },
             {
                 "name": "mood",
                 "value": "scary-cute",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "scary_cute",
+                    "image": "cute_monster.svg"
+                },
                 "alternatives": [
                     {
                         "name": "mood",
-                        "value": "terrifying"
+                        "value": "terrifying",
+                        "visualization": {
+                            "source": "nounproject",
+                            "name": "terrifying",
+                            "image": "horror.svg"
+                        }
                     }
                 ]
             },
@@ -50,19 +85,34 @@
                         "brown.svg",
                         "green.svg",
                         "purple.svg"
-                    ]
+                    ],
+                    "properties": {
+                        "palette_name": "mystical_forest",
+                        "color_space": "rgb"
+                    }
                 }
             }
         ],
         "visualization": {
             "source": "openai",
             "name": "cthulhu",
-            "image": "cthulhu.png"
+            "image": "cthulhu.png",
+            "properties": {
+                "layout": "centered",
+                "show_details": true,
+                "model": "dall-e-3"
+            }
         }
     },
     "metadata": {
         "timestamp": "2024-01-20T10:00:00Z",
         "version": "1.0",
-        "original_prompt": "Create a scary-cute baby Cthulhu in children's illustration style with brown-green-purple color scheme."
+        "original_prompt": "Create a scary-cute baby Cthulhu in children's illustration style with brown-green-purple color scheme.",
+        "visualization_config": {
+            "theme": "artistic",
+            "layout": "centered",
+            "icon_size": "medium",
+            "show_relationships": true
+        }
     }
 } 

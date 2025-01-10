@@ -5,50 +5,104 @@
             {
                 "name": "time_range",
                 "value": "last_quarter",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "quarter_calendar",
+                    "image": "quarter_time.svg"
+                },
                 "alternatives": [
                     {
                         "name": "time_range",
-                        "value": "last_year"
+                        "value": "last_year",
+                        "visualization": {
+                            "source": "nounproject",
+                            "name": "yearly_calendar",
+                            "image": "year_time.svg"
+                        }
                     }
                 ]
             },
             {
                 "name": "region",
-                "value": "north_america"
+                "value": "north_america",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "north_america_map",
+                    "image": "na_region.svg"
+                }
             }
         ]
     },
     "type": {
         "name": "analysis",
-        "category": "data"
+        "category": "data",
+        "visualization": {
+            "source": "nounproject",
+            "name": "data_analytics",
+            "image": "analytics_icon.svg"
+        }
     },
     "artifact": {
         "type": "query",
         "attributes": [
             {
                 "name": "operation",
-                "value": "aggregation"
+                "value": "aggregation",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "data_aggregation",
+                    "image": "aggregate.svg"
+                }
             },
             {
                 "name": "grouping",
-                "value": ["product_category", "month"]
+                "value": ["product_category", "month"],
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "group_by",
+                    "image": "grouping.svg"
+                }
             },
             {
                 "name": "metrics",
-                "value": ["revenue", "growth_rate"]
+                "value": ["revenue", "growth_rate"],
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "metrics_chart",
+                    "image": "metrics.svg"
+                }
             },
             {
                 "name": "format",
-                "value": "sql"
+                "value": "sql",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "sql_code",
+                    "image": "sql_icon.svg"
+                }
             }
         ],
+        "visualization": {
+            "source": "custom",
+            "name": "data_flow",
+            "image": "query_flow.svg",
+            "properties": {
+                "layout": "flow_diagram",
+                "show_steps": true
+            }
+        },
         "relationships": [
             {
                 "type": "references",
                 "source": "sales_data",
                 "target": "product_catalog",
-                "properties": {
-                    "join_type": "left"
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "data_join",
+                    "image": "join_tables.svg",
+                    "properties": {
+                        "join_type": "left"
+                    }
                 }
             }
         ]
@@ -56,6 +110,12 @@
     "metadata": {
         "timestamp": "2024-01-20T14:00:00Z",
         "version": "1.0",
-        "original_prompt": "Generate a SQL query to analyze last quarter's North American sales data, showing revenue and growth rate by product category and month."
+        "original_prompt": "Generate a SQL query to analyze last quarter's North American sales data, showing revenue and growth rate by product category and month.",
+        "visualization_config": {
+            "theme": "data",
+            "layout": "flow",
+            "icon_size": "medium",
+            "show_relationships": true
+        }
     }
 } 

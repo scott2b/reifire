@@ -5,22 +5,31 @@
             {
                 "name": "type",
                 "value": "oauth2",
-                "alternatives": [
-                    {
-                        "name": "type",
-                        "value": "jwt"
-                    }
-                ]
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "oauth2",
+                    "image": "oauth_lock.svg"
+                }
             },
             {
                 "name": "scope",
-                "value": "middleware"
+                "value": "middleware",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "middleware",
+                    "image": "middleware_layer.svg"
+                }
             }
         ]
     },
     "type": {
         "name": "implementation",
-        "category": "code"
+        "category": "code",
+        "visualization": {
+            "source": "nounproject",
+            "name": "code_implementation",
+            "image": "code_file.svg"
+        }
     },
     "artifact": {
         "type": "code",
@@ -28,26 +37,60 @@
             {
                 "name": "language",
                 "value": "python",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "python_lang",
+                    "image": "python_snake.svg"
+                },
                 "alternatives": [
                     {
                         "name": "language",
-                        "value": "typescript"
+                        "value": "typescript",
+                        "visualization": {
+                            "source": "nounproject",
+                            "name": "typescript",
+                            "image": "ts_icon.svg"
+                        }
                     }
                 ]
             },
             {
                 "name": "framework",
-                "value": "fastapi"
+                "value": "fastapi",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "fastapi",
+                    "image": "fastapi_icon.svg"
+                }
             },
             {
                 "name": "style",
-                "value": "functional"
+                "value": "functional",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "functional",
+                    "image": "func_prog.svg"
+                }
             },
             {
                 "name": "documentation",
-                "value": "detailed"
+                "value": "detailed",
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "documentation",
+                    "image": "docs_icon.svg"
+                }
             }
         ],
+        "visualization": {
+            "source": "nounproject",
+            "name": "auth_code",
+            "image": "auth_impl.svg",
+            "properties": {
+                "layout": "vertical",
+                "show_connections": true
+            }
+        },
         "relationships": [
             {
                 "type": "depends_on",
@@ -55,6 +98,11 @@
                 "target": "user_model",
                 "properties": {
                     "type": "import"
+                },
+                "visualization": {
+                    "source": "nounproject",
+                    "name": "dependency",
+                    "image": "dependency_arrow.svg"
                 }
             }
         ]
@@ -62,6 +110,12 @@
     "metadata": {
         "timestamp": "2024-01-20T12:00:00Z",
         "version": "1.0",
-        "original_prompt": "Create a FastAPI OAuth2 authentication middleware with detailed documentation using functional programming style."
+        "original_prompt": "Create a FastAPI OAuth2 authentication middleware with detailed documentation using functional programming style.",
+        "visualization_config": {
+            "theme": "technical",
+            "layout": "hierarchical",
+            "icon_size": "medium",
+            "show_relationships": true
+        }
     }
 } 

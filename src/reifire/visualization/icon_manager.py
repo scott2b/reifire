@@ -67,6 +67,15 @@ class IconManager:
                         fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
                         print(f"  Using fallback icon: {fallback_url}")
                         vis_props["image"] = fallback_url
+            else:
+                # For non-Noun Project sources, check if image is a valid URL or absolute path
+                image = vis_props.get("image", "")
+                if not image or not (image.startswith("http") or image.startswith("/")):
+                    # Use fallback icon based on component type
+                    component_type = obj.get("type", "default").lower()
+                    fallback_url = self.FALLBACK_ICONS.get(component_type, self.FALLBACK_ICONS["default"])
+                    print(f"  Using fallback icon for {vis_props.get('source', 'unknown')} source: {fallback_url}")
+                    vis_props["image"] = fallback_url
             return vis_props
 
         # If an icon is specified directly, use that

@@ -134,6 +134,13 @@
             border-style: solid;
         }
 
+        .component[data-type="color"] {
+            background: #fafafa;
+            border-color: #9e9e9e;
+            min-width: 100px;
+            padding: 10px;
+        }
+
         /* Connection styles */
         svg {
             position: absolute;
@@ -189,6 +196,13 @@
             marker-end: url(#arrowhead-relationship);
         }
 
+        .connection[data-type="composition"] {
+            stroke: #9e9e9e;
+            stroke-width: 2;
+            stroke-dasharray: 4,4;
+            marker-end: url(#arrowhead-composition);
+        }
+
         .connection-label {
             font-size: 12px;
             background: white;
@@ -229,6 +243,12 @@
             background: #e0e0e0;
             margin: 5px 0;
         }
+
+        /* Add composition arrowhead marker */
+        <marker id="arrowhead-composition" markerWidth="10" markerHeight="7" 
+            refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#9e9e9e"/>
+        </marker>
     </style>
 </head>
 <body>
@@ -267,51 +287,64 @@
                     refX="9" refY="3.5" orient="auto">
                     <polygon points="0 0, 10 3.5, 0 7" fill="#9e9e9e"/>
                 </marker>
+                <marker id="arrowhead-composition" markerWidth="10" markerHeight="7" 
+                    refX="9" refY="3.5" orient="auto">
+                    <polygon points="0 0, 10 3.5, 0 7" fill="#9e9e9e"/>
+                </marker>
             </defs>
         </svg>
 
         <div class="component" data-type="object" id="object_0" data-id="object_0"
-            style="left: 50px; top: 0px; width: 200px; height: 60px;">
+            style="left: 50px; top: 0px; width: 200px; height: 60px;"
+            draggable="true">
                         <img class="icon" src="https://static.thenounproject.com/png/3778842-84.png" alt="Cthulhu">
             <span class="label">Cthulhu</span>
         </div>
         <div class="component" data-type="modifier" id="mod_1" data-id="mod_1"
-            style="left: 300px; top: 100px; width: 180px; height: 50px;">
+            style="left: 300px; top: 100px; width: 180px; height: 50px;"
+            draggable="true">
                         <img class="icon" src="https://static.thenounproject.com/png/2101342-84.png" alt="baby">
             <span class="label">age: baby</span>
         </div>
         <div class="component" data-type="type" id="type_2" data-id="type_2"
-            style="left: 300px; top: 200px; width: 200px; height: 60px;">
+            style="left: 300px; top: 200px; width: 200px; height: 60px;"
+            draggable="true">
                         <img class="icon" src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" alt="art_illustration">
             <span class="label">illustration</span>
         </div>
         <div class="component" data-type="artifact" id="artifact_3" data-id="artifact_3"
-            style="left: 550px; top: 300px; width: 200px; height: 60px;">
+            style="left: 550px; top: 300px; width: 200px; height: 60px;"
+            draggable="true">
                         <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="cthulhu">
             <span class="label">artifact</span>
         </div>
         <div class="component" data-type="attribute" id="attr_4" data-id="attr_4"
-            style="left: 550px; top: 400px; width: 180px; height: 50px;">
+            style="left: 550px; top: 400px; width: 180px; height: 50px;"
+            draggable="true">
                         <img class="icon" src="/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png" alt="children_art">
             <span class="label">style: children&#39;s illustration</span>
         </div>
         <div class="component" data-type="alternative" id="attr_5" data-id="attr_5"
-            style="left: 800px; top: 500px; width: 180px; height: 50px;">
+            style="left: 800px; top: 500px; width: 180px; height: 50px;"
+            draggable="true">
                         <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="dark_fantasy">
             <span class="label">style: dark fantasy</span>
         </div>
         <div class="component" data-type="attribute" id="attr_6" data-id="attr_6"
-            style="left: 550px; top: 600px; width: 180px; height: 50px;">
+            style="left: 550px; top: 600px; width: 180px; height: 50px;"
+            draggable="true">
                         <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="scary_cute">
             <span class="label">mood: scary-cute</span>
         </div>
         <div class="component" data-type="alternative" id="attr_7" data-id="attr_7"
-            style="left: 800px; top: 700px; width: 180px; height: 50px;">
+            style="left: 800px; top: 700px; width: 180px; height: 50px;"
+            draggable="true">
                         <img class="icon" src="https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg" alt="terrifying">
             <span class="label">mood: terrifying</span>
         </div>
         <div class="component" data-type="attribute" id="attr_8" data-id="attr_8"
-            style="left: 550px; top: 800px; width: 180px; height: 50px;">
+            style="left: 550px; top: 800px; width: 180px; height: 50px;"
+            draggable="true">
                     <div class="color-swatches">
                             <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=" alt="Color swatch">
                             <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=" alt="Color swatch">
@@ -319,11 +352,35 @@
                     </div>
             <span class="label">color scheme</span>
         </div>
+        <div class="component" data-type="color" id="color_9" data-id="color_9"
+            style="left: 800px; top: 900px; width: 120px; height: 50px;"
+            draggable="true">
+                    <div class="color-swatches">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=" alt="Color swatch">
+                    </div>
+            <span class="label">brown</span>
+        </div>
+        <div class="component" data-type="color" id="color_10" data-id="color_10"
+            style="left: 800px; top: 1000px; width: 120px; height: 50px;"
+            draggable="true">
+                    <div class="color-swatches">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=" alt="Color swatch">
+                    </div>
+            <span class="label">green</span>
+        </div>
+        <div class="component" data-type="color" id="color_11" data-id="color_11"
+            style="left: 800px; top: 1100px; width: 120px; height: 50px;"
+            draggable="true">
+                    <div class="color-swatches">
+                            <img class="color-swatch" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4=" alt="Color swatch">
+                    </div>
+            <span class="label">purple</span>
+        </div>
     </div>
     <script>
         // Store component and connection data
-        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/3778842-84.png", "name": "Cthulhu", "source": "nounproject"}}, "type": "object", "width": 200, "x": 50, "y": 0}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/2101342-84.png", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 300, "y": 100}, {"height": 60, "id": "type_2", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 300, "y": 200}, {"height": 60, "id": "artifact_3", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 550, "y": 300}, {"height": 50, "id": "attr_4", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 400}, {"height": 50, "id": "attr_5", "label": "style: dark fantasy", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 500}, {"height": 50, "id": "attr_6", "label": "mood: scary-cute", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 600}, {"height": 50, "id": "attr_7", "label": "mood: terrifying", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 700}, {"height": 50, "id": "attr_8", "label": "color scheme", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4="], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 550, "y": 800}];
-        const connectionData = [{"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_2", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_3", "type": "artifact"}, {"properties": {}, "source": "artifact_3", "target": "attr_4", "type": "attribute"}, {"properties": {}, "source": "attr_4", "target": "attr_5", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "attr_6", "target": "attr_7", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_8", "type": "attribute"}];
+        const componentData = [{"height": 60, "id": "object_0", "label": "Cthulhu", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/3778842-84.png", "name": "Cthulhu", "source": "nounproject"}}, "type": "object", "width": 200, "x": 50, "y": 0}, {"height": 50, "id": "mod_1", "label": "age: baby", "properties": {"visualization": {"image": "https://static.thenounproject.com/png/2101342-84.png", "name": "baby", "source": "nounproject"}}, "type": "modifier", "width": 180, "x": 300, "y": 100}, {"height": 60, "id": "type_2", "label": "illustration", "properties": {"category": "visual", "visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "art_illustration", "source": "nounproject"}}, "type": "type", "width": 200, "x": 300, "y": 200}, {"height": 60, "id": "artifact_3", "label": "artifact", "properties": {"type": "image", "visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "cthulhu", "properties": {"layout": "centered", "model": "dall-e-3", "show_details": true}, "source": "openai"}}, "type": "artifact", "width": 200, "x": 550, "y": 300}, {"height": 50, "id": "attr_4", "label": "style: children\u0027s illustration", "properties": {"visualization": {"image": "/Users/scott/Downloads/material/material-design-icons-4.0.0/png/av/art_track/materialicons/24dp/1x/baseline_art_track_black_24dp.png", "name": "children_art", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 400}, {"height": 50, "id": "attr_5", "label": "style: dark fantasy", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "dark_fantasy", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 500}, {"height": 50, "id": "attr_6", "label": "mood: scary-cute", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "scary_cute", "source": "nounproject"}}, "type": "attribute", "width": 180, "x": 550, "y": 600}, {"height": 50, "id": "attr_7", "label": "mood: terrifying", "properties": {"visualization": {"image": "https://raw.githubusercontent.com/primer/octicons/main/icons/dot-24.svg", "name": "terrifying", "source": "nounproject"}}, "type": "alternative", "width": 180, "x": 800, "y": 700}, {"height": 50, "id": "attr_8", "label": "color scheme", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4=", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4="], "name": "brown-green-purple", "properties": {"color_space": "rgb", "palette_name": "mystical_forest"}, "source": "colors"}}, "type": "attribute", "width": 180, "x": 550, "y": 800}, {"height": 50, "id": "color_9", "label": "brown", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iI0E1MkEyQSIvPgo8L3N2Zz4="], "name": "brown", "source": "colors"}}, "type": "color", "width": 120, "x": 800, "y": 900}, {"height": 50, "id": "color_10", "label": "green", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzAwRkYwMCIvPgo8L3N2Zz4="], "name": "green", "source": "colors"}}, "type": "color", "width": 120, "x": 800, "y": 1000}, {"height": 50, "id": "color_11", "label": "purple", "properties": {"visualization": {"images": ["data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0iIzgwMDA4MCIvPgo8L3N2Zz4="], "name": "purple", "source": "colors"}}, "type": "color", "width": 120, "x": 800, "y": 1100}];
+        const connectionData = [{"properties": {}, "source": "object_0", "target": "mod_1", "type": "modifier"}, {"properties": {}, "source": "object_0", "target": "type_2", "type": "type"}, {"properties": {}, "source": "object_0", "target": "artifact_3", "type": "artifact"}, {"properties": {}, "source": "artifact_3", "target": "attr_4", "type": "attribute"}, {"properties": {}, "source": "attr_4", "target": "attr_5", "type": "alternative"}, {"properties": {}, "source": "artifact_3", "target": "attr_6", "type": "attribute"}, {"properties": {}, "source": "attr_6", "target": "attr_7", "type": "alternative"}, {"properties": {}, "source": "attr_8", "target": "color_9", "type": "composition"}, {"properties": {}, "source": "attr_8", "target": "color_10", "type": "composition"}, {"properties": {}, "source": "attr_8", "target": "color_11", "type": "composition"}, {"properties": {}, "source": "artifact_3", "target": "attr_8", "type": "attribute"}];
         
         // Initialize SVG connections
         const svg = document.getElementById('connections');
@@ -486,65 +543,135 @@
                             componentConnections.forEach(conn => {
                                 const index = connectionData.indexOf(conn);
                                 if (index > -1) {
-                                    // Get the component that is the modifier (usually the source)
-                                    const modifierComponent = document.getElementById(conn.source);
+                                    // Get the components involved
+                                    const sourceComponent = document.getElementById(conn.source);
                                     const targetComponent = document.getElementById(conn.target);
                                     
-                                    if (modifierComponent && targetComponent) {
-                                        // Get the component that is the modifier (usually the source)
-                                        const isSourceModifier = modifierComponent.dataset.type === 'modifier';
-                                        const modifierLabel = isSourceModifier ? 
-                                            modifierComponent.querySelector('.label') : 
-                                            targetComponent.querySelector('.label');
-                                        
-                                        if (modifierLabel) {
-                                            const modifierText = modifierLabel.textContent;
-                                            // Extract the value part (e.g., "baby" from "age: baby")
-                                            const modifierValue = modifierText.includes(': ') ? 
-                                                modifierText.split(': ')[1] : 
-                                                modifierText;
+                                    if (sourceComponent && targetComponent) {
+                                        // Special handling for color scheme composition
+                                        if (conn.type === 'composition' && 
+                                            (sourceComponent.dataset.type === 'attribute' || targetComponent.dataset.type === 'attribute') &&
+                                            (sourceComponent.dataset.type === 'color' || targetComponent.dataset.type === 'color')) {
+                                            // Get the color scheme component and color component
+                                            const colorSchemeComponent = sourceComponent.dataset.type === 'attribute' ? sourceComponent : targetComponent;
+                                            const colorComponent = sourceComponent.dataset.type === 'color' ? sourceComponent : targetComponent;
+                                            
+                                            // Get the color value
+                                            const colorValue = colorComponent.querySelector('.label').textContent;
+                                            
+                                            // Get all remaining connected colors
+                                            const remainingColors = connectionData
+                                                .filter(c => 
+                                                    c.type === 'composition' && 
+                                                    c.source === colorSchemeComponent.id &&
+                                                    c.target !== colorComponent.id
+                                                )
+                                                .map(c => document.getElementById(c.target))
+                                                .filter(Boolean)
+                                                .map(c => c.querySelector('.label').textContent);
+                                            
+                                            // Update the color scheme node's label
+                                            const schemeLabel = colorSchemeComponent.querySelector('.label');
+                                            if (schemeLabel) {
+                                                schemeLabel.textContent = remainingColors.length > 0 ? 
+                                                    `color scheme: ${remainingColors.join('-')}` :
+                                                    'color scheme';
+                                            }
+                                            
+                                            // Remove the specific swatch for this color
+                                            const colorSwatches = colorSchemeComponent.querySelector('.color-swatches');
+                                            if (colorSwatches) {
+                                                const swatches = Array.from(colorSwatches.querySelectorAll('.color-swatch'));
+                                                const colorIndex = connectionData
+                                                    .filter(c => 
+                                                        c.type === 'composition' && 
+                                                        c.source === colorSchemeComponent.id
+                                                    )
+                                                    .map(c => document.getElementById(c.target))
+                                                    .filter(Boolean)
+                                                    .map(c => c.querySelector('.label').textContent)
+                                                    .indexOf(colorValue);
+                                                
+                                                if (colorIndex >= 0 && colorIndex < swatches.length) {
+                                                    swatches[colorIndex].remove();
+                                                }
+                                            }
                                             
                                             // Update the prompt text
                                             const promptText = document.querySelector('.prompt-text');
                                             if (promptText) {
-                                                const value = modifierValue.trim();
-                                                
-                                                // Handle compound terms (like "scary-cute")
-                                                if (value.includes('-')) {
-                                                    // Split compound term and remove each part
-                                                    const parts = value.split('-');
-                                                    parts.forEach(part => {
-                                                        const partRegex = new RegExp(`\\b${part}\\b|(?:^|\\s|-)${part}(?=\\s|$|-)`, 'g');
-                                                        promptText.textContent = promptText.textContent.replace(partRegex, '');
-                                                    });
-                                                    // Also try to remove the full compound term
-                                                    const fullRegex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
-                                                    promptText.textContent = promptText.textContent.replace(fullRegex, '');
-                                                } else {
-                                                    // For single terms, use word boundary regex
-                                                    const regex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
-                                                    promptText.textContent = promptText.textContent.replace(regex, '');
-                                                }
-                                                
-                                                // Clean up the text
-                                                promptText.textContent = promptText.textContent
-                                                    // Remove extra spaces
+                                                const regex = new RegExp(`\\b${colorValue}\\b`, 'g');
+                                                promptText.textContent = promptText.textContent.replace(regex, '')
+                                                    // Clean up spaces
                                                     .replace(/\s+/g, ' ')
                                                     // Clean up dashes with spaces around them
                                                     .replace(/\s*-\s*/g, '-')
                                                     // Clean up multiple dashes
                                                     .replace(/-+/g, '-')
+                                                    // Remove leading dash in color scheme
+                                                    .replace(/\ba\s*-/, 'a ')
                                                     // Remove orphaned dashes
                                                     .replace(/\s-\s|\s-(?=\s|$)|-(?=\s|$)|\b-\b|-\s/g, ' ')
-                                                    // Clean up commas
-                                                    .replace(/,\s*,/g, ',')
-                                                    .replace(/,\s*\./g, '.')
-                                                    .replace(/\s*,\s*$/, '')
-                                                    // Remove any remaining hyphenated word if one part is missing
-                                                    .replace(/\b\w+(-\s|\s-|\s*-\s*$)|\b(-\s|\s-|\s*-\s*)\w+\b/g, '')
-                                                    // Final trim and space cleanup
+                                                    // Final cleanup
                                                     .trim()
                                                     .replace(/\s+/g, ' ');
+                                            }
+                                        } else {
+                                            // Regular connection removal handling
+                                            const isSourceModifier = sourceComponent.dataset.type === 'modifier';
+                                            const modifierLabel = isSourceModifier ? 
+                                                sourceComponent.querySelector('.label') : 
+                                                targetComponent.querySelector('.label');
+                                            
+                                            if (modifierLabel) {
+                                                const modifierText = modifierLabel.textContent;
+                                                // Extract the value part (e.g., "baby" from "age: baby")
+                                                const modifierValue = modifierText.includes(': ') ? 
+                                                    modifierText.split(': ')[1] : 
+                                                    modifierText;
+                                                
+                                                // Update the prompt text
+                                                const promptText = document.querySelector('.prompt-text');
+                                                if (promptText) {
+                                                    const value = modifierValue.trim();
+                                                    
+                                                    // Handle compound terms (like "scary-cute")
+                                                    if (value.includes('-')) {
+                                                        // Split compound term and remove each part
+                                                        const parts = value.split('-');
+                                                        parts.forEach(part => {
+                                                            const partRegex = new RegExp(`\\b${part}\\b|(?:^|\\s|-)${part}(?=\\s|$|-)`, 'g');
+                                                            promptText.textContent = promptText.textContent.replace(partRegex, '');
+                                                        });
+                                                        // Also try to remove the full compound term
+                                                        const fullRegex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                        promptText.textContent = promptText.textContent.replace(fullRegex, '');
+                                                    } else {
+                                                        // For single terms, use word boundary regex
+                                                        const regex = new RegExp(`\\b${value}\\b|(?:^|\\s|-)${value}(?=\\s|$|-)`, 'g');
+                                                        promptText.textContent = promptText.textContent.replace(regex, '');
+                                                    }
+                                                    
+                                                    // Clean up the text
+                                                    promptText.textContent = promptText.textContent
+                                                        // Remove extra spaces
+                                                        .replace(/\s+/g, ' ')
+                                                        // Clean up dashes with spaces around them
+                                                        .replace(/\s*-\s*/g, '-')
+                                                        // Clean up multiple dashes
+                                                        .replace(/-+/g, '-')
+                                                        // Remove orphaned dashes
+                                                        .replace(/\s-\s|\s-(?=\s|$)|-(?=\s|$)|\b-\b|-\s/g, ' ')
+                                                        // Clean up commas
+                                                        .replace(/,\s*,/g, ',')
+                                                        .replace(/,\s*\./g, '.')
+                                                        .replace(/\s*,\s*$/, '')
+                                                        // Remove any remaining hyphenated word if one part is missing
+                                                        .replace(/\b\w+(-\s|\s-|\s*-\s*$)|\b(-\s|\s-|\s*-\s*)\w+\b/g, '')
+                                                        // Final trim and space cleanup
+                                                        .trim()
+                                                        .replace(/\s+/g, ' ');
+                                                }
                                             }
                                         }
                                     }
@@ -601,6 +728,9 @@
             }
         });
 
+        // Store dragged element ID globally for dragover checks
+        let draggedId = null;
+
         // Make components draggable
         document.querySelectorAll('.component').forEach(component => {
             let isDragging = false;
@@ -608,76 +738,86 @@
             let currentY = 0;
             let initialX = 0;
             let initialY = 0;
-            let xOffset = 0;
-            let yOffset = 0;
 
             function dragStart(e) {
-                if (e.type === "mousedown" && e.button === 0) { // Only left mouse button
+                if (e.type === "mousedown" && e.button === 0) {
                     const rect = component.getBoundingClientRect();
-                    xOffset = rect.left - component.offsetLeft;
-                    yOffset = rect.top - component.offsetTop;
-                    initialX = e.clientX - xOffset;
-                    initialY = e.clientY - yOffset;
+                    const canvasRect = canvas.getBoundingClientRect();
+                    
+                    initialX = e.clientX;
+                    initialY = e.clientY;
+                    
+                    const style = window.getComputedStyle(component);
+                    currentX = parseInt(style.left, 10);
+                    currentY = parseInt(style.top, 10);
                     
                     if (e.target === component || component.contains(e.target)) {
                         isDragging = true;
+                        e.preventDefault();
                     }
                 }
-            }
-
-            function dragEnd(e) {
-                initialX = currentX;
-                initialY = currentY;
-                isDragging = false;
             }
 
             function drag(e) {
                 if (isDragging) {
                     e.preventDefault();
-                    currentX = e.clientX - initialX;
-                    currentY = e.clientY - initialY;
-                    xOffset = currentX;
-                    yOffset = currentY;
                     
-                    component.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                    // Calculate the distance moved
+                    const dx = e.clientX - initialX;
+                    const dy = e.clientY - initialY;
+                    
+                    // Update position based on the initial position plus the movement
+                    component.style.left = `${currentX + dx}px`;
+                    component.style.top = `${currentY + dy}px`;
+                    
+                    // Store the position in the component data
+                    const compData = componentData.find(c => c.id === component.id);
+                    if (compData) {
+                        compData.x = currentX + dx;
+                        compData.y = currentY + dy;
+                    }
+                    
                     updateConnections();
                 }
             }
 
-            // Add HTML5 drag and drop for alternatives
-            component.setAttribute('draggable', 'true');
+            function dragEnd(e) {
+                isDragging = false;
+            }
 
+            // Regular mouse event listeners for dragging
+            component.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            // HTML5 drag and drop for alternatives
             component.addEventListener('dragstart', (e) => {
-                // Only allow dragging if this is part of an alternative connection
                 const hasAltConnection = connectionData.some(conn => 
                     conn.type === 'alternative' && 
                     (conn.source === component.id || conn.target === component.id)
                 );
+                
                 if (hasAltConnection) {
+                    draggedId = component.id;
                     e.dataTransfer.setData('text/plain', component.id);
                     component.classList.add('dragging');
+                    isDragging = false;  // Disable regular dragging
                 } else {
-                    e.preventDefault(); // Prevent dragging if not an alternative
+                    e.preventDefault();  // Prevent HTML5 drag if not an alternative
                 }
-            });
-
-            component.addEventListener('dragend', () => {
-                component.classList.remove('dragging');
             });
 
             component.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                // Only show drop effect if this is a valid target for the alternative
-                if (e.dataTransfer.types.includes('text/plain')) {
-                    const draggedId = e.dataTransfer.getData('text/plain');
-                    const isValidTarget = connectionData.some(conn => 
-                        conn.type === 'alternative' && 
-                        ((conn.source === component.id && conn.target === draggedId) ||
-                         (conn.target === component.id && conn.source === draggedId))
-                    );
-                    if (isValidTarget) {
-                        component.classList.add('drop-target');
-                    }
+                const isValidTarget = draggedId && connectionData.some(conn => 
+                    conn.type === 'alternative' && 
+                    ((conn.source === component.id && conn.target === draggedId) ||
+                     (conn.target === component.id && conn.source === draggedId))
+                );
+                
+                if (isValidTarget) {
+                    e.dataTransfer.dropEffect = 'move';
+                    component.classList.add('drop-target');
                 }
             });
 
@@ -685,102 +825,105 @@
                 component.classList.remove('drop-target');
             });
 
-            component.addEventListener('drop', (e) => {
-                e.preventDefault();
-                component.classList.remove('drop-target');
-                const draggedId = e.dataTransfer.getData('text/plain');
-                const draggedElement = document.getElementById(draggedId);
-                
-                // Check if this is a valid alternative swap
-                const altConnection = connectionData.find(conn => 
-                    conn.type === 'alternative' && 
-                    ((conn.source === component.id && conn.target === draggedId) ||
-                     (conn.target === component.id && conn.source === draggedId))
-                );
-
-                if (altConnection && draggedElement) {
-                    // Get the values for both components
-                    const currentLabel = component.querySelector('.label');
-                    const currentText = currentLabel.textContent;
-                    const currentValue = currentText.includes(': ') ? 
-                        currentText.split(': ')[1] : 
-                        currentText;
-                    
-                    const draggedLabel = draggedElement.querySelector('.label');
-                    const draggedText = draggedLabel.textContent;
-                    const draggedValue = draggedText.includes(': ') ? 
-                        draggedText.split(': ')[1] : 
-                        draggedText;
-                    
-                    // Update the prompt text
-                    const promptText = document.querySelector('.prompt-text');
-                    if (promptText) {
-                        // Create regex patterns that handle both simple and compound terms
-                        const currentRegex = new RegExp(`\\b${currentValue}\\b`, 'g');
-                        promptText.textContent = promptText.textContent.replace(currentRegex, draggedValue);
-                        promptText.textContent = promptText.textContent.replace(/\s+/g, ' ').trim();
-                    }
-                    
-                    // Swap the labels
-                    if (currentText.includes(': ')) {
-                        const prefix = currentText.split(': ')[0];
-                        currentLabel.textContent = `${prefix}: ${draggedValue}`;
-                        draggedLabel.textContent = `${prefix}: ${currentValue}`;
-                    } else {
-                        currentLabel.textContent = draggedValue;
-                        draggedLabel.textContent = currentValue;
-                    }
-
-                    // Get original positions before any transforms
-                    const currentRect = component.getBoundingClientRect();
-                    const draggedRect = draggedElement.getBoundingClientRect();
-                    const canvasRect = canvas.getBoundingClientRect();
-                    
-                    // Calculate positions relative to canvas
-                    const currentLeft = currentRect.left - canvasRect.left;
-                    const currentTop = currentRect.top - canvasRect.top;
-                    const draggedLeft = draggedRect.left - canvasRect.left;
-                    const draggedTop = draggedRect.top - canvasRect.top;
-                    
-                    // Reset any existing transforms
-                    component.style.transform = 'none';
-                    draggedElement.style.transform = 'none';
-                    
-                    // Set absolute positions
-                    component.style.left = `${draggedLeft}px`;
-                    component.style.top = `${draggedTop}px`;
-                    draggedElement.style.left = `${currentLeft}px`;
-                    draggedElement.style.top = `${currentTop}px`;
-                    
-                    // Update the connection data
-                    const index = connectionData.indexOf(altConnection);
-                    if (index !== -1) {
-                        // Swap source and target
-                        connectionData[index] = {
-                            ...altConnection,
-                            source: altConnection.target,
-                            target: altConnection.source
-                        };
-                    }
-                    
-                    // Update componentData
-                    const currentCompIndex = componentData.findIndex(comp => comp.id === component.id);
-                    const draggedCompIndex = componentData.findIndex(comp => comp.id === draggedId);
-                    if (currentCompIndex !== -1 && draggedCompIndex !== -1) {
-                        // Swap the labels
-                        [componentData[currentCompIndex].label, componentData[draggedCompIndex].label] = 
-                        [componentData[draggedCompIndex].label, componentData[currentCompIndex].label];
-                    }
-                    
-                    // Update connections
-                    updateConnections();
-                }
+            component.addEventListener('dragend', () => {
+                component.classList.remove('dragging');
+                draggedId = null;
             });
 
-            // Regular mouse event listeners for dragging
-            component.addEventListener('mousedown', dragStart);
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', dragEnd);
+            component.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('Drop event triggered');
+                
+                component.classList.remove('drop-target');
+                const droppedId = draggedId;
+                console.log('Dropped ID:', droppedId, 'Target ID:', component.id);
+                
+                const draggedElement = document.getElementById(droppedId);
+                if (!draggedElement) {
+                    console.log('No dragged element found');
+                    return;
+                }
+                
+                // Find the alternative connection
+                const altConnection = connectionData.find(conn => 
+                    conn.type === 'alternative' && 
+                    ((conn.source === component.id && conn.target === droppedId) ||
+                     (conn.target === component.id && conn.source === droppedId))
+                );
+                
+                if (!altConnection) {
+                    console.log('No alternative connection found');
+                    return;
+                }
+                console.log('Found alternative connection:', altConnection);
+                
+                // Get positions
+                const rect1 = component.getBoundingClientRect();
+                const rect2 = draggedElement.getBoundingClientRect();
+                console.log('Component 1 rect:', rect1);
+                console.log('Component 2 rect:', rect2);
+                
+                // Swap positions
+                const temp = {
+                    left: component.style.left,
+                    top: component.style.top
+                };
+                
+                component.style.left = draggedElement.style.left;
+                component.style.top = draggedElement.style.top;
+                draggedElement.style.left = temp.left;
+                draggedElement.style.top = temp.top;
+                
+                console.log('Swapped positions');
+                
+                // Update component data
+                const comp1 = componentData.find(c => c.id === component.id);
+                const comp2 = componentData.find(c => c.id === droppedId);
+                if (comp1 && comp2) {
+                    const tempPos = { x: comp1.x, y: comp1.y };
+                    comp1.x = comp2.x;
+                    comp1.y = comp2.y;
+                    comp2.x = tempPos.x;
+                    comp2.y = tempPos.y;
+                    console.log('Updated component data positions');
+                }
+                
+                // Swap types
+                const tempType = component.dataset.type;
+                component.dataset.type = draggedElement.dataset.type;
+                draggedElement.dataset.type = tempType;
+                console.log('Swapped types');
+                
+                // Swap labels
+                const label1 = component.querySelector('.label');
+                const label2 = draggedElement.querySelector('.label');
+                const tempText = label1.textContent;
+                label1.textContent = label2.textContent;
+                label2.textContent = tempText;
+                console.log('Swapped labels');
+                
+                // Update connections
+                connectionData.forEach((conn, index) => {
+                    if (conn !== altConnection) {
+                        if (conn.source === component.id) {
+                            connectionData[index] = {...conn, source: droppedId};
+                        } else if (conn.source === droppedId) {
+                            connectionData[index] = {...conn, source: component.id};
+                        }
+                        if (conn.target === component.id) {
+                            connectionData[index] = {...conn, target: droppedId};
+                        } else if (conn.target === droppedId) {
+                            connectionData[index] = {...conn, target: component.id};
+                        }
+                    }
+                });
+                console.log('Updated connections');
+                
+                createConnections();
+                draggedId = null;
+            });
+
             component.addEventListener('contextmenu', (e) => showContextMenu(e, component));
         });
 
@@ -798,32 +941,38 @@
                 const target = document.getElementById(conn.target);
                 
                 if (source && target) {
-                    const sourceRect = source.getBoundingClientRect();
-                    const targetRect = target.getBoundingClientRect();
-                    const canvasRect = canvas.getBoundingClientRect();
+                    // Get positions from the stored component data
+                    const sourceData = componentData.find(c => c.id === conn.source);
+                    const targetData = componentData.find(c => c.id === conn.target);
                     
-                    // Calculate path relative to canvas
-                    const sourceX = sourceRect.left - canvasRect.left + sourceRect.width/2;
-                    const sourceY = sourceRect.top - canvasRect.top + sourceRect.height/2;
-                    const targetX = targetRect.left - canvasRect.left + targetRect.width/2;
-                    const targetY = targetRect.top - canvasRect.top + targetRect.height/2;
-                    
-                    // Create curved path
-                    const dx = targetX - sourceX;
-                    const dy = targetY - sourceY;
-                    const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
-                    
-                    // Create the SVG path element
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-                    line.classList.add('connection');
-                    line.dataset.type = conn.type;
-                    
-                    // Set the path data
-                    const path = `M ${sourceX} ${sourceY} C ${sourceX + curve} ${sourceY}, ${targetX - curve} ${targetY}, ${targetX} ${targetY}`;
-                    line.setAttribute('d', path);
-                    
-                    // Add to SVG
-                    svg.appendChild(line);
+                    if (sourceData && targetData) {
+                        // Get the actual dimensions
+                        const sourceRect = source.getBoundingClientRect();
+                        const targetRect = target.getBoundingClientRect();
+                        
+                        // Calculate center points using stored positions and actual dimensions
+                        const sourceX = sourceData.x + sourceRect.width/2;
+                        const sourceY = sourceData.y + sourceRect.height/2;
+                        const targetX = targetData.x + targetRect.width/2;
+                        const targetY = targetData.y + targetRect.height/2;
+                        
+                        // Create curved path
+                        const dx = targetX - sourceX;
+                        const dy = targetY - sourceY;
+                        const curve = Math.min(Math.abs(dx), Math.abs(dy)) * 0.5;
+                        
+                        // Create the SVG path element
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        line.classList.add('connection');
+                        line.dataset.type = conn.type;
+                        
+                        // Set the path data
+                        const path = `M ${sourceX} ${sourceY} C ${sourceX + curve} ${sourceY}, ${targetX - curve} ${targetY}, ${targetX} ${targetY}`;
+                        line.setAttribute('d', path);
+                        
+                        // Add to SVG
+                        svg.appendChild(line);
+                    }
                 }
             });
         }

@@ -262,6 +262,36 @@ class VisualizationProcessor:
 
         self.components.append(component)
         self.current_y += self.spacing
+
+        # Special handling for color scheme attributes
+        if attr.get("name") == "color scheme" and "visualization" in attr:
+            vis = attr["visualization"]
+            if vis.get("source") == "colors" and vis.get("name"):
+                colors = vis["name"].split("-")
+                # Create individual color nodes
+                for color in colors:
+                    color_id = f"color_{len(self.components)}"
+                    color_component = VisualizationComponent(
+                        id=color_id,
+                        type="color",
+                        label=color,
+                        x=x_offset + self.x_offset,
+                        y=self.current_y,
+                        width=120,
+                        height=50,
+                        properties={
+                            "visualization": {
+                                "source": "colors",
+                                "name": color,
+                                "images": [vis_props.get("images", [])[colors.index(color)]] if vis_props.get("images") else None
+                            }
+                        }
+                    )
+                    self.components.append(color_component)
+                    # Add composition connection
+                    self._add_connection(component_id, color_id, "composition", {})
+                    self.current_y += self.spacing
+
         return component_id
 
     def _add_relationship_component(self, rel: Dict[str, Any]) -> str:

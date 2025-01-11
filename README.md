@@ -14,7 +14,7 @@ Reify your natural language prompts
 >>> from reifire import reify
 >>> reify("Scary-cute baby Cthulu illustration with brown-green-purple color scheme. Wide outlines, childrens illustration style.")
 >>> { "object": {"name": "baby Cthulu"}, "type": {"name": "illustration"} }
-
+```
 
 ## Project description
 

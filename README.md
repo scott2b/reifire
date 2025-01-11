@@ -2,6 +2,8 @@
 
 Reify your natural language prompts
 
+**Note:** This project is still **very** pre-alpha/experimental/exploratory.
+
 ## Quickstart
 
 ### Install Reifire

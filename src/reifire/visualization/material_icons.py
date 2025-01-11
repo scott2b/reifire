@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-from typing import Optional, Dict, List, Set
+from typing import Any, Dict, List, Set, Optional
 import logging
 
 logger = logging.getLogger(__name__)
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 class MaterialIconProvider:
     """Provider for Material Design Icons."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize the Material Design Icons provider."""
         self.base_dir = os.environ.get("MATERIAL_DESIGN_ICONS_DIR")
         self.style = "materialicons"  # Default style
@@ -19,15 +19,14 @@ class MaterialIconProvider:
         self.resolution = "1x"  # Default resolution
         self._icon_cache: Dict[str, str] = {}
         self._available_icons: Dict[str, List[str]] = {}  # category -> icon names
-        self._term_to_icons: Dict[str, List[Tuple[str, str]]] = (
+        self._term_to_icons: Dict[str, List[tuple[str, str]]] = (
             {}
         )  # term -> [(category, icon_name)]
 
         if self.is_available():
             self._load_available_icons()
-            logger.info(
-                f"Loaded {sum(len(icons) for icons in self._available_icons.values())} Material Design icons"
-            )
+            total_icons = sum(len(icons) for icons in self._available_icons.values())
+            logger.info(f"Loaded {total_icons} Material Design icons")
 
     def is_available(self) -> bool:
         """Check if Material Design Icons are available."""
@@ -35,6 +34,9 @@ class MaterialIconProvider:
 
     def _load_available_icons(self) -> None:
         """Load all available icon names from the Material Design Icons directory."""
+        if not self.base_dir:
+            logger.warning("Material Design Icons directory not set")
+            return
         base_path = Path(self.base_dir) / "png"
         if not base_path.exists():
             logger.warning(f"Material Design Icons directory not found at {base_path}")
@@ -69,9 +71,8 @@ class MaterialIconProvider:
                         )
 
             if self._available_icons[category.name]:
-                logger.info(
-                    f"Loaded {len(self._available_icons[category.name])} icons from category {category.name}"
-                )
+                icon_count = len(self._available_icons[category.name])
+                logger.info(f"Loaded {icon_count} icons from category {category.name}")
             else:
                 logger.debug(f"No valid icons found in category {category.name}")
 
@@ -151,15 +152,9 @@ class MaterialIconProvider:
         return None
 
     def _build_icon_path(self, category: str, icon_name: str) -> Optional[Path]:
-        """Build the full path to a Material Design icon.
-
-        Args:
-            category: The icon category (e.g., 'action', 'alert')
-            icon_name: The name of the icon
-
-        Returns:
-            Path to the icon if it exists, None otherwise
-        """
+        """Build the full path to a Material Design icon."""
+        if not self.base_dir:
+            return None
         icon_path = (
             Path(self.base_dir)
             / "png"
@@ -171,3 +166,12 @@ class MaterialIconProvider:
             / f"baseline_{icon_name}_black_24dp.png"
         )
         return icon_path if icon_path.exists() else None
+
+    def get_icon_data(self, icon_name: str) -> dict[str, Any]:
+        """Get icon data for a given icon name."""
+        if not self.base_dir:
+            raise ValueError("Icon directory not set")
+        icon_path = self._build_icon_path(icon_name.split("/")[0], icon_name)
+        if not icon_path:
+            raise ValueError(f"Icon {icon_name} not found")
+        return {"path": str(icon_path), "name": icon_name}

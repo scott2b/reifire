@@ -283,9 +283,13 @@ class VisualizationProcessor:
                             "visualization": {
                                 "source": "colors",
                                 "name": color,
-                                "images": [vis_props.get("images", [])[colors.index(color)]] if vis_props.get("images") else None
+                                "images": (
+                                    [vis_props.get("images", [])[colors.index(color)]]
+                                    if vis_props.get("images")
+                                    else None
+                                ),
                             }
-                        }
+                        },
                     )
                     self.components.append(color_component)
                     # Add composition connection

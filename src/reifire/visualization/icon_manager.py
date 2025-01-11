@@ -1,6 +1,6 @@
 """Icon management for visualizations."""
 
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional
 from .nounproject import NounProjectClient
 from reifire.icon_registry import IconRegistry
 from .material_icons import MaterialIconProvider
@@ -18,20 +18,29 @@ class IconManager:
         "modifier": "https://raw.githubusercontent.com/primer/octicons/main/icons/gear-24.svg",
         "type": "https://raw.githubusercontent.com/primer/octicons/main/icons/file-code-24.svg",
         "artifact": "https://raw.githubusercontent.com/primer/octicons/main/icons/file-24.svg",
-        "attribute": "https://raw.githubusercontent.com/primer/octicons/main/icons/list-unordered-24.svg",
-        "alternative": "https://raw.githubusercontent.com/primer/octicons/main/icons/git-branch-24.svg",
-        "relationship": "https://raw.githubusercontent.com/primer/octicons/main/icons/link-24.svg",
+        "attribute": (
+            "https://raw.githubusercontent.com/primer/octicons/main/icons/list-unordered-24.svg"
+        ),
+        "alternative": (
+            "https://raw.githubusercontent.com/primer/octicons/main/icons/git-branch-24.svg"
+        ),
         # Add more specific fallbacks for UI components
-        "ui_component": "https://raw.githubusercontent.com/primer/octicons/main/icons/browser-24.svg",
+        "ui_component": (
+            "https://raw.githubusercontent.com/primer/octicons/main/icons/browser-24.svg"
+        ),
         "form_element": "https://raw.githubusercontent.com/primer/octicons/main/icons/form-24.svg",
-        "navigation": "https://raw.githubusercontent.com/primer/octicons/main/icons/navigation-24.svg",
+        "navigation": (
+            "https://raw.githubusercontent.com/primer/octicons/main/icons/navigation-24.svg"
+        ),
         "data_display": "https://raw.githubusercontent.com/primer/octicons/main/icons/graph-24.svg",
         "feedback": "https://raw.githubusercontent.com/primer/octicons/main/icons/comment-24.svg",
         "layout": "https://raw.githubusercontent.com/primer/octicons/main/icons/layout-24.svg",
         # Add more specific fallbacks for technical components
         "api": "https://raw.githubusercontent.com/primer/octicons/main/icons/api-24.svg",
         "database": "https://raw.githubusercontent.com/primer/octicons/main/icons/database-24.svg",
-        "security": "https://raw.githubusercontent.com/primer/octicons/main/icons/shield-lock-24.svg",
+        "security": (
+            "https://raw.githubusercontent.com/primer/octicons/main/icons/shield-lock-24.svg"
+        ),
         "analytics": "https://raw.githubusercontent.com/primer/octicons/main/icons/graph-24.svg",
         "deployment": "https://raw.githubusercontent.com/primer/octicons/main/icons/rocket-24.svg",
     }
@@ -106,51 +115,64 @@ class IconManager:
                 return category
         return "default"
 
-    def get_visualization_properties(self, obj: Dict[str, Any]) -> Dict[str, Any]:
-        """Get visualization properties for an object.
-
-        Args:
-            obj: The object to get visualization properties for
-
-        Returns:
-            A dictionary of visualization properties
-        """
+    def get_visualization_properties(self, obj: Dict[str, Any]) -> dict[str, Any]:
+        """Get visualization properties for an object."""
         # If visualization properties are already specified, use those
         if "visualization" in obj:
             vis_props = obj["visualization"]
-            
+            if not isinstance(vis_props, dict):
+                raise ValueError("Visualization properties must be a dictionary")
+
             # Handle color swatches
             if vis_props.get("source") == "colors":
                 print(f"  Generating color swatches for: {vis_props.get('name', '')}")
                 colors = vis_props["name"].split("-")
                 swatches = ColorSwatchGenerator.generate_swatches(colors)
-                
+
                 # Convert SVG strings to data URLs
                 data_urls = []
                 for swatch in swatches:
                     b64 = base64.b64encode(swatch.encode()).decode()
                     data_urls.append(f"data:image/svg+xml;base64,{b64}")
-                
-                vis_props["images"] = data_urls
-                vis_props["source"] = "colors"
-                return vis_props
-            
+
+                return {
+                    "images": data_urls,
+                    "source": "colors",
+                    "name": vis_props.get("name", ""),
+                }
+
             # Handle existing icon sources
             if "name" in vis_props and "source" in vis_props:
+                result: dict[str, Any] = {
+                    "name": vis_props["name"],
+                    "source": vis_props["source"],
+                }
+
                 if vis_props["source"] == "nounproject":
-                    print(f"  Noun Project icon specified with name: {vis_props['name']}")
+                    print(
+                        f"  Noun Project icon specified with name: {vis_props['name']}"
+                    )
                     icon_url = self._get_or_fetch_icon(vis_props["name"])
                     if icon_url:
                         print(f"  Updated placeholder with real icon URL: {icon_url}")
-                        vis_props["image"] = icon_url
+                        result["image"] = icon_url
                     else:
                         print("  Using fallback icon for failed Noun Project fetch")
                         category = self._get_component_category(vis_props["name"])
-                        vis_props["image"] = self.FALLBACK_ICONS.get(category, self.FALLBACK_ICONS["default"])
+                        result["image"] = self.FALLBACK_ICONS.get(
+                            category, self.FALLBACK_ICONS["default"]
+                        )
                 elif vis_props["source"] in ["openai", "custom"]:
-                    print(f"  Using fallback icon for {vis_props['source']} source: {self.FALLBACK_ICONS['default']}")
-                    vis_props["image"] = self.FALLBACK_ICONS["default"]
-            return vis_props
+                    print(
+                        "  Using fallback icon for {source} source: "
+                        "{fallback}".format(
+                            source=vis_props["source"],
+                            fallback=self.FALLBACK_ICONS["default"],
+                        )
+                    )
+                    result["image"] = self.FALLBACK_ICONS["default"]
+                return result
+            return dict(vis_props)
 
         # If an icon is specified directly, use that
         if "icon" in obj:
@@ -165,11 +187,9 @@ class IconManager:
         icon_name = obj.get("name", "") or obj.get("type", "")
         if not icon_name:
             print("  No name or type found to fetch icon for")
-            # Use default fallback icon
             return {"image": self.FALLBACK_ICONS["default"], "source": "fallback"}
 
         print(f"  Attempting to fetch icon for: {icon_name}")
-        # Try to get or fetch an icon
         icon_url = self._get_or_fetch_icon(icon_name)
         if icon_url:
             print(f"  Successfully got icon URL: {icon_url}")
@@ -177,7 +197,6 @@ class IconManager:
             return {"image": icon_url, "name": icon_name, "source": source}
 
         print("  No icon found or fetched, using fallback")
-        # Use fallback icon based on component category and type
         category = self._get_component_category(icon_name)
         component_type = obj.get("type", "default").lower()
         fallback_url = self.FALLBACK_ICONS.get(
@@ -212,7 +231,8 @@ class IconManager:
                 return icon_path
 
         print(
-            "  Icon not found in Material Design Icons, attempting to fetch from Noun Project..."
+            "  Icon not found in Material Design Icons, "
+            "attempting to fetch from Noun Project..."
         )
         # Try to fetch from Noun Project
         try:
@@ -243,3 +263,47 @@ class IconManager:
         except Exception as e:
             print(f"  Error fetching icon: {str(e)}")
             return None
+
+    def get_icon_data(
+        self, icon_name: str, icon_type: Optional[str] = None
+    ) -> dict[str, Any]:
+        """Get icon data for a given icon name and type.
+
+        Args:
+            icon_name: The name of the icon to retrieve
+            icon_type: The type of icon to retrieve. If not specified, will search all
+                registered icon types.
+
+        Returns:
+            A dictionary containing the icon data
+        """
+        if icon_type is not None:
+            if icon_type not in ["material", "nounproject"]:
+                raise ValueError(
+                    f"Icon type {icon_type} not found. Available types: material, nounproject"
+                )
+            if icon_type == "material" and self.material_provider.is_available():
+                return self.material_provider.get_icon_data(icon_name)
+            elif icon_type == "nounproject":
+                icon_url = self._get_or_fetch_icon(icon_name)
+                if icon_url:
+                    return {
+                        "image": icon_url,
+                        "name": icon_name,
+                        "source": "nounproject",
+                    }
+            raise ValueError(f"Icon {icon_name} not found in {icon_type}")
+
+        # Try material icons first if available
+        if self.material_provider.is_available():
+            try:
+                return self.material_provider.get_icon_data(icon_name)
+            except ValueError:
+                pass
+
+        # Try noun project
+        icon_url = self._get_or_fetch_icon(icon_name)
+        if icon_url:
+            return {"image": icon_url, "name": icon_name, "source": "nounproject"}
+
+        raise ValueError(f"Icon {icon_name} not found in any available icon types")

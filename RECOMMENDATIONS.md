@@ -255,7 +255,7 @@ ModuleNotFoundError: No module named 'reifire'
 2. Add `PYTHONPATH=src` to pytest configuration
 3. Install dev dependencies: `pip install pytest pytest-cov pytest-asyncio`
 4. Add `conftest.py` at project root with path setup
-5. Set up tox for isolated testing
+5. Set up hatch for isolated testing environments
 6. Add GitHub Actions CI workflow
 
 **Test Coverage Needed**:

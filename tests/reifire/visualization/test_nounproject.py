@@ -38,8 +38,8 @@ def test_get_icon(mock_client: NounProjectClient) -> None:
         mock_request.return_value = mock_response
 
         result = mock_client.get_icon("123")
-        assert "icon" in result
-        assert result["icon"]["id"] == "123"
+        assert result["id"] == "123"
+        assert result["preview_url"] == "http://example.com"
 
 
 def test_search_icons(mock_client: NounProjectClient) -> None:

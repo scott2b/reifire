@@ -1,8 +1,140 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "reifire"
 version = "0.1.0"
-dynamic = ["dependencies"] 
+description = "A data model framework for reification workflows"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Your Name", email = "your.email@example.com"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "requests>=2.25.0",
+    "requests_oauthlib>=1.3.0",
+    "nltk>=3.8.1",
+    "jinja2>=3.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+]
+lint = [
+    "flake8>=6.1.0",
+    "black>=23.7.0",
+]
+typecheck = [
+    "mypy>=1.5.1",
+    "types-requests>=2.31.0.2",
+]
+dev = [
+    "reifire[test,lint,typecheck]",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/reifire"]
+
+[tool.hatch.envs.default]
+features = ["test"]
+
+[tool.hatch.envs.default.scripts]
+test = "pytest {args:tests}"
+test-cov = "pytest --cov=src/reifire --cov-report=term-missing {args:tests}"
+cov-report = "pytest --cov=src/reifire --cov-report=html {args:tests}"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["3.9", "3.10", "3.11"]
+
+[tool.hatch.envs.lint]
+features = ["lint"]
+detached = true
+
+[tool.hatch.envs.lint.scripts]
+check = [
+    "black --check src tests",
+    "flake8 src tests",
+]
+format = "black src tests"
+
+[tool.hatch.envs.typecheck]
+features = ["typecheck", "test"]
+detached = true
+
+[tool.hatch.envs.typecheck.scripts]
+check = "mypy src tests --ignore-missing-imports"
+
+[tool.hatch.envs.integration]
+features = ["test"]
+detached = true
+
+[tool.hatch.envs.integration.scripts]
+test = "pytest -v -s -m integration {args:tests}"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+markers = [
+    "integration: marks tests as integration tests that require API credentials",
+]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311"]
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "*/migrations/*", "*/static/CACHE/*", "docs", "node_modules", "venv", ".venv", "__pycache__", ".eggs", "*.egg", "build", "dist"]
+extend-ignore = ["E203"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+ignore_missing_imports = true
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 100
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["*/tests/*", "*/test_*.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]

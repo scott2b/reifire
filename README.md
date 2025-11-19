@@ -150,16 +150,22 @@ For a complete specification of the reification data structure, see DATASPEC.md
 
 ### Running Tests
 
-Run all tests with tox (all Python versions and checks):
+Run all tests with hatch (all Python versions and checks):
 ```bash
-tox
+hatch test
 ```
 
 Run specific test environments:
 ```bash
-tox -e py39        # Run tests on Python 3.9
-tox -e lint        # Run linting
-tox -e typecheck   # Run type checking
+hatch run test             # Run tests in default environment
+hatch run lint:check       # Run linting
+hatch run typecheck:check  # Run type checking
+hatch run integration:test # Run integration tests
+```
+
+Run tests with coverage:
+```bash
+hatch run test-cov        # Run tests with coverage report
 ```
 
 Run pytest directly (faster for development):
@@ -195,12 +201,8 @@ reifire/
 ├── tests/             # Test suite
 │   └── reifire/       # Package tests
 ├── scripts/           # Development scripts
-├── .coveragerc        # Coverage configuration
 ├── .pre-commit-config.yaml  # Pre-commit hook configuration
-├── pyproject.toml     # Project metadata and build config
-├── setup.cfg         # Tool configurations
-├── setup.py         # Package setup
-└── tox.ini          # Test automation config
+└── pyproject.toml     # Project metadata, build config, and tool configurations
 ```
 
 ## Icons

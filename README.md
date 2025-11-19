@@ -2,21 +2,50 @@
 
 Reify your natural language prompts
 
-**Note:** This project is still **very** pre-alpha/experimental/exploratory.
+**⚠️ Current Status: Pre-Alpha / Experimental**
+
+**Important:** The core `reify()` function (natural language → reified data) is **not yet implemented**.
+Currently available:
+- ✅ `articulate()` - Convert reified data structures back to natural language
+- ✅ `articulate_alternatives()` - Generate prompt variants
+- ✅ Visualization system - Interactive HTML visualizations
+- ✅ Icon integration - Noun Project, Material Icons, Octicons
+
+The `reify()` function is planned for a future release. See RECOMMENDATIONS.md for the implementation roadmap.
 
 ## Quickstart
 
 ### Install Reifire
 
-(T.B.D.)
-
-### Reifiy a prompt
-
+```bash
+# From source (development)
+git clone https://github.com/scott2b/reifire.git
+cd reifire
+pip install -e .
 ```
->>> from reifire import reify
->>> reify("Scary-cute baby Cthulu illustration with brown-green-purple color scheme. Wide outlines, childrens illustration style.")
->>> { "object": {"name": "baby Cthulu"}, "type": {"name": "illustration"} }
+
+### Articulate a reified data structure
+
+Currently, you can convert pre-existing reified data structures back to natural language:
+
+```python
+>>> from reifire import articulate
+>>> reified = {
+...     "object": {"name": "baby Cthulhu", "modifiers": []},
+...     "type": {"name": "illustration", "category": "visual"},
+...     "artifact": {
+...         "type": "illustration",
+...         "attributes": [
+...             {"name": "style", "value": "children's illustration"},
+...             {"name": "color scheme", "value": "brown-green-purple"}
+...         ]
+...     }
+... }
+>>> articulate(reified)
+'Create a baby Cthulhu illustration in children's illustration style with a brown-green-purple color scheme.'
 ```
+
+See `examples/` directory for complete reified data structure examples.
 
 ## Project description
 
@@ -50,36 +79,45 @@ The goal of the Reifire project is to give developers resources for easily integ
 reification of natural language prompts into their projects.
 
 
-## Reification process
+## Reification process (Planned)
 
-Reifire parses a natural language prompt into components and converts them into constructs
-that can be utilized in a visual computing environment. Usually this will mean presenting
+**Note:** This section describes planned functionality that is not yet implemented.
+
+Reifire will parse natural language prompts into components and convert them into constructs
+that can be utilized in a visual computing environment. This will mean presenting
 object icons or other visual placeholders to the user for selection, manipulation, etc.
 The model for the specific use case in mind is illustrated in the diagram above from the
 Microsoft 2024 NFW report.
 
-Reification is as simple as calling reifiy on a natural language prompt:
+When implemented, reification will be as simple as:
 
-```
-from reifire import reify
+```python
+from reifire import reify  # Planned - not yet implemented
 reification = reify(prompt)
 ```
 
+Currently, the reverse process (articulation) is fully implemented - see examples above.
+
 ## Visualizations
 
-Reifire can call out to external libraries in order to create visualization components
-as artifacts of reification. Currently the following are supported:
+Reifire can create visualization components for reified data structures.
+Currently the following icon sources are supported:
 
   - [the Noun Project API](https://api.thenounproject.com/)
-  - Image generation calls to OpenAI
-  - color blocks
+  - Material Design Icons (local)
+  - Octicons (fallback)
 
-Multiple visualiazation schemes can be passed to `reify` to support a fallback mechanism
-for finding or generating component images.
+The visualization system generates interactive HTML representations of reified structures.
+See `examples/*.html` for examples of generated visualizations.
 
-```
+**Planned:** When the `reify()` function is implemented, multiple visualization schemes will
+support a fallback mechanism for finding or generating component images.
+
+Example of planned API:
+
+```python
 >>> import json
->>> from reifire import reify
+>>> from reifire import reify  # Planned - not yet implemented
 >>> from reifire.viz.types import COLORS, NOUNPROJECT, OPENAI
 >>> r = reify(prompt, visualization=COLORS|NOUNPROJECT|OPENAI)
 >>> print(json.dumps(r, indent=4))

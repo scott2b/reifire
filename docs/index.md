@@ -212,20 +212,6 @@ flake8 src tests
 mypy src tests
 ```
 
-### Documentation
-
-The project documentation is built with [MkDocs](https://www.mkdocs.org/) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
-
-To serve the documentation locally:
-```bash
-mkdocs serve
-```
-
-To build the documentation:
-```bash
-mkdocs build
-```
-
 ### Project Structure
 
 ```

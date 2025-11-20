@@ -1,0 +1,44 @@
+site_name: Reifire
+site_description: A data model framework for reification workflows
+site_author: Scott2b
+
+repo_url: https://github.com/scott2b/reifire
+repo_name: scott2b/reifire
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - toc.integrate
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+
+nav:
+  - Home: index.md
+  - User Guide:
+    - Data Structure: data-structure.md
+    - Visualization: visualization.md
+  - API Reference: api.md
+  - Project Info:
+    - Roadmap: project-info/roadmap.md

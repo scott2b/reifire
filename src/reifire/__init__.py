@@ -3,3 +3,4 @@
 __version__ = "0.1.0"
 
 from .articulation import articulate, articulate_alternatives  # noqa: F401
+from .reification import reify  # noqa: F401

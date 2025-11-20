@@ -2,16 +2,14 @@
 
 Reify your natural language prompts
 
-**⚠️ Current Status: Pre-Alpha / Experimental**
-
-**Important:** The core `reify()` function (natural language → reified data) is **not yet implemented**.
+**⚠️ Current Status: Alpha / Experimental**
+ 
 Currently available:
+- ✅ `reify()` - Convert natural language prompts to reified data (Basic NLP + Noun Project)
 - ✅ `articulate()` - Convert reified data structures back to natural language
 - ✅ `articulate_alternatives()` - Generate prompt variants
 - ✅ Visualization system - Interactive HTML visualizations
 - ✅ Icon integration - Noun Project, Material Icons, Octicons
-
-The `reify()` function is planned for a future release. See RECOMMENDATIONS.md for the implementation roadmap.
 
 ## Quickstart
 
@@ -79,24 +77,26 @@ The goal of the Reifire project is to give developers resources for easily integ
 reification of natural language prompts into their projects.
 
 
-## Reification process (Planned)
-
-**Note:** This section describes planned functionality that is not yet implemented.
-
-Reifire will parse natural language prompts into components and convert them into constructs
-that can be utilized in a visual computing environment. This will mean presenting
-object icons or other visual placeholders to the user for selection, manipulation, etc.
-The model for the specific use case in mind is illustrated in the diagram above from the
-Microsoft 2024 NFW report.
-
-When implemented, reification will be as simple as:
-
+## Reification process
+ 
+Reifire parses natural language prompts into structured components and enriches them with visualizations.
+The current implementation uses **Spacy** for Natural Language Processing (NLP) to extract key concepts (nouns, verbs, adjectives) and the **Noun Project API** to find relevant icons.
+ 
+### Basic Usage
+ 
 ```python
-from reifire import reify  # Planned - not yet implemented
-reification = reify(prompt)
+from reifire import reify
+ 
+# Reify a simple prompt
+reification = reify("raining cats and dogs")
+ 
+# Result includes:
+# - Primary object: "raining cats and dogs"
+# - Attributes: "rain", "cat", "dog" (extracted keywords)
+# - Visualizations: Icons for each attribute from Noun Project
 ```
-
-Currently, the reverse process (articulation) is fully implemented - see examples above.
+ 
+Currently, the reverse process (articulation) is also fully implemented - see examples above.
 
 ## Visualizations
 
@@ -110,23 +110,6 @@ Currently the following icon sources are supported:
 The visualization system generates interactive HTML representations of reified structures.
 See `examples/*.html` for examples of generated visualizations.
 
-**Planned:** When the `reify()` function is implemented, multiple visualization schemes will
-support a fallback mechanism for finding or generating component images.
-
-Example of planned API:
-
-```python
->>> import json
->>> from reifire import reify  # Planned - not yet implemented
->>> from reifire.viz.types import COLORS, NOUNPROJECT, OPENAI
->>> r = reify(prompt, visualization=COLORS|NOUNPROJECT|OPENAI)
->>> print(json.dumps(r, indent=4))
-{
-    "object": {
-        "name": "baby Cthulu",
-        "visualization": {
-            "source": "openai",
-            "name": "baby cthulu",
             "image": "bc.png"
         }
     },

@@ -53,6 +53,7 @@ class NounProjectClient:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.rate_limit = rate_limit
         self._last_request_time: float = 0.0
+        self._cache: Dict[str, Any] = {}
 
         # Test the credentials with a simple API call
         try:
@@ -162,42 +163,33 @@ class NounProjectClient:
         return icon_data
 
     def search_icons(self, term: str, limit: int = 10) -> Dict[str, Any]:
-        """Search for icons matching a term.
-
-        Args:
-            term: The search term
-            limit: Maximum number of results to return
-
-        Returns:
-            A dictionary containing the search results
         """
-        print(f"Searching for icons matching term: {term}")
+        Search for icons by term.
+        
+        Args:
+            term: Search term
+            limit: Maximum number of results
+            
+        Returns:
+            Dictionary containing search results
+        """
+        # Check cache first
+        cache_key = f"search:{term}:{limit}"
+        if cache_key in self._cache:
+            return self._cache[cache_key]
+
+        # Search for icons directly
         response = self._make_request(
-            "collection",
+            "icon",
             params={
                 "query": term,
                 "limit": limit,
+                "thumbnail_size": 84,
+                "include_svg": 1
             },
         )
 
-        # Extract and process the icons from the response
-        collections = response.get("collections", [])
-        if not collections:
-            return {"icons": []}
-
-        # Get the first collection's icons
-        collection_id = collections[0]["id"]
-        collection_response = self._make_request(
-            f"collection/{collection_id}",
-            params={
-                "limit": limit,
-                "thumbnail_size": 84,  # API docs specify valid sizes: 42, 84, 200
-                "include_svg": 1,  # API docs specify this is needed for SVG URLs
-            },
-        )
-
-        collection = collection_response.get("collection", {})
-        icons = collection.get("icons", [])
+        icons = response.get("icons", [])
         print(f"Found {len(icons)} icons")
 
         # Filter out icons without preview URLs and ensure each has one

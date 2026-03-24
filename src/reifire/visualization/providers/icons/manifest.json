@@ -1,0 +1,4951 @@
+{
+  "icons": {
+    "lucide/package": {
+      "name": "package",
+      "set": "lucide",
+      "tags": [
+        "package"
+      ],
+      "file": "lucide/package.svg"
+    },
+    "lucide/box": {
+      "name": "box",
+      "set": "lucide",
+      "tags": [
+        "box"
+      ],
+      "file": "lucide/box.svg"
+    },
+    "lucide/archive": {
+      "name": "archive",
+      "set": "lucide",
+      "tags": [
+        "archive"
+      ],
+      "file": "lucide/archive.svg"
+    },
+    "lucide/gift": {
+      "name": "gift",
+      "set": "lucide",
+      "tags": [
+        "gift"
+      ],
+      "file": "lucide/gift.svg"
+    },
+    "lucide/file": {
+      "name": "file",
+      "set": "lucide",
+      "tags": [
+        "file"
+      ],
+      "file": "lucide/file.svg"
+    },
+    "lucide/file-text": {
+      "name": "file-text",
+      "set": "lucide",
+      "tags": [
+        "file-text",
+        "file",
+        "text"
+      ],
+      "file": "lucide/file-text.svg"
+    },
+    "lucide/file-code": {
+      "name": "file-code",
+      "set": "lucide",
+      "tags": [
+        "file-code",
+        "file",
+        "code"
+      ],
+      "file": "lucide/file-code.svg"
+    },
+    "lucide/file-image": {
+      "name": "file-image",
+      "set": "lucide",
+      "tags": [
+        "file-image",
+        "file",
+        "image"
+      ],
+      "file": "lucide/file-image.svg"
+    },
+    "lucide/folder": {
+      "name": "folder",
+      "set": "lucide",
+      "tags": [
+        "folder"
+      ],
+      "file": "lucide/folder.svg"
+    },
+    "lucide/folder-open": {
+      "name": "folder-open",
+      "set": "lucide",
+      "tags": [
+        "folder-open",
+        "folder",
+        "open"
+      ],
+      "file": "lucide/folder-open.svg"
+    },
+    "lucide/image": {
+      "name": "image",
+      "set": "lucide",
+      "tags": [
+        "image"
+      ],
+      "file": "lucide/image.svg"
+    },
+    "lucide/camera": {
+      "name": "camera",
+      "set": "lucide",
+      "tags": [
+        "camera"
+      ],
+      "file": "lucide/camera.svg"
+    },
+    "lucide/video": {
+      "name": "video",
+      "set": "lucide",
+      "tags": [
+        "video"
+      ],
+      "file": "lucide/video.svg"
+    },
+    "lucide/music": {
+      "name": "music",
+      "set": "lucide",
+      "tags": [
+        "music"
+      ],
+      "file": "lucide/music.svg"
+    },
+    "lucide/mic": {
+      "name": "mic",
+      "set": "lucide",
+      "tags": [
+        "mic"
+      ],
+      "file": "lucide/mic.svg"
+    },
+    "lucide/book": {
+      "name": "book",
+      "set": "lucide",
+      "tags": [
+        "book"
+      ],
+      "file": "lucide/book.svg"
+    },
+    "lucide/book-open": {
+      "name": "book-open",
+      "set": "lucide",
+      "tags": [
+        "book-open",
+        "book",
+        "open"
+      ],
+      "file": "lucide/book-open.svg"
+    },
+    "lucide/notebook": {
+      "name": "notebook",
+      "set": "lucide",
+      "tags": [
+        "notebook"
+      ],
+      "file": "lucide/notebook.svg"
+    },
+    "lucide/bookmark": {
+      "name": "bookmark",
+      "set": "lucide",
+      "tags": [
+        "bookmark"
+      ],
+      "file": "lucide/bookmark.svg"
+    },
+    "lucide/pen": {
+      "name": "pen",
+      "set": "lucide",
+      "tags": [
+        "pen"
+      ],
+      "file": "lucide/pen.svg"
+    },
+    "lucide/pencil": {
+      "name": "pencil",
+      "set": "lucide",
+      "tags": [
+        "pencil"
+      ],
+      "file": "lucide/pencil.svg"
+    },
+    "lucide/brush": {
+      "name": "brush",
+      "set": "lucide",
+      "tags": [
+        "brush"
+      ],
+      "file": "lucide/brush.svg"
+    },
+    "lucide/palette": {
+      "name": "palette",
+      "set": "lucide",
+      "tags": [
+        "palette"
+      ],
+      "file": "lucide/palette.svg"
+    },
+    "lucide/paintbrush": {
+      "name": "paintbrush",
+      "set": "lucide",
+      "tags": [
+        "paintbrush"
+      ],
+      "file": "lucide/paintbrush.svg"
+    },
+    "lucide/scissors": {
+      "name": "scissors",
+      "set": "lucide",
+      "tags": [
+        "scissors"
+      ],
+      "file": "lucide/scissors.svg"
+    },
+    "lucide/paperclip": {
+      "name": "paperclip",
+      "set": "lucide",
+      "tags": [
+        "paperclip"
+      ],
+      "file": "lucide/paperclip.svg"
+    },
+    "lucide/pin": {
+      "name": "pin",
+      "set": "lucide",
+      "tags": [
+        "pin"
+      ],
+      "file": "lucide/pin.svg"
+    },
+    "lucide/key": {
+      "name": "key",
+      "set": "lucide",
+      "tags": [
+        "key"
+      ],
+      "file": "lucide/key.svg"
+    },
+    "lucide/lock": {
+      "name": "lock",
+      "set": "lucide",
+      "tags": [
+        "lock"
+      ],
+      "file": "lucide/lock.svg"
+    },
+    "lucide/shield": {
+      "name": "shield",
+      "set": "lucide",
+      "tags": [
+        "shield"
+      ],
+      "file": "lucide/shield.svg"
+    },
+    "lucide/shield-check": {
+      "name": "shield-check",
+      "set": "lucide",
+      "tags": [
+        "shield-check",
+        "shield",
+        "check"
+      ],
+      "file": "lucide/shield-check.svg"
+    },
+    "lucide/heart": {
+      "name": "heart",
+      "set": "lucide",
+      "tags": [
+        "heart"
+      ],
+      "file": "lucide/heart.svg"
+    },
+    "lucide/star": {
+      "name": "star",
+      "set": "lucide",
+      "tags": [
+        "star"
+      ],
+      "file": "lucide/star.svg"
+    },
+    "lucide/flag": {
+      "name": "flag",
+      "set": "lucide",
+      "tags": [
+        "flag"
+      ],
+      "file": "lucide/flag.svg"
+    },
+    "lucide/trophy": {
+      "name": "trophy",
+      "set": "lucide",
+      "tags": [
+        "trophy"
+      ],
+      "file": "lucide/trophy.svg"
+    },
+    "lucide/award": {
+      "name": "award",
+      "set": "lucide",
+      "tags": [
+        "award"
+      ],
+      "file": "lucide/award.svg"
+    },
+    "lucide/medal": {
+      "name": "medal",
+      "set": "lucide",
+      "tags": [
+        "medal"
+      ],
+      "file": "lucide/medal.svg"
+    },
+    "lucide/clock": {
+      "name": "clock",
+      "set": "lucide",
+      "tags": [
+        "clock"
+      ],
+      "file": "lucide/clock.svg"
+    },
+    "lucide/timer": {
+      "name": "timer",
+      "set": "lucide",
+      "tags": [
+        "timer"
+      ],
+      "file": "lucide/timer.svg"
+    },
+    "lucide/calendar": {
+      "name": "calendar",
+      "set": "lucide",
+      "tags": [
+        "calendar"
+      ],
+      "file": "lucide/calendar.svg"
+    },
+    "lucide/alarm-clock": {
+      "name": "alarm-clock",
+      "set": "lucide",
+      "tags": [
+        "alarm-clock",
+        "alarm",
+        "clock"
+      ],
+      "file": "lucide/alarm-clock.svg"
+    },
+    "lucide/map": {
+      "name": "map",
+      "set": "lucide",
+      "tags": [
+        "map"
+      ],
+      "file": "lucide/map.svg"
+    },
+    "lucide/map-pin": {
+      "name": "map-pin",
+      "set": "lucide",
+      "tags": [
+        "map-pin",
+        "map",
+        "pin"
+      ],
+      "file": "lucide/map-pin.svg"
+    },
+    "lucide/compass": {
+      "name": "compass",
+      "set": "lucide",
+      "tags": [
+        "compass"
+      ],
+      "file": "lucide/compass.svg"
+    },
+    "lucide/navigation": {
+      "name": "navigation",
+      "set": "lucide",
+      "tags": [
+        "navigation"
+      ],
+      "file": "lucide/navigation.svg"
+    },
+    "lucide/globe": {
+      "name": "globe",
+      "set": "lucide",
+      "tags": [
+        "globe"
+      ],
+      "file": "lucide/globe.svg"
+    },
+    "lucide/building": {
+      "name": "building",
+      "set": "lucide",
+      "tags": [
+        "building"
+      ],
+      "file": "lucide/building.svg"
+    },
+    "lucide/building-2": {
+      "name": "building-2",
+      "set": "lucide",
+      "tags": [
+        "building-2",
+        "building",
+        "2"
+      ],
+      "file": "lucide/building-2.svg"
+    },
+    "lucide/store": {
+      "name": "store",
+      "set": "lucide",
+      "tags": [
+        "store"
+      ],
+      "file": "lucide/store.svg"
+    },
+    "lucide/warehouse": {
+      "name": "warehouse",
+      "set": "lucide",
+      "tags": [
+        "warehouse"
+      ],
+      "file": "lucide/warehouse.svg"
+    },
+    "lucide/car": {
+      "name": "car",
+      "set": "lucide",
+      "tags": [
+        "car"
+      ],
+      "file": "lucide/car.svg"
+    },
+    "lucide/truck": {
+      "name": "truck",
+      "set": "lucide",
+      "tags": [
+        "truck"
+      ],
+      "file": "lucide/truck.svg"
+    },
+    "lucide/plane": {
+      "name": "plane",
+      "set": "lucide",
+      "tags": [
+        "plane"
+      ],
+      "file": "lucide/plane.svg"
+    },
+    "lucide/bike": {
+      "name": "bike",
+      "set": "lucide",
+      "tags": [
+        "bike"
+      ],
+      "file": "lucide/bike.svg"
+    },
+    "lucide/ship": {
+      "name": "ship",
+      "set": "lucide",
+      "tags": [
+        "ship"
+      ],
+      "file": "lucide/ship.svg"
+    },
+    "lucide/rocket": {
+      "name": "rocket",
+      "set": "lucide",
+      "tags": [
+        "rocket"
+      ],
+      "file": "lucide/rocket.svg"
+    },
+    "lucide/lamp": {
+      "name": "lamp",
+      "set": "lucide",
+      "tags": [
+        "lamp"
+      ],
+      "file": "lucide/lamp.svg"
+    },
+    "lucide/lightbulb": {
+      "name": "lightbulb",
+      "set": "lucide",
+      "tags": [
+        "lightbulb"
+      ],
+      "file": "lucide/lightbulb.svg"
+    },
+    "lucide/flashlight": {
+      "name": "flashlight",
+      "set": "lucide",
+      "tags": [
+        "flashlight"
+      ],
+      "file": "lucide/flashlight.svg"
+    },
+    "lucide/sun": {
+      "name": "sun",
+      "set": "lucide",
+      "tags": [
+        "sun"
+      ],
+      "file": "lucide/sun.svg"
+    },
+    "lucide/moon": {
+      "name": "moon",
+      "set": "lucide",
+      "tags": [
+        "moon"
+      ],
+      "file": "lucide/moon.svg"
+    },
+    "lucide/cloud": {
+      "name": "cloud",
+      "set": "lucide",
+      "tags": [
+        "cloud"
+      ],
+      "file": "lucide/cloud.svg"
+    },
+    "lucide/umbrella": {
+      "name": "umbrella",
+      "set": "lucide",
+      "tags": [
+        "umbrella"
+      ],
+      "file": "lucide/umbrella.svg"
+    },
+    "lucide/thermometer": {
+      "name": "thermometer",
+      "set": "lucide",
+      "tags": [
+        "thermometer"
+      ],
+      "file": "lucide/thermometer.svg"
+    },
+    "lucide/flame": {
+      "name": "flame",
+      "set": "lucide",
+      "tags": [
+        "flame"
+      ],
+      "file": "lucide/flame.svg"
+    },
+    "lucide/droplet": {
+      "name": "droplet",
+      "set": "lucide",
+      "tags": [
+        "droplet"
+      ],
+      "file": "lucide/droplet.svg"
+    },
+    "lucide/snowflake": {
+      "name": "snowflake",
+      "set": "lucide",
+      "tags": [
+        "snowflake"
+      ],
+      "file": "lucide/snowflake.svg"
+    },
+    "lucide/wind": {
+      "name": "wind",
+      "set": "lucide",
+      "tags": [
+        "wind"
+      ],
+      "file": "lucide/wind.svg"
+    },
+    "lucide/zap": {
+      "name": "zap",
+      "set": "lucide",
+      "tags": [
+        "zap"
+      ],
+      "file": "lucide/zap.svg"
+    },
+    "lucide/flower": {
+      "name": "flower",
+      "set": "lucide",
+      "tags": [
+        "flower"
+      ],
+      "file": "lucide/flower.svg"
+    },
+    "lucide/leaf": {
+      "name": "leaf",
+      "set": "lucide",
+      "tags": [
+        "leaf"
+      ],
+      "file": "lucide/leaf.svg"
+    },
+    "lucide/sprout": {
+      "name": "sprout",
+      "set": "lucide",
+      "tags": [
+        "sprout"
+      ],
+      "file": "lucide/sprout.svg"
+    },
+    "lucide/bug": {
+      "name": "bug",
+      "set": "lucide",
+      "tags": [
+        "bug"
+      ],
+      "file": "lucide/bug.svg"
+    },
+    "lucide/fish": {
+      "name": "fish",
+      "set": "lucide",
+      "tags": [
+        "fish"
+      ],
+      "file": "lucide/fish.svg"
+    },
+    "lucide/bird": {
+      "name": "bird",
+      "set": "lucide",
+      "tags": [
+        "bird"
+      ],
+      "file": "lucide/bird.svg"
+    },
+    "lucide/cat": {
+      "name": "cat",
+      "set": "lucide",
+      "tags": [
+        "cat"
+      ],
+      "file": "lucide/cat.svg"
+    },
+    "lucide/dog": {
+      "name": "dog",
+      "set": "lucide",
+      "tags": [
+        "dog"
+      ],
+      "file": "lucide/dog.svg"
+    },
+    "lucide/paw-print": {
+      "name": "paw-print",
+      "set": "lucide",
+      "tags": [
+        "paw-print",
+        "paw",
+        "print"
+      ],
+      "file": "lucide/paw-print.svg"
+    },
+    "lucide/baby": {
+      "name": "baby",
+      "set": "lucide",
+      "tags": [
+        "baby"
+      ],
+      "file": "lucide/baby.svg"
+    },
+    "lucide/user": {
+      "name": "user",
+      "set": "lucide",
+      "tags": [
+        "user"
+      ],
+      "file": "lucide/user.svg"
+    },
+    "lucide/users": {
+      "name": "users",
+      "set": "lucide",
+      "tags": [
+        "users"
+      ],
+      "file": "lucide/users.svg"
+    },
+    "lucide/person-standing": {
+      "name": "person-standing",
+      "set": "lucide",
+      "tags": [
+        "person-standing",
+        "person",
+        "standing"
+      ],
+      "file": "lucide/person-standing.svg"
+    },
+    "lucide/shirt": {
+      "name": "shirt",
+      "set": "lucide",
+      "tags": [
+        "shirt"
+      ],
+      "file": "lucide/shirt.svg"
+    },
+    "lucide/glasses": {
+      "name": "glasses",
+      "set": "lucide",
+      "tags": [
+        "glasses"
+      ],
+      "file": "lucide/glasses.svg"
+    },
+    "lucide/crown": {
+      "name": "crown",
+      "set": "lucide",
+      "tags": [
+        "crown"
+      ],
+      "file": "lucide/crown.svg"
+    },
+    "lucide/phone": {
+      "name": "phone",
+      "set": "lucide",
+      "tags": [
+        "phone"
+      ],
+      "file": "lucide/phone.svg"
+    },
+    "lucide/smartphone": {
+      "name": "smartphone",
+      "set": "lucide",
+      "tags": [
+        "smartphone"
+      ],
+      "file": "lucide/smartphone.svg"
+    },
+    "lucide/tablet": {
+      "name": "tablet",
+      "set": "lucide",
+      "tags": [
+        "tablet"
+      ],
+      "file": "lucide/tablet.svg"
+    },
+    "lucide/laptop": {
+      "name": "laptop",
+      "set": "lucide",
+      "tags": [
+        "laptop"
+      ],
+      "file": "lucide/laptop.svg"
+    },
+    "lucide/monitor": {
+      "name": "monitor",
+      "set": "lucide",
+      "tags": [
+        "monitor"
+      ],
+      "file": "lucide/monitor.svg"
+    },
+    "lucide/tv": {
+      "name": "tv",
+      "set": "lucide",
+      "tags": [
+        "tv"
+      ],
+      "file": "lucide/tv.svg"
+    },
+    "lucide/printer": {
+      "name": "printer",
+      "set": "lucide",
+      "tags": [
+        "printer"
+      ],
+      "file": "lucide/printer.svg"
+    },
+    "lucide/speaker": {
+      "name": "speaker",
+      "set": "lucide",
+      "tags": [
+        "speaker"
+      ],
+      "file": "lucide/speaker.svg"
+    },
+    "lucide/headphones": {
+      "name": "headphones",
+      "set": "lucide",
+      "tags": [
+        "headphones"
+      ],
+      "file": "lucide/headphones.svg"
+    },
+    "lucide/battery": {
+      "name": "battery",
+      "set": "lucide",
+      "tags": [
+        "battery"
+      ],
+      "file": "lucide/battery.svg"
+    },
+    "lucide/plug": {
+      "name": "plug",
+      "set": "lucide",
+      "tags": [
+        "plug"
+      ],
+      "file": "lucide/plug.svg"
+    },
+    "lucide/power": {
+      "name": "power",
+      "set": "lucide",
+      "tags": [
+        "power"
+      ],
+      "file": "lucide/power.svg"
+    },
+    "lucide/wrench": {
+      "name": "wrench",
+      "set": "lucide",
+      "tags": [
+        "wrench"
+      ],
+      "file": "lucide/wrench.svg"
+    },
+    "lucide/hammer": {
+      "name": "hammer",
+      "set": "lucide",
+      "tags": [
+        "hammer"
+      ],
+      "file": "lucide/hammer.svg"
+    },
+    "lucide/shopping-cart": {
+      "name": "shopping-cart",
+      "set": "lucide",
+      "tags": [
+        "shopping-cart",
+        "shopping",
+        "cart"
+      ],
+      "file": "lucide/shopping-cart.svg"
+    },
+    "lucide/shopping-bag": {
+      "name": "shopping-bag",
+      "set": "lucide",
+      "tags": [
+        "shopping-bag",
+        "shopping",
+        "bag"
+      ],
+      "file": "lucide/shopping-bag.svg"
+    },
+    "lucide/credit-card": {
+      "name": "credit-card",
+      "set": "lucide",
+      "tags": [
+        "credit-card",
+        "credit",
+        "card"
+      ],
+      "file": "lucide/credit-card.svg"
+    },
+    "lucide/wallet": {
+      "name": "wallet",
+      "set": "lucide",
+      "tags": [
+        "wallet"
+      ],
+      "file": "lucide/wallet.svg"
+    },
+    "lucide/receipt": {
+      "name": "receipt",
+      "set": "lucide",
+      "tags": [
+        "receipt"
+      ],
+      "file": "lucide/receipt.svg"
+    },
+    "lucide/coins": {
+      "name": "coins",
+      "set": "lucide",
+      "tags": [
+        "coins"
+      ],
+      "file": "lucide/coins.svg"
+    },
+    "lucide/pill": {
+      "name": "pill",
+      "set": "lucide",
+      "tags": [
+        "pill"
+      ],
+      "file": "lucide/pill.svg"
+    },
+    "lucide/syringe": {
+      "name": "syringe",
+      "set": "lucide",
+      "tags": [
+        "syringe"
+      ],
+      "file": "lucide/syringe.svg"
+    },
+    "lucide/stethoscope": {
+      "name": "stethoscope",
+      "set": "lucide",
+      "tags": [
+        "stethoscope"
+      ],
+      "file": "lucide/stethoscope.svg"
+    },
+    "lucide/bandage": {
+      "name": "bandage",
+      "set": "lucide",
+      "tags": [
+        "bandage"
+      ],
+      "file": "lucide/bandage.svg"
+    },
+    "lucide/dumbbell": {
+      "name": "dumbbell",
+      "set": "lucide",
+      "tags": [
+        "dumbbell"
+      ],
+      "file": "lucide/dumbbell.svg"
+    },
+    "lucide/utensils": {
+      "name": "utensils",
+      "set": "lucide",
+      "tags": [
+        "utensils"
+      ],
+      "file": "lucide/utensils.svg"
+    },
+    "lucide/coffee": {
+      "name": "coffee",
+      "set": "lucide",
+      "tags": [
+        "coffee"
+      ],
+      "file": "lucide/coffee.svg"
+    },
+    "lucide/wine": {
+      "name": "wine",
+      "set": "lucide",
+      "tags": [
+        "wine"
+      ],
+      "file": "lucide/wine.svg"
+    },
+    "lucide/beer": {
+      "name": "beer",
+      "set": "lucide",
+      "tags": [
+        "beer"
+      ],
+      "file": "lucide/beer.svg"
+    },
+    "lucide/pizza": {
+      "name": "pizza",
+      "set": "lucide",
+      "tags": [
+        "pizza"
+      ],
+      "file": "lucide/pizza.svg"
+    },
+    "lucide/apple": {
+      "name": "apple",
+      "set": "lucide",
+      "tags": [
+        "apple"
+      ],
+      "file": "lucide/apple.svg"
+    },
+    "lucide/egg": {
+      "name": "egg",
+      "set": "lucide",
+      "tags": [
+        "egg"
+      ],
+      "file": "lucide/egg.svg"
+    },
+    "lucide/cake": {
+      "name": "cake",
+      "set": "lucide",
+      "tags": [
+        "cake"
+      ],
+      "file": "lucide/cake.svg"
+    },
+    "lucide/bed": {
+      "name": "bed",
+      "set": "lucide",
+      "tags": [
+        "bed"
+      ],
+      "file": "lucide/bed.svg"
+    },
+    "lucide/bath": {
+      "name": "bath",
+      "set": "lucide",
+      "tags": [
+        "bath"
+      ],
+      "file": "lucide/bath.svg"
+    },
+    "lucide/armchair": {
+      "name": "armchair",
+      "set": "lucide",
+      "tags": [
+        "armchair"
+      ],
+      "file": "lucide/armchair.svg"
+    },
+    "lucide/sofa": {
+      "name": "sofa",
+      "set": "lucide",
+      "tags": [
+        "sofa"
+      ],
+      "file": "lucide/sofa.svg"
+    },
+    "lucide/database": {
+      "name": "database",
+      "set": "lucide",
+      "tags": [
+        "database"
+      ],
+      "file": "lucide/database.svg"
+    },
+    "lucide/server": {
+      "name": "server",
+      "set": "lucide",
+      "tags": [
+        "server"
+      ],
+      "file": "lucide/server.svg"
+    },
+    "lucide/hard-drive": {
+      "name": "hard-drive",
+      "set": "lucide",
+      "tags": [
+        "hard-drive",
+        "hard",
+        "drive"
+      ],
+      "file": "lucide/hard-drive.svg"
+    },
+    "lucide/cpu": {
+      "name": "cpu",
+      "set": "lucide",
+      "tags": [
+        "cpu"
+      ],
+      "file": "lucide/cpu.svg"
+    },
+    "lucide/memory-stick": {
+      "name": "memory-stick",
+      "set": "lucide",
+      "tags": [
+        "memory-stick",
+        "memory",
+        "stick"
+      ],
+      "file": "lucide/memory-stick.svg"
+    },
+    "lucide/usb": {
+      "name": "usb",
+      "set": "lucide",
+      "tags": [
+        "usb"
+      ],
+      "file": "lucide/usb.svg"
+    },
+    "lucide/wifi": {
+      "name": "wifi",
+      "set": "lucide",
+      "tags": [
+        "wifi"
+      ],
+      "file": "lucide/wifi.svg"
+    },
+    "lucide/bluetooth": {
+      "name": "bluetooth",
+      "set": "lucide",
+      "tags": [
+        "bluetooth"
+      ],
+      "file": "lucide/bluetooth.svg"
+    },
+    "lucide/radio": {
+      "name": "radio",
+      "set": "lucide",
+      "tags": [
+        "radio"
+      ],
+      "file": "lucide/radio.svg"
+    },
+    "lucide/antenna": {
+      "name": "antenna",
+      "set": "lucide",
+      "tags": [
+        "antenna"
+      ],
+      "file": "lucide/antenna.svg"
+    },
+    "lucide/satellite": {
+      "name": "satellite",
+      "set": "lucide",
+      "tags": [
+        "satellite"
+      ],
+      "file": "lucide/satellite.svg"
+    },
+    "lucide/code": {
+      "name": "code",
+      "set": "lucide",
+      "tags": [
+        "code"
+      ],
+      "file": "lucide/code.svg"
+    },
+    "lucide/terminal": {
+      "name": "terminal",
+      "set": "lucide",
+      "tags": [
+        "terminal"
+      ],
+      "file": "lucide/terminal.svg"
+    },
+    "lucide/braces": {
+      "name": "braces",
+      "set": "lucide",
+      "tags": [
+        "braces"
+      ],
+      "file": "lucide/braces.svg"
+    },
+    "lucide/hash": {
+      "name": "hash",
+      "set": "lucide",
+      "tags": [
+        "hash"
+      ],
+      "file": "lucide/hash.svg"
+    },
+    "lucide/binary": {
+      "name": "binary",
+      "set": "lucide",
+      "tags": [
+        "binary"
+      ],
+      "file": "lucide/binary.svg"
+    },
+    "lucide/variable": {
+      "name": "variable",
+      "set": "lucide",
+      "tags": [
+        "variable"
+      ],
+      "file": "lucide/variable.svg"
+    },
+    "lucide/git-branch": {
+      "name": "git-branch",
+      "set": "lucide",
+      "tags": [
+        "git-branch",
+        "git",
+        "branch"
+      ],
+      "file": "lucide/git-branch.svg"
+    },
+    "lucide/git-merge": {
+      "name": "git-merge",
+      "set": "lucide",
+      "tags": [
+        "git-merge",
+        "git",
+        "merge"
+      ],
+      "file": "lucide/git-merge.svg"
+    },
+    "lucide/git-pull-request": {
+      "name": "git-pull-request",
+      "set": "lucide",
+      "tags": [
+        "git-pull-request",
+        "git",
+        "pull",
+        "request"
+      ],
+      "file": "lucide/git-pull-request.svg"
+    },
+    "lucide/link": {
+      "name": "link",
+      "set": "lucide",
+      "tags": [
+        "link"
+      ],
+      "file": "lucide/link.svg"
+    },
+    "lucide/unlink": {
+      "name": "unlink",
+      "set": "lucide",
+      "tags": [
+        "unlink"
+      ],
+      "file": "lucide/unlink.svg"
+    },
+    "lucide/external-link": {
+      "name": "external-link",
+      "set": "lucide",
+      "tags": [
+        "external-link",
+        "external",
+        "link"
+      ],
+      "file": "lucide/external-link.svg"
+    },
+    "lucide/download": {
+      "name": "download",
+      "set": "lucide",
+      "tags": [
+        "download"
+      ],
+      "file": "lucide/download.svg"
+    },
+    "lucide/upload": {
+      "name": "upload",
+      "set": "lucide",
+      "tags": [
+        "upload"
+      ],
+      "file": "lucide/upload.svg"
+    },
+    "lucide/cloud-download": {
+      "name": "cloud-download",
+      "set": "lucide",
+      "tags": [
+        "cloud-download",
+        "cloud",
+        "download"
+      ],
+      "file": "lucide/cloud-download.svg"
+    },
+    "lucide/cloud-upload": {
+      "name": "cloud-upload",
+      "set": "lucide",
+      "tags": [
+        "cloud-upload",
+        "cloud",
+        "upload"
+      ],
+      "file": "lucide/cloud-upload.svg"
+    },
+    "lucide/search": {
+      "name": "search",
+      "set": "lucide",
+      "tags": [
+        "search"
+      ],
+      "file": "lucide/search.svg"
+    },
+    "lucide/settings": {
+      "name": "settings",
+      "set": "lucide",
+      "tags": [
+        "settings"
+      ],
+      "file": "lucide/settings.svg"
+    },
+    "lucide/toggle-left": {
+      "name": "toggle-left",
+      "set": "lucide",
+      "tags": [
+        "toggle-left",
+        "toggle",
+        "left"
+      ],
+      "file": "lucide/toggle-left.svg"
+    },
+    "lucide/toggle-right": {
+      "name": "toggle-right",
+      "set": "lucide",
+      "tags": [
+        "toggle-right",
+        "toggle",
+        "right"
+      ],
+      "file": "lucide/toggle-right.svg"
+    },
+    "lucide/maximize": {
+      "name": "maximize",
+      "set": "lucide",
+      "tags": [
+        "maximize"
+      ],
+      "file": "lucide/maximize.svg"
+    },
+    "lucide/minimize": {
+      "name": "minimize",
+      "set": "lucide",
+      "tags": [
+        "minimize"
+      ],
+      "file": "lucide/minimize.svg"
+    },
+    "lucide/expand": {
+      "name": "expand",
+      "set": "lucide",
+      "tags": [
+        "expand"
+      ],
+      "file": "lucide/expand.svg"
+    },
+    "lucide/shrink": {
+      "name": "shrink",
+      "set": "lucide",
+      "tags": [
+        "shrink"
+      ],
+      "file": "lucide/shrink.svg"
+    },
+    "lucide/layout-grid": {
+      "name": "layout-grid",
+      "set": "lucide",
+      "tags": [
+        "layout-grid",
+        "layout",
+        "grid"
+      ],
+      "file": "lucide/layout-grid.svg"
+    },
+    "lucide/layout-list": {
+      "name": "layout-list",
+      "set": "lucide",
+      "tags": [
+        "layout-list",
+        "layout",
+        "list"
+      ],
+      "file": "lucide/layout-list.svg"
+    },
+    "lucide/layout-dashboard": {
+      "name": "layout-dashboard",
+      "set": "lucide",
+      "tags": [
+        "layout-dashboard",
+        "layout",
+        "dashboard"
+      ],
+      "file": "lucide/layout-dashboard.svg"
+    },
+    "lucide/panel-left": {
+      "name": "panel-left",
+      "set": "lucide",
+      "tags": [
+        "panel-left",
+        "panel",
+        "left"
+      ],
+      "file": "lucide/panel-left.svg"
+    },
+    "lucide/panel-right": {
+      "name": "panel-right",
+      "set": "lucide",
+      "tags": [
+        "panel-right",
+        "panel",
+        "right"
+      ],
+      "file": "lucide/panel-right.svg"
+    },
+    "lucide/panel-top": {
+      "name": "panel-top",
+      "set": "lucide",
+      "tags": [
+        "panel-top",
+        "panel",
+        "top"
+      ],
+      "file": "lucide/panel-top.svg"
+    },
+    "lucide/panel-bottom": {
+      "name": "panel-bottom",
+      "set": "lucide",
+      "tags": [
+        "panel-bottom",
+        "panel",
+        "bottom"
+      ],
+      "file": "lucide/panel-bottom.svg"
+    },
+    "lucide/menu": {
+      "name": "menu",
+      "set": "lucide",
+      "tags": [
+        "menu"
+      ],
+      "file": "lucide/menu.svg"
+    },
+    "lucide/grip-vertical": {
+      "name": "grip-vertical",
+      "set": "lucide",
+      "tags": [
+        "grip-vertical",
+        "grip",
+        "vertical"
+      ],
+      "file": "lucide/grip-vertical.svg"
+    },
+    "lucide/grip-horizontal": {
+      "name": "grip-horizontal",
+      "set": "lucide",
+      "tags": [
+        "grip-horizontal",
+        "grip",
+        "horizontal"
+      ],
+      "file": "lucide/grip-horizontal.svg"
+    },
+    "lucide/table": {
+      "name": "table",
+      "set": "lucide",
+      "tags": [
+        "table"
+      ],
+      "file": "lucide/table.svg"
+    },
+    "lucide/kanban": {
+      "name": "kanban",
+      "set": "lucide",
+      "tags": [
+        "kanban"
+      ],
+      "file": "lucide/kanban.svg"
+    },
+    "lucide/calendar-days": {
+      "name": "calendar-days",
+      "set": "lucide",
+      "tags": [
+        "calendar-days",
+        "calendar",
+        "days"
+      ],
+      "file": "lucide/calendar-days.svg"
+    },
+    "lucide/play": {
+      "name": "play",
+      "set": "lucide",
+      "tags": [
+        "play"
+      ],
+      "file": "lucide/play.svg"
+    },
+    "lucide/pause": {
+      "name": "pause",
+      "set": "lucide",
+      "tags": [
+        "pause"
+      ],
+      "file": "lucide/pause.svg"
+    },
+    "lucide/skip-forward": {
+      "name": "skip-forward",
+      "set": "lucide",
+      "tags": [
+        "skip-forward",
+        "skip",
+        "forward"
+      ],
+      "file": "lucide/skip-forward.svg"
+    },
+    "lucide/skip-back": {
+      "name": "skip-back",
+      "set": "lucide",
+      "tags": [
+        "skip-back",
+        "skip",
+        "back"
+      ],
+      "file": "lucide/skip-back.svg"
+    },
+    "lucide/rewind": {
+      "name": "rewind",
+      "set": "lucide",
+      "tags": [
+        "rewind"
+      ],
+      "file": "lucide/rewind.svg"
+    },
+    "lucide/fast-forward": {
+      "name": "fast-forward",
+      "set": "lucide",
+      "tags": [
+        "fast-forward",
+        "fast",
+        "forward"
+      ],
+      "file": "lucide/fast-forward.svg"
+    },
+    "lucide/repeat": {
+      "name": "repeat",
+      "set": "lucide",
+      "tags": [
+        "repeat"
+      ],
+      "file": "lucide/repeat.svg"
+    },
+    "lucide/shuffle": {
+      "name": "shuffle",
+      "set": "lucide",
+      "tags": [
+        "shuffle"
+      ],
+      "file": "lucide/shuffle.svg"
+    },
+    "lucide/volume": {
+      "name": "volume",
+      "set": "lucide",
+      "tags": [
+        "volume"
+      ],
+      "file": "lucide/volume.svg"
+    },
+    "lucide/volume-1": {
+      "name": "volume-1",
+      "set": "lucide",
+      "tags": [
+        "volume-1",
+        "volume",
+        "1"
+      ],
+      "file": "lucide/volume-1.svg"
+    },
+    "lucide/volume-2": {
+      "name": "volume-2",
+      "set": "lucide",
+      "tags": [
+        "volume-2",
+        "volume",
+        "2"
+      ],
+      "file": "lucide/volume-2.svg"
+    },
+    "lucide/volume-x": {
+      "name": "volume-x",
+      "set": "lucide",
+      "tags": [
+        "volume-x",
+        "volume",
+        "x"
+      ],
+      "file": "lucide/volume-x.svg"
+    },
+    "lucide/plus": {
+      "name": "plus",
+      "set": "lucide",
+      "tags": [
+        "plus"
+      ],
+      "file": "lucide/plus.svg"
+    },
+    "lucide/minus": {
+      "name": "minus",
+      "set": "lucide",
+      "tags": [
+        "minus"
+      ],
+      "file": "lucide/minus.svg"
+    },
+    "lucide/x": {
+      "name": "x",
+      "set": "lucide",
+      "tags": [
+        "x"
+      ],
+      "file": "lucide/x.svg"
+    },
+    "lucide/check": {
+      "name": "check",
+      "set": "lucide",
+      "tags": [
+        "check"
+      ],
+      "file": "lucide/check.svg"
+    },
+    "lucide/check-check": {
+      "name": "check-check",
+      "set": "lucide",
+      "tags": [
+        "check-check",
+        "check"
+      ],
+      "file": "lucide/check-check.svg"
+    },
+    "lucide/arrow-up": {
+      "name": "arrow-up",
+      "set": "lucide",
+      "tags": [
+        "arrow-up",
+        "arrow",
+        "up"
+      ],
+      "file": "lucide/arrow-up.svg"
+    },
+    "lucide/arrow-down": {
+      "name": "arrow-down",
+      "set": "lucide",
+      "tags": [
+        "arrow-down",
+        "arrow",
+        "down"
+      ],
+      "file": "lucide/arrow-down.svg"
+    },
+    "lucide/arrow-left": {
+      "name": "arrow-left",
+      "set": "lucide",
+      "tags": [
+        "arrow-left",
+        "arrow",
+        "left"
+      ],
+      "file": "lucide/arrow-left.svg"
+    },
+    "lucide/arrow-right": {
+      "name": "arrow-right",
+      "set": "lucide",
+      "tags": [
+        "arrow-right",
+        "arrow",
+        "right"
+      ],
+      "file": "lucide/arrow-right.svg"
+    },
+    "lucide/chevron-up": {
+      "name": "chevron-up",
+      "set": "lucide",
+      "tags": [
+        "chevron-up",
+        "chevron",
+        "up"
+      ],
+      "file": "lucide/chevron-up.svg"
+    },
+    "lucide/chevron-down": {
+      "name": "chevron-down",
+      "set": "lucide",
+      "tags": [
+        "chevron-down",
+        "chevron",
+        "down"
+      ],
+      "file": "lucide/chevron-down.svg"
+    },
+    "lucide/chevron-left": {
+      "name": "chevron-left",
+      "set": "lucide",
+      "tags": [
+        "chevron-left",
+        "chevron",
+        "left"
+      ],
+      "file": "lucide/chevron-left.svg"
+    },
+    "lucide/chevron-right": {
+      "name": "chevron-right",
+      "set": "lucide",
+      "tags": [
+        "chevron-right",
+        "chevron",
+        "right"
+      ],
+      "file": "lucide/chevron-right.svg"
+    },
+    "lucide/rotate-cw": {
+      "name": "rotate-cw",
+      "set": "lucide",
+      "tags": [
+        "rotate-cw",
+        "rotate",
+        "cw"
+      ],
+      "file": "lucide/rotate-cw.svg"
+    },
+    "lucide/rotate-ccw": {
+      "name": "rotate-ccw",
+      "set": "lucide",
+      "tags": [
+        "rotate-ccw",
+        "rotate",
+        "ccw"
+      ],
+      "file": "lucide/rotate-ccw.svg"
+    },
+    "lucide/refresh-cw": {
+      "name": "refresh-cw",
+      "set": "lucide",
+      "tags": [
+        "refresh-cw",
+        "refresh",
+        "cw"
+      ],
+      "file": "lucide/refresh-cw.svg"
+    },
+    "lucide/refresh-ccw": {
+      "name": "refresh-ccw",
+      "set": "lucide",
+      "tags": [
+        "refresh-ccw",
+        "refresh",
+        "ccw"
+      ],
+      "file": "lucide/refresh-ccw.svg"
+    },
+    "lucide/undo": {
+      "name": "undo",
+      "set": "lucide",
+      "tags": [
+        "undo"
+      ],
+      "file": "lucide/undo.svg"
+    },
+    "lucide/redo": {
+      "name": "redo",
+      "set": "lucide",
+      "tags": [
+        "redo"
+      ],
+      "file": "lucide/redo.svg"
+    },
+    "lucide/copy": {
+      "name": "copy",
+      "set": "lucide",
+      "tags": [
+        "copy"
+      ],
+      "file": "lucide/copy.svg"
+    },
+    "lucide/clipboard": {
+      "name": "clipboard",
+      "set": "lucide",
+      "tags": [
+        "clipboard"
+      ],
+      "file": "lucide/clipboard.svg"
+    },
+    "lucide/trash": {
+      "name": "trash",
+      "set": "lucide",
+      "tags": [
+        "trash"
+      ],
+      "file": "lucide/trash.svg"
+    },
+    "lucide/trash-2": {
+      "name": "trash-2",
+      "set": "lucide",
+      "tags": [
+        "trash-2",
+        "trash",
+        "2"
+      ],
+      "file": "lucide/trash-2.svg"
+    },
+    "lucide/eraser": {
+      "name": "eraser",
+      "set": "lucide",
+      "tags": [
+        "eraser"
+      ],
+      "file": "lucide/eraser.svg"
+    },
+    "lucide/save": {
+      "name": "save",
+      "set": "lucide",
+      "tags": [
+        "save"
+      ],
+      "file": "lucide/save.svg"
+    },
+    "lucide/send": {
+      "name": "send",
+      "set": "lucide",
+      "tags": [
+        "send"
+      ],
+      "file": "lucide/send.svg"
+    },
+    "lucide/share": {
+      "name": "share",
+      "set": "lucide",
+      "tags": [
+        "share"
+      ],
+      "file": "lucide/share.svg"
+    },
+    "lucide/share-2": {
+      "name": "share-2",
+      "set": "lucide",
+      "tags": [
+        "share-2",
+        "share",
+        "2"
+      ],
+      "file": "lucide/share-2.svg"
+    },
+    "lucide/eye": {
+      "name": "eye",
+      "set": "lucide",
+      "tags": [
+        "eye"
+      ],
+      "file": "lucide/eye.svg"
+    },
+    "lucide/eye-off": {
+      "name": "eye-off",
+      "set": "lucide",
+      "tags": [
+        "eye-off",
+        "eye",
+        "off"
+      ],
+      "file": "lucide/eye-off.svg"
+    },
+    "lucide/log-in": {
+      "name": "log-in",
+      "set": "lucide",
+      "tags": [
+        "log-in",
+        "log",
+        "in"
+      ],
+      "file": "lucide/log-in.svg"
+    },
+    "lucide/log-out": {
+      "name": "log-out",
+      "set": "lucide",
+      "tags": [
+        "log-out",
+        "log",
+        "out"
+      ],
+      "file": "lucide/log-out.svg"
+    },
+    "lucide/move": {
+      "name": "move",
+      "set": "lucide",
+      "tags": [
+        "move"
+      ],
+      "file": "lucide/move.svg"
+    },
+    "lucide/mail": {
+      "name": "mail",
+      "set": "lucide",
+      "tags": [
+        "mail"
+      ],
+      "file": "lucide/mail.svg"
+    },
+    "lucide/inbox": {
+      "name": "inbox",
+      "set": "lucide",
+      "tags": [
+        "inbox"
+      ],
+      "file": "lucide/inbox.svg"
+    },
+    "lucide/at-sign": {
+      "name": "at-sign",
+      "set": "lucide",
+      "tags": [
+        "at-sign",
+        "at",
+        "sign"
+      ],
+      "file": "lucide/at-sign.svg"
+    },
+    "lucide/message-circle": {
+      "name": "message-circle",
+      "set": "lucide",
+      "tags": [
+        "message-circle",
+        "message",
+        "circle"
+      ],
+      "file": "lucide/message-circle.svg"
+    },
+    "lucide/message-square": {
+      "name": "message-square",
+      "set": "lucide",
+      "tags": [
+        "message-square",
+        "message",
+        "square"
+      ],
+      "file": "lucide/message-square.svg"
+    },
+    "lucide/messages-square": {
+      "name": "messages-square",
+      "set": "lucide",
+      "tags": [
+        "messages-square",
+        "messages",
+        "square"
+      ],
+      "file": "lucide/messages-square.svg"
+    },
+    "lucide/bell": {
+      "name": "bell",
+      "set": "lucide",
+      "tags": [
+        "bell"
+      ],
+      "file": "lucide/bell.svg"
+    },
+    "lucide/bell-ring": {
+      "name": "bell-ring",
+      "set": "lucide",
+      "tags": [
+        "bell-ring",
+        "bell",
+        "ring"
+      ],
+      "file": "lucide/bell-ring.svg"
+    },
+    "lucide/megaphone": {
+      "name": "megaphone",
+      "set": "lucide",
+      "tags": [
+        "megaphone"
+      ],
+      "file": "lucide/megaphone.svg"
+    },
+    "lucide/radio-tower": {
+      "name": "radio-tower",
+      "set": "lucide",
+      "tags": [
+        "radio-tower",
+        "radio",
+        "tower"
+      ],
+      "file": "lucide/radio-tower.svg"
+    },
+    "lucide/trending-up": {
+      "name": "trending-up",
+      "set": "lucide",
+      "tags": [
+        "trending-up",
+        "trending",
+        "up"
+      ],
+      "file": "lucide/trending-up.svg"
+    },
+    "lucide/trending-down": {
+      "name": "trending-down",
+      "set": "lucide",
+      "tags": [
+        "trending-down",
+        "trending",
+        "down"
+      ],
+      "file": "lucide/trending-down.svg"
+    },
+    "lucide/activity": {
+      "name": "activity",
+      "set": "lucide",
+      "tags": [
+        "activity"
+      ],
+      "file": "lucide/activity.svg"
+    },
+    "lucide/gauge": {
+      "name": "gauge",
+      "set": "lucide",
+      "tags": [
+        "gauge"
+      ],
+      "file": "lucide/gauge.svg"
+    },
+    "lucide/target": {
+      "name": "target",
+      "set": "lucide",
+      "tags": [
+        "target"
+      ],
+      "file": "lucide/target.svg"
+    },
+    "lucide/info": {
+      "name": "info",
+      "set": "lucide",
+      "tags": [
+        "info"
+      ],
+      "file": "lucide/info.svg"
+    },
+    "lucide/circle-check": {
+      "name": "circle-check",
+      "set": "lucide",
+      "tags": [
+        "circle-check",
+        "circle",
+        "check"
+      ],
+      "file": "lucide/circle-check.svg"
+    },
+    "lucide/circle-x": {
+      "name": "circle-x",
+      "set": "lucide",
+      "tags": [
+        "circle-x",
+        "circle",
+        "x"
+      ],
+      "file": "lucide/circle-x.svg"
+    },
+    "lucide/circle-dot": {
+      "name": "circle-dot",
+      "set": "lucide",
+      "tags": [
+        "circle-dot",
+        "circle",
+        "dot"
+      ],
+      "file": "lucide/circle-dot.svg"
+    },
+    "lucide/loader": {
+      "name": "loader",
+      "set": "lucide",
+      "tags": [
+        "loader"
+      ],
+      "file": "lucide/loader.svg"
+    },
+    "lucide/hourglass": {
+      "name": "hourglass",
+      "set": "lucide",
+      "tags": [
+        "hourglass"
+      ],
+      "file": "lucide/hourglass.svg"
+    },
+    "lucide/thumbs-up": {
+      "name": "thumbs-up",
+      "set": "lucide",
+      "tags": [
+        "thumbs-up",
+        "thumbs",
+        "up"
+      ],
+      "file": "lucide/thumbs-up.svg"
+    },
+    "lucide/thumbs-down": {
+      "name": "thumbs-down",
+      "set": "lucide",
+      "tags": [
+        "thumbs-down",
+        "thumbs",
+        "down"
+      ],
+      "file": "lucide/thumbs-down.svg"
+    },
+    "lucide/smile": {
+      "name": "smile",
+      "set": "lucide",
+      "tags": [
+        "smile"
+      ],
+      "file": "lucide/smile.svg"
+    },
+    "lucide/frown": {
+      "name": "frown",
+      "set": "lucide",
+      "tags": [
+        "frown"
+      ],
+      "file": "lucide/frown.svg"
+    },
+    "lucide/meh": {
+      "name": "meh",
+      "set": "lucide",
+      "tags": [
+        "meh"
+      ],
+      "file": "lucide/meh.svg"
+    },
+    "lucide/tag": {
+      "name": "tag",
+      "set": "lucide",
+      "tags": [
+        "tag"
+      ],
+      "file": "lucide/tag.svg"
+    },
+    "lucide/tags": {
+      "name": "tags",
+      "set": "lucide",
+      "tags": [
+        "tags"
+      ],
+      "file": "lucide/tags.svg"
+    },
+    "lucide/list": {
+      "name": "list",
+      "set": "lucide",
+      "tags": [
+        "list"
+      ],
+      "file": "lucide/list.svg"
+    },
+    "lucide/list-ordered": {
+      "name": "list-ordered",
+      "set": "lucide",
+      "tags": [
+        "list-ordered",
+        "list",
+        "ordered"
+      ],
+      "file": "lucide/list-ordered.svg"
+    },
+    "lucide/list-checks": {
+      "name": "list-checks",
+      "set": "lucide",
+      "tags": [
+        "list-checks",
+        "list",
+        "checks"
+      ],
+      "file": "lucide/list-checks.svg"
+    },
+    "lucide/list-tree": {
+      "name": "list-tree",
+      "set": "lucide",
+      "tags": [
+        "list-tree",
+        "list",
+        "tree"
+      ],
+      "file": "lucide/list-tree.svg"
+    },
+    "lucide/layers": {
+      "name": "layers",
+      "set": "lucide",
+      "tags": [
+        "layers"
+      ],
+      "file": "lucide/layers.svg"
+    },
+    "lucide/network": {
+      "name": "network",
+      "set": "lucide",
+      "tags": [
+        "network"
+      ],
+      "file": "lucide/network.svg"
+    },
+    "lucide/workflow": {
+      "name": "workflow",
+      "set": "lucide",
+      "tags": [
+        "workflow"
+      ],
+      "file": "lucide/workflow.svg"
+    },
+    "lucide/puzzle": {
+      "name": "puzzle",
+      "set": "lucide",
+      "tags": [
+        "puzzle"
+      ],
+      "file": "lucide/puzzle.svg"
+    },
+    "lucide/blocks": {
+      "name": "blocks",
+      "set": "lucide",
+      "tags": [
+        "blocks"
+      ],
+      "file": "lucide/blocks.svg"
+    },
+    "lucide/milestone": {
+      "name": "milestone",
+      "set": "lucide",
+      "tags": [
+        "milestone"
+      ],
+      "file": "lucide/milestone.svg"
+    },
+    "lucide/flag-triangle-right": {
+      "name": "flag-triangle-right",
+      "set": "lucide",
+      "tags": [
+        "flag-triangle-right",
+        "flag",
+        "triangle",
+        "right"
+      ],
+      "file": "lucide/flag-triangle-right.svg"
+    },
+    "lucide/shield-alert": {
+      "name": "shield-alert",
+      "set": "lucide",
+      "tags": [
+        "shield-alert",
+        "shield",
+        "alert"
+      ],
+      "file": "lucide/shield-alert.svg"
+    },
+    "lucide/shield-off": {
+      "name": "shield-off",
+      "set": "lucide",
+      "tags": [
+        "shield-off",
+        "shield",
+        "off"
+      ],
+      "file": "lucide/shield-off.svg"
+    },
+    "lucide/scan": {
+      "name": "scan",
+      "set": "lucide",
+      "tags": [
+        "scan"
+      ],
+      "file": "lucide/scan.svg"
+    },
+    "lucide/qr-code": {
+      "name": "qr-code",
+      "set": "lucide",
+      "tags": [
+        "qr-code",
+        "qr",
+        "code"
+      ],
+      "file": "lucide/qr-code.svg"
+    },
+    "lucide/user-check": {
+      "name": "user-check",
+      "set": "lucide",
+      "tags": [
+        "user-check",
+        "user",
+        "check"
+      ],
+      "file": "lucide/user-check.svg"
+    },
+    "lucide/user-plus": {
+      "name": "user-plus",
+      "set": "lucide",
+      "tags": [
+        "user-plus",
+        "user",
+        "plus"
+      ],
+      "file": "lucide/user-plus.svg"
+    },
+    "lucide/user-minus": {
+      "name": "user-minus",
+      "set": "lucide",
+      "tags": [
+        "user-minus",
+        "user",
+        "minus"
+      ],
+      "file": "lucide/user-minus.svg"
+    },
+    "lucide/user-x": {
+      "name": "user-x",
+      "set": "lucide",
+      "tags": [
+        "user-x",
+        "user",
+        "x"
+      ],
+      "file": "lucide/user-x.svg"
+    },
+    "lucide/calculator": {
+      "name": "calculator",
+      "set": "lucide",
+      "tags": [
+        "calculator"
+      ],
+      "file": "lucide/calculator.svg"
+    },
+    "lucide/sigma": {
+      "name": "sigma",
+      "set": "lucide",
+      "tags": [
+        "sigma"
+      ],
+      "file": "lucide/sigma.svg"
+    },
+    "lucide/infinity": {
+      "name": "infinity",
+      "set": "lucide",
+      "tags": [
+        "infinity"
+      ],
+      "file": "lucide/infinity.svg"
+    },
+    "lucide/percent": {
+      "name": "percent",
+      "set": "lucide",
+      "tags": [
+        "percent"
+      ],
+      "file": "lucide/percent.svg"
+    },
+    "lucide/atom": {
+      "name": "atom",
+      "set": "lucide",
+      "tags": [
+        "atom"
+      ],
+      "file": "lucide/atom.svg"
+    },
+    "lucide/dna": {
+      "name": "dna",
+      "set": "lucide",
+      "tags": [
+        "dna"
+      ],
+      "file": "lucide/dna.svg"
+    },
+    "lucide/microscope": {
+      "name": "microscope",
+      "set": "lucide",
+      "tags": [
+        "microscope"
+      ],
+      "file": "lucide/microscope.svg"
+    },
+    "lucide/telescope": {
+      "name": "telescope",
+      "set": "lucide",
+      "tags": [
+        "telescope"
+      ],
+      "file": "lucide/telescope.svg"
+    },
+    "lucide/ruler": {
+      "name": "ruler",
+      "set": "lucide",
+      "tags": [
+        "ruler"
+      ],
+      "file": "lucide/ruler.svg"
+    },
+    "octicons/package-24": {
+      "name": "package",
+      "set": "octicons",
+      "tags": [
+        "package"
+      ],
+      "file": "octicons/package-24.svg"
+    },
+    "octicons/repo-24": {
+      "name": "repo",
+      "set": "octicons",
+      "tags": [
+        "repo"
+      ],
+      "file": "octicons/repo-24.svg"
+    },
+    "octicons/code-24": {
+      "name": "code",
+      "set": "octicons",
+      "tags": [
+        "code"
+      ],
+      "file": "octicons/code-24.svg"
+    },
+    "octicons/terminal-24": {
+      "name": "terminal",
+      "set": "octicons",
+      "tags": [
+        "terminal"
+      ],
+      "file": "octicons/terminal-24.svg"
+    },
+    "octicons/git-branch-24": {
+      "name": "git-branch",
+      "set": "octicons",
+      "tags": [
+        "git-branch",
+        "git",
+        "branch"
+      ],
+      "file": "octicons/git-branch-24.svg"
+    },
+    "octicons/git-commit-24": {
+      "name": "git-commit",
+      "set": "octicons",
+      "tags": [
+        "git-commit",
+        "git",
+        "commit"
+      ],
+      "file": "octicons/git-commit-24.svg"
+    },
+    "octicons/git-merge-24": {
+      "name": "git-merge",
+      "set": "octicons",
+      "tags": [
+        "git-merge",
+        "git",
+        "merge"
+      ],
+      "file": "octicons/git-merge-24.svg"
+    },
+    "octicons/git-pull-request-24": {
+      "name": "git-pull-request",
+      "set": "octicons",
+      "tags": [
+        "git-pull-request",
+        "git",
+        "pull",
+        "request"
+      ],
+      "file": "octicons/git-pull-request-24.svg"
+    },
+    "octicons/issue-opened-24": {
+      "name": "issue-opened",
+      "set": "octicons",
+      "tags": [
+        "issue-opened",
+        "issue",
+        "opened"
+      ],
+      "file": "octicons/issue-opened-24.svg"
+    },
+    "octicons/issue-closed-24": {
+      "name": "issue-closed",
+      "set": "octicons",
+      "tags": [
+        "issue-closed",
+        "issue",
+        "closed"
+      ],
+      "file": "octicons/issue-closed-24.svg"
+    },
+    "octicons/comment-24": {
+      "name": "comment",
+      "set": "octicons",
+      "tags": [
+        "comment"
+      ],
+      "file": "octicons/comment-24.svg"
+    },
+    "octicons/comment-discussion-24": {
+      "name": "comment-discussion",
+      "set": "octicons",
+      "tags": [
+        "comment-discussion",
+        "comment",
+        "discussion"
+      ],
+      "file": "octicons/comment-discussion-24.svg"
+    },
+    "octicons/database-24": {
+      "name": "database",
+      "set": "octicons",
+      "tags": [
+        "database"
+      ],
+      "file": "octicons/database-24.svg"
+    },
+    "octicons/server-24": {
+      "name": "server",
+      "set": "octicons",
+      "tags": [
+        "server"
+      ],
+      "file": "octicons/server-24.svg"
+    },
+    "octicons/cloud-24": {
+      "name": "cloud",
+      "set": "octicons",
+      "tags": [
+        "cloud"
+      ],
+      "file": "octicons/cloud-24.svg"
+    },
+    "octicons/file-24": {
+      "name": "file",
+      "set": "octicons",
+      "tags": [
+        "file"
+      ],
+      "file": "octicons/file-24.svg"
+    },
+    "octicons/file-code-24": {
+      "name": "file-code",
+      "set": "octicons",
+      "tags": [
+        "file-code",
+        "file",
+        "code"
+      ],
+      "file": "octicons/file-code-24.svg"
+    },
+    "octicons/file-directory-24": {
+      "name": "file-directory",
+      "set": "octicons",
+      "tags": [
+        "file-directory",
+        "file",
+        "directory"
+      ],
+      "file": "octicons/file-directory-24.svg"
+    },
+    "octicons/gear-24": {
+      "name": "gear",
+      "set": "octicons",
+      "tags": [
+        "gear"
+      ],
+      "file": "octicons/gear-24.svg"
+    },
+    "octicons/tools-24": {
+      "name": "tools",
+      "set": "octicons",
+      "tags": [
+        "tools"
+      ],
+      "file": "octicons/tools-24.svg"
+    },
+    "octicons/plug-24": {
+      "name": "plug",
+      "set": "octicons",
+      "tags": [
+        "plug"
+      ],
+      "file": "octicons/plug-24.svg"
+    },
+    "octicons/shield-24": {
+      "name": "shield",
+      "set": "octicons",
+      "tags": [
+        "shield"
+      ],
+      "file": "octicons/shield-24.svg"
+    },
+    "octicons/shield-lock-24": {
+      "name": "shield-lock",
+      "set": "octicons",
+      "tags": [
+        "shield-lock",
+        "shield",
+        "lock"
+      ],
+      "file": "octicons/shield-lock-24.svg"
+    },
+    "octicons/shield-check-24": {
+      "name": "shield-check",
+      "set": "octicons",
+      "tags": [
+        "shield-check",
+        "shield",
+        "check"
+      ],
+      "file": "octicons/shield-check-24.svg"
+    },
+    "octicons/key-24": {
+      "name": "key",
+      "set": "octicons",
+      "tags": [
+        "key"
+      ],
+      "file": "octicons/key-24.svg"
+    },
+    "octicons/lock-24": {
+      "name": "lock",
+      "set": "octicons",
+      "tags": [
+        "lock"
+      ],
+      "file": "octicons/lock-24.svg"
+    },
+    "octicons/rocket-24": {
+      "name": "rocket",
+      "set": "octicons",
+      "tags": [
+        "rocket"
+      ],
+      "file": "octicons/rocket-24.svg"
+    },
+    "octicons/zap-24": {
+      "name": "zap",
+      "set": "octicons",
+      "tags": [
+        "zap"
+      ],
+      "file": "octicons/zap-24.svg"
+    },
+    "octicons/flame-24": {
+      "name": "flame",
+      "set": "octicons",
+      "tags": [
+        "flame"
+      ],
+      "file": "octicons/flame-24.svg"
+    },
+    "octicons/graph-24": {
+      "name": "graph",
+      "set": "octicons",
+      "tags": [
+        "graph"
+      ],
+      "file": "octicons/graph-24.svg"
+    },
+    "octicons/pulse-24": {
+      "name": "pulse",
+      "set": "octicons",
+      "tags": [
+        "pulse"
+      ],
+      "file": "octicons/pulse-24.svg"
+    },
+    "octicons/meter-24": {
+      "name": "meter",
+      "set": "octicons",
+      "tags": [
+        "meter"
+      ],
+      "file": "octicons/meter-24.svg"
+    },
+    "octicons/eye-24": {
+      "name": "eye",
+      "set": "octicons",
+      "tags": [
+        "eye"
+      ],
+      "file": "octicons/eye-24.svg"
+    },
+    "octicons/search-24": {
+      "name": "search",
+      "set": "octicons",
+      "tags": [
+        "search"
+      ],
+      "file": "octicons/search-24.svg"
+    },
+    "octicons/filter-24": {
+      "name": "filter",
+      "set": "octicons",
+      "tags": [
+        "filter"
+      ],
+      "file": "octicons/filter-24.svg"
+    },
+    "octicons/bell-24": {
+      "name": "bell",
+      "set": "octicons",
+      "tags": [
+        "bell"
+      ],
+      "file": "octicons/bell-24.svg"
+    },
+    "octicons/inbox-24": {
+      "name": "inbox",
+      "set": "octicons",
+      "tags": [
+        "inbox"
+      ],
+      "file": "octicons/inbox-24.svg"
+    },
+    "octicons/mail-24": {
+      "name": "mail",
+      "set": "octicons",
+      "tags": [
+        "mail"
+      ],
+      "file": "octicons/mail-24.svg"
+    },
+    "octicons/heart-24": {
+      "name": "heart",
+      "set": "octicons",
+      "tags": [
+        "heart"
+      ],
+      "file": "octicons/heart-24.svg"
+    },
+    "octicons/star-24": {
+      "name": "star",
+      "set": "octicons",
+      "tags": [
+        "star"
+      ],
+      "file": "octicons/star-24.svg"
+    },
+    "octicons/bookmark-24": {
+      "name": "bookmark",
+      "set": "octicons",
+      "tags": [
+        "bookmark"
+      ],
+      "file": "octicons/bookmark-24.svg"
+    },
+    "octicons/person-24": {
+      "name": "person",
+      "set": "octicons",
+      "tags": [
+        "person"
+      ],
+      "file": "octicons/person-24.svg"
+    },
+    "octicons/people-24": {
+      "name": "people",
+      "set": "octicons",
+      "tags": [
+        "people"
+      ],
+      "file": "octicons/people-24.svg"
+    },
+    "octicons/organization-24": {
+      "name": "organization",
+      "set": "octicons",
+      "tags": [
+        "organization"
+      ],
+      "file": "octicons/organization-24.svg"
+    },
+    "octicons/tag-24": {
+      "name": "tag",
+      "set": "octicons",
+      "tags": [
+        "tag"
+      ],
+      "file": "octicons/tag-24.svg"
+    },
+    "octicons/milestone-24": {
+      "name": "milestone",
+      "set": "octicons",
+      "tags": [
+        "milestone"
+      ],
+      "file": "octicons/milestone-24.svg"
+    },
+    "octicons/project-24": {
+      "name": "project",
+      "set": "octicons",
+      "tags": [
+        "project"
+      ],
+      "file": "octicons/project-24.svg"
+    },
+    "octicons/check-24": {
+      "name": "check",
+      "set": "octicons",
+      "tags": [
+        "check"
+      ],
+      "file": "octicons/check-24.svg"
+    },
+    "octicons/x-24": {
+      "name": "x",
+      "set": "octicons",
+      "tags": [
+        "x"
+      ],
+      "file": "octicons/x-24.svg"
+    },
+    "octicons/plus-24": {
+      "name": "plus",
+      "set": "octicons",
+      "tags": [
+        "plus"
+      ],
+      "file": "octicons/plus-24.svg"
+    },
+    "octicons/dash-24": {
+      "name": "dash",
+      "set": "octicons",
+      "tags": [
+        "dash"
+      ],
+      "file": "octicons/dash-24.svg"
+    },
+    "octicons/alert-24": {
+      "name": "alert",
+      "set": "octicons",
+      "tags": [
+        "alert"
+      ],
+      "file": "octicons/alert-24.svg"
+    },
+    "octicons/info-24": {
+      "name": "info",
+      "set": "octicons",
+      "tags": [
+        "info"
+      ],
+      "file": "octicons/info-24.svg"
+    },
+    "octicons/question-24": {
+      "name": "question",
+      "set": "octicons",
+      "tags": [
+        "question"
+      ],
+      "file": "octicons/question-24.svg"
+    },
+    "octicons/stop-24": {
+      "name": "stop",
+      "set": "octicons",
+      "tags": [
+        "stop"
+      ],
+      "file": "octicons/stop-24.svg"
+    },
+    "octicons/arrow-up-24": {
+      "name": "arrow-up",
+      "set": "octicons",
+      "tags": [
+        "arrow-up",
+        "arrow",
+        "up"
+      ],
+      "file": "octicons/arrow-up-24.svg"
+    },
+    "octicons/arrow-down-24": {
+      "name": "arrow-down",
+      "set": "octicons",
+      "tags": [
+        "arrow-down",
+        "arrow",
+        "down"
+      ],
+      "file": "octicons/arrow-down-24.svg"
+    },
+    "octicons/arrow-left-24": {
+      "name": "arrow-left",
+      "set": "octicons",
+      "tags": [
+        "arrow-left",
+        "arrow",
+        "left"
+      ],
+      "file": "octicons/arrow-left-24.svg"
+    },
+    "octicons/arrow-right-24": {
+      "name": "arrow-right",
+      "set": "octicons",
+      "tags": [
+        "arrow-right",
+        "arrow",
+        "right"
+      ],
+      "file": "octicons/arrow-right-24.svg"
+    },
+    "octicons/link-24": {
+      "name": "link",
+      "set": "octicons",
+      "tags": [
+        "link"
+      ],
+      "file": "octicons/link-24.svg"
+    },
+    "octicons/link-external-24": {
+      "name": "link-external",
+      "set": "octicons",
+      "tags": [
+        "link-external",
+        "link",
+        "external"
+      ],
+      "file": "octicons/link-external-24.svg"
+    },
+    "octicons/download-24": {
+      "name": "download",
+      "set": "octicons",
+      "tags": [
+        "download"
+      ],
+      "file": "octicons/download-24.svg"
+    },
+    "octicons/upload-24": {
+      "name": "upload",
+      "set": "octicons",
+      "tags": [
+        "upload"
+      ],
+      "file": "octicons/upload-24.svg"
+    },
+    "octicons/sync-24": {
+      "name": "sync",
+      "set": "octicons",
+      "tags": [
+        "sync"
+      ],
+      "file": "octicons/sync-24.svg"
+    },
+    "octicons/history-24": {
+      "name": "history",
+      "set": "octicons",
+      "tags": [
+        "history"
+      ],
+      "file": "octicons/history-24.svg"
+    },
+    "octicons/clock-24": {
+      "name": "clock",
+      "set": "octicons",
+      "tags": [
+        "clock"
+      ],
+      "file": "octicons/clock-24.svg"
+    },
+    "octicons/pencil-24": {
+      "name": "pencil",
+      "set": "octicons",
+      "tags": [
+        "pencil"
+      ],
+      "file": "octicons/pencil-24.svg"
+    },
+    "octicons/trash-24": {
+      "name": "trash",
+      "set": "octicons",
+      "tags": [
+        "trash"
+      ],
+      "file": "octicons/trash-24.svg"
+    },
+    "octicons/copy-24": {
+      "name": "copy",
+      "set": "octicons",
+      "tags": [
+        "copy"
+      ],
+      "file": "octicons/copy-24.svg"
+    },
+    "octicons/paste-24": {
+      "name": "paste",
+      "set": "octicons",
+      "tags": [
+        "paste"
+      ],
+      "file": "octicons/paste-24.svg"
+    },
+    "octicons/log-24": {
+      "name": "log",
+      "set": "octicons",
+      "tags": [
+        "log"
+      ],
+      "file": "octicons/log-24.svg"
+    },
+    "octicons/note-24": {
+      "name": "note",
+      "set": "octicons",
+      "tags": [
+        "note"
+      ],
+      "file": "octicons/note-24.svg"
+    },
+    "octicons/list-unordered-24": {
+      "name": "list-unordered",
+      "set": "octicons",
+      "tags": [
+        "list-unordered",
+        "list",
+        "unordered"
+      ],
+      "file": "octicons/list-unordered-24.svg"
+    },
+    "octicons/list-ordered-24": {
+      "name": "list-ordered",
+      "set": "octicons",
+      "tags": [
+        "list-ordered",
+        "list",
+        "ordered"
+      ],
+      "file": "octicons/list-ordered-24.svg"
+    },
+    "octicons/table-24": {
+      "name": "table",
+      "set": "octicons",
+      "tags": [
+        "table"
+      ],
+      "file": "octicons/table-24.svg"
+    },
+    "octicons/rows-24": {
+      "name": "rows",
+      "set": "octicons",
+      "tags": [
+        "rows"
+      ],
+      "file": "octicons/rows-24.svg"
+    },
+    "octicons/columns-24": {
+      "name": "columns",
+      "set": "octicons",
+      "tags": [
+        "columns"
+      ],
+      "file": "octicons/columns-24.svg"
+    },
+    "octicons/image-24": {
+      "name": "image",
+      "set": "octicons",
+      "tags": [
+        "image"
+      ],
+      "file": "octicons/image-24.svg"
+    },
+    "octicons/video-24": {
+      "name": "video",
+      "set": "octicons",
+      "tags": [
+        "video"
+      ],
+      "file": "octicons/video-24.svg"
+    },
+    "octicons/browser-24": {
+      "name": "browser",
+      "set": "octicons",
+      "tags": [
+        "browser"
+      ],
+      "file": "octicons/browser-24.svg"
+    },
+    "octicons/desktop-download-24": {
+      "name": "desktop-download",
+      "set": "octicons",
+      "tags": [
+        "desktop-download",
+        "desktop",
+        "download"
+      ],
+      "file": "octicons/desktop-download-24.svg"
+    },
+    "octicons/device-mobile-24": {
+      "name": "device-mobile",
+      "set": "octicons",
+      "tags": [
+        "device-mobile",
+        "device",
+        "mobile"
+      ],
+      "file": "octicons/device-mobile-24.svg"
+    },
+    "octicons/cpu-24": {
+      "name": "cpu",
+      "set": "octicons",
+      "tags": [
+        "cpu"
+      ],
+      "file": "octicons/cpu-24.svg"
+    },
+    "octicons/container-24": {
+      "name": "container",
+      "set": "octicons",
+      "tags": [
+        "container"
+      ],
+      "file": "octicons/container-24.svg"
+    },
+    "octicons/home-24": {
+      "name": "home",
+      "set": "octicons",
+      "tags": [
+        "home"
+      ],
+      "file": "octicons/home-24.svg"
+    },
+    "octicons/globe-24": {
+      "name": "globe",
+      "set": "octicons",
+      "tags": [
+        "globe"
+      ],
+      "file": "octicons/globe-24.svg"
+    },
+    "octicons/location-24": {
+      "name": "location",
+      "set": "octicons",
+      "tags": [
+        "location"
+      ],
+      "file": "octicons/location-24.svg"
+    },
+    "octicons/megaphone-24": {
+      "name": "megaphone",
+      "set": "octicons",
+      "tags": [
+        "megaphone"
+      ],
+      "file": "octicons/megaphone-24.svg"
+    },
+    "octicons/broadcast-24": {
+      "name": "broadcast",
+      "set": "octicons",
+      "tags": [
+        "broadcast"
+      ],
+      "file": "octicons/broadcast-24.svg"
+    },
+    "octicons/workflow-24": {
+      "name": "workflow",
+      "set": "octicons",
+      "tags": [
+        "workflow"
+      ],
+      "file": "octicons/workflow-24.svg"
+    },
+    "octicons/iterations-24": {
+      "name": "iterations",
+      "set": "octicons",
+      "tags": [
+        "iterations"
+      ],
+      "file": "octicons/iterations-24.svg"
+    },
+    "octicons/beaker-24": {
+      "name": "beaker",
+      "set": "octicons",
+      "tags": [
+        "beaker"
+      ],
+      "file": "octicons/beaker-24.svg"
+    },
+    "octicons/telescope-24": {
+      "name": "telescope",
+      "set": "octicons",
+      "tags": [
+        "telescope"
+      ],
+      "file": "octicons/telescope-24.svg"
+    },
+    "octicons/trophy-24": {
+      "name": "trophy",
+      "set": "octicons",
+      "tags": [
+        "trophy"
+      ],
+      "file": "octicons/trophy-24.svg"
+    },
+    "octicons/thumbsup-24": {
+      "name": "thumbsup",
+      "set": "octicons",
+      "tags": [
+        "thumbsup"
+      ],
+      "file": "octicons/thumbsup-24.svg"
+    },
+    "octicons/thumbsdown-24": {
+      "name": "thumbsdown",
+      "set": "octicons",
+      "tags": [
+        "thumbsdown"
+      ],
+      "file": "octicons/thumbsdown-24.svg"
+    },
+    "octicons/sun-24": {
+      "name": "sun",
+      "set": "octicons",
+      "tags": [
+        "sun"
+      ],
+      "file": "octicons/sun-24.svg"
+    },
+    "octicons/moon-24": {
+      "name": "moon",
+      "set": "octicons",
+      "tags": [
+        "moon"
+      ],
+      "file": "octicons/moon-24.svg"
+    },
+    "octicons/hash-24": {
+      "name": "hash",
+      "set": "octicons",
+      "tags": [
+        "hash"
+      ],
+      "file": "octicons/hash-24.svg"
+    },
+    "octicons/number-24": {
+      "name": "number",
+      "set": "octicons",
+      "tags": [
+        "number"
+      ],
+      "file": "octicons/number-24.svg"
+    },
+    "octicons/apps-24": {
+      "name": "apps",
+      "set": "octicons",
+      "tags": [
+        "apps"
+      ],
+      "file": "octicons/apps-24.svg"
+    },
+    "octicons/stack-24": {
+      "name": "stack",
+      "set": "octicons",
+      "tags": [
+        "stack"
+      ],
+      "file": "octicons/stack-24.svg"
+    },
+    "octicons/sidebar-expand-24": {
+      "name": "sidebar-expand",
+      "set": "octicons",
+      "tags": [
+        "sidebar-expand",
+        "sidebar",
+        "expand"
+      ],
+      "file": "octicons/sidebar-expand-24.svg"
+    },
+    "octicons/paintbrush-24": {
+      "name": "paintbrush",
+      "set": "octicons",
+      "tags": [
+        "paintbrush"
+      ],
+      "file": "octicons/paintbrush-24.svg"
+    },
+    "octicons/typography-24": {
+      "name": "typography",
+      "set": "octicons",
+      "tags": [
+        "typography"
+      ],
+      "file": "octicons/typography-24.svg"
+    },
+    "octicons/sign-out-24": {
+      "name": "sign-out",
+      "set": "octicons",
+      "tags": [
+        "sign-out",
+        "sign",
+        "out"
+      ],
+      "file": "octicons/sign-out-24.svg"
+    },
+    "octicons/sign-in-24": {
+      "name": "sign-in",
+      "set": "octicons",
+      "tags": [
+        "sign-in",
+        "sign",
+        "in"
+      ],
+      "file": "octicons/sign-in-24.svg"
+    },
+    "octicons/share-24": {
+      "name": "share",
+      "set": "octicons",
+      "tags": [
+        "share"
+      ],
+      "file": "octicons/share-24.svg"
+    },
+    "octicons/share-android-24": {
+      "name": "share-android",
+      "set": "octicons",
+      "tags": [
+        "share-android",
+        "share",
+        "android"
+      ],
+      "file": "octicons/share-android-24.svg"
+    },
+    "octicons/report-24": {
+      "name": "report",
+      "set": "octicons",
+      "tags": [
+        "report"
+      ],
+      "file": "octicons/report-24.svg"
+    },
+    "octicons/verified-24": {
+      "name": "verified",
+      "set": "octicons",
+      "tags": [
+        "verified"
+      ],
+      "file": "octicons/verified-24.svg"
+    },
+    "octicons/unverified-24": {
+      "name": "unverified",
+      "set": "octicons",
+      "tags": [
+        "unverified"
+      ],
+      "file": "octicons/unverified-24.svg"
+    },
+    "octicons/blocked-24": {
+      "name": "blocked",
+      "set": "octicons",
+      "tags": [
+        "blocked"
+      ],
+      "file": "octicons/blocked-24.svg"
+    },
+    "octicons/skip-24": {
+      "name": "skip",
+      "set": "octicons",
+      "tags": [
+        "skip"
+      ],
+      "file": "octicons/skip-24.svg"
+    },
+    "octicons/strikethrough-24": {
+      "name": "strikethrough",
+      "set": "octicons",
+      "tags": [
+        "strikethrough"
+      ],
+      "file": "octicons/strikethrough-24.svg"
+    },
+    "octicons/bold-24": {
+      "name": "bold",
+      "set": "octicons",
+      "tags": [
+        "bold"
+      ],
+      "file": "octicons/bold-24.svg"
+    },
+    "octicons/italic-24": {
+      "name": "italic",
+      "set": "octicons",
+      "tags": [
+        "italic"
+      ],
+      "file": "octicons/italic-24.svg"
+    },
+    "octicons/code-review-24": {
+      "name": "code-review",
+      "set": "octicons",
+      "tags": [
+        "code-review",
+        "code",
+        "review"
+      ],
+      "file": "octicons/code-review-24.svg"
+    },
+    "octicons/diff-24": {
+      "name": "diff",
+      "set": "octicons",
+      "tags": [
+        "diff"
+      ],
+      "file": "octicons/diff-24.svg"
+    },
+    "octicons/diff-added-24": {
+      "name": "diff-added",
+      "set": "octicons",
+      "tags": [
+        "diff-added",
+        "diff",
+        "added"
+      ],
+      "file": "octicons/diff-added-24.svg"
+    },
+    "octicons/diff-removed-24": {
+      "name": "diff-removed",
+      "set": "octicons",
+      "tags": [
+        "diff-removed",
+        "diff",
+        "removed"
+      ],
+      "file": "octicons/diff-removed-24.svg"
+    },
+    "octicons/diff-modified-24": {
+      "name": "diff-modified",
+      "set": "octicons",
+      "tags": [
+        "diff-modified",
+        "diff",
+        "modified"
+      ],
+      "file": "octicons/diff-modified-24.svg"
+    },
+    "octicons/tasklist-24": {
+      "name": "tasklist",
+      "set": "octicons",
+      "tags": [
+        "tasklist"
+      ],
+      "file": "octicons/tasklist-24.svg"
+    },
+    "octicons/checklist-24": {
+      "name": "checklist",
+      "set": "octicons",
+      "tags": [
+        "checklist"
+      ],
+      "file": "octicons/checklist-24.svg"
+    },
+    "octicons/dependabot-24": {
+      "name": "dependabot",
+      "set": "octicons",
+      "tags": [
+        "dependabot"
+      ],
+      "file": "octicons/dependabot-24.svg"
+    },
+    "octicons/hubot-24": {
+      "name": "hubot",
+      "set": "octicons",
+      "tags": [
+        "hubot"
+      ],
+      "file": "octicons/hubot-24.svg"
+    },
+    "octicons/north-star-24": {
+      "name": "north-star",
+      "set": "octicons",
+      "tags": [
+        "north-star",
+        "north",
+        "star"
+      ],
+      "file": "octicons/north-star-24.svg"
+    },
+    "octicons/sparkle-fill-24": {
+      "name": "sparkle-fill",
+      "set": "octicons",
+      "tags": [
+        "sparkle-fill",
+        "sparkle",
+        "fill"
+      ],
+      "file": "octicons/sparkle-fill-24.svg"
+    },
+    "octicons/cache-24": {
+      "name": "cache",
+      "set": "octicons",
+      "tags": [
+        "cache"
+      ],
+      "file": "octicons/cache-24.svg"
+    },
+    "octicons/codescan-24": {
+      "name": "codescan",
+      "set": "octicons",
+      "tags": [
+        "codescan"
+      ],
+      "file": "octicons/codescan-24.svg"
+    },
+    "octicons/accessibility-24": {
+      "name": "accessibility",
+      "set": "octicons",
+      "tags": [
+        "accessibility"
+      ],
+      "file": "octicons/accessibility-24.svg"
+    },
+    "octicons/screen-full-24": {
+      "name": "screen-full",
+      "set": "octicons",
+      "tags": [
+        "screen-full",
+        "screen",
+        "full"
+      ],
+      "file": "octicons/screen-full-24.svg"
+    }
+  },
+  "term_index": {
+    "package": [
+      "lucide/package",
+      "octicons/package-24"
+    ],
+    "box": [
+      "lucide/box"
+    ],
+    "archive": [
+      "lucide/archive"
+    ],
+    "gift": [
+      "lucide/gift"
+    ],
+    "file": [
+      "lucide/file",
+      "lucide/file-text",
+      "lucide/file-code",
+      "lucide/file-image",
+      "octicons/file-24",
+      "octicons/file-code-24",
+      "octicons/file-directory-24"
+    ],
+    "file-text": [
+      "lucide/file-text"
+    ],
+    "text": [
+      "lucide/file-text"
+    ],
+    "file-code": [
+      "lucide/file-code",
+      "octicons/file-code-24"
+    ],
+    "code": [
+      "lucide/file-code",
+      "lucide/code",
+      "lucide/qr-code",
+      "octicons/code-24",
+      "octicons/file-code-24",
+      "octicons/code-review-24"
+    ],
+    "file-image": [
+      "lucide/file-image"
+    ],
+    "image": [
+      "lucide/file-image",
+      "lucide/image",
+      "octicons/image-24"
+    ],
+    "folder": [
+      "lucide/folder",
+      "lucide/folder-open"
+    ],
+    "folder-open": [
+      "lucide/folder-open"
+    ],
+    "open": [
+      "lucide/folder-open",
+      "lucide/book-open"
+    ],
+    "camera": [
+      "lucide/camera"
+    ],
+    "video": [
+      "lucide/video",
+      "octicons/video-24"
+    ],
+    "music": [
+      "lucide/music"
+    ],
+    "mic": [
+      "lucide/mic"
+    ],
+    "book": [
+      "lucide/book",
+      "lucide/book-open"
+    ],
+    "book-open": [
+      "lucide/book-open"
+    ],
+    "notebook": [
+      "lucide/notebook"
+    ],
+    "bookmark": [
+      "lucide/bookmark",
+      "octicons/bookmark-24"
+    ],
+    "pen": [
+      "lucide/pen"
+    ],
+    "pencil": [
+      "lucide/pencil",
+      "octicons/pencil-24"
+    ],
+    "brush": [
+      "lucide/brush"
+    ],
+    "palette": [
+      "lucide/palette"
+    ],
+    "paintbrush": [
+      "lucide/paintbrush",
+      "octicons/paintbrush-24"
+    ],
+    "scissors": [
+      "lucide/scissors"
+    ],
+    "paperclip": [
+      "lucide/paperclip"
+    ],
+    "pin": [
+      "lucide/pin",
+      "lucide/map-pin"
+    ],
+    "key": [
+      "lucide/key",
+      "octicons/key-24"
+    ],
+    "lock": [
+      "lucide/lock",
+      "octicons/shield-lock-24",
+      "octicons/lock-24"
+    ],
+    "shield": [
+      "lucide/shield",
+      "lucide/shield-check",
+      "lucide/shield-alert",
+      "lucide/shield-off",
+      "octicons/shield-24",
+      "octicons/shield-lock-24",
+      "octicons/shield-check-24"
+    ],
+    "shield-check": [
+      "lucide/shield-check",
+      "octicons/shield-check-24"
+    ],
+    "check": [
+      "lucide/shield-check",
+      "lucide/check",
+      "lucide/check-check",
+      "lucide/circle-check",
+      "lucide/user-check",
+      "octicons/shield-check-24",
+      "octicons/check-24"
+    ],
+    "heart": [
+      "lucide/heart",
+      "octicons/heart-24"
+    ],
+    "star": [
+      "lucide/star",
+      "octicons/star-24",
+      "octicons/north-star-24"
+    ],
+    "flag": [
+      "lucide/flag",
+      "lucide/flag-triangle-right"
+    ],
+    "trophy": [
+      "lucide/trophy",
+      "octicons/trophy-24"
+    ],
+    "award": [
+      "lucide/award"
+    ],
+    "medal": [
+      "lucide/medal"
+    ],
+    "clock": [
+      "lucide/clock",
+      "lucide/alarm-clock",
+      "octicons/clock-24"
+    ],
+    "timer": [
+      "lucide/timer"
+    ],
+    "calendar": [
+      "lucide/calendar",
+      "lucide/calendar-days"
+    ],
+    "alarm-clock": [
+      "lucide/alarm-clock"
+    ],
+    "alarm": [
+      "lucide/alarm-clock"
+    ],
+    "map": [
+      "lucide/map",
+      "lucide/map-pin"
+    ],
+    "map-pin": [
+      "lucide/map-pin"
+    ],
+    "compass": [
+      "lucide/compass"
+    ],
+    "navigation": [
+      "lucide/navigation"
+    ],
+    "globe": [
+      "lucide/globe",
+      "octicons/globe-24"
+    ],
+    "building": [
+      "lucide/building",
+      "lucide/building-2"
+    ],
+    "building-2": [
+      "lucide/building-2"
+    ],
+    "2": [
+      "lucide/building-2",
+      "lucide/volume-2",
+      "lucide/trash-2",
+      "lucide/share-2"
+    ],
+    "store": [
+      "lucide/store"
+    ],
+    "warehouse": [
+      "lucide/warehouse"
+    ],
+    "car": [
+      "lucide/car"
+    ],
+    "truck": [
+      "lucide/truck"
+    ],
+    "plane": [
+      "lucide/plane"
+    ],
+    "bike": [
+      "lucide/bike"
+    ],
+    "ship": [
+      "lucide/ship"
+    ],
+    "rocket": [
+      "lucide/rocket",
+      "octicons/rocket-24"
+    ],
+    "lamp": [
+      "lucide/lamp"
+    ],
+    "lightbulb": [
+      "lucide/lightbulb"
+    ],
+    "flashlight": [
+      "lucide/flashlight"
+    ],
+    "sun": [
+      "lucide/sun",
+      "octicons/sun-24"
+    ],
+    "moon": [
+      "lucide/moon",
+      "octicons/moon-24"
+    ],
+    "cloud": [
+      "lucide/cloud",
+      "lucide/cloud-download",
+      "lucide/cloud-upload",
+      "octicons/cloud-24"
+    ],
+    "umbrella": [
+      "lucide/umbrella"
+    ],
+    "thermometer": [
+      "lucide/thermometer"
+    ],
+    "flame": [
+      "lucide/flame",
+      "octicons/flame-24"
+    ],
+    "droplet": [
+      "lucide/droplet"
+    ],
+    "snowflake": [
+      "lucide/snowflake"
+    ],
+    "wind": [
+      "lucide/wind"
+    ],
+    "zap": [
+      "lucide/zap",
+      "octicons/zap-24"
+    ],
+    "flower": [
+      "lucide/flower"
+    ],
+    "leaf": [
+      "lucide/leaf"
+    ],
+    "sprout": [
+      "lucide/sprout"
+    ],
+    "bug": [
+      "lucide/bug"
+    ],
+    "fish": [
+      "lucide/fish"
+    ],
+    "bird": [
+      "lucide/bird"
+    ],
+    "cat": [
+      "lucide/cat"
+    ],
+    "dog": [
+      "lucide/dog"
+    ],
+    "paw-print": [
+      "lucide/paw-print"
+    ],
+    "paw": [
+      "lucide/paw-print"
+    ],
+    "print": [
+      "lucide/paw-print"
+    ],
+    "baby": [
+      "lucide/baby"
+    ],
+    "user": [
+      "lucide/user",
+      "lucide/user-check",
+      "lucide/user-plus",
+      "lucide/user-minus",
+      "lucide/user-x"
+    ],
+    "users": [
+      "lucide/users"
+    ],
+    "person-standing": [
+      "lucide/person-standing"
+    ],
+    "person": [
+      "lucide/person-standing",
+      "octicons/person-24"
+    ],
+    "standing": [
+      "lucide/person-standing"
+    ],
+    "shirt": [
+      "lucide/shirt"
+    ],
+    "glasses": [
+      "lucide/glasses"
+    ],
+    "crown": [
+      "lucide/crown"
+    ],
+    "phone": [
+      "lucide/phone"
+    ],
+    "smartphone": [
+      "lucide/smartphone"
+    ],
+    "tablet": [
+      "lucide/tablet"
+    ],
+    "laptop": [
+      "lucide/laptop"
+    ],
+    "monitor": [
+      "lucide/monitor"
+    ],
+    "tv": [
+      "lucide/tv"
+    ],
+    "printer": [
+      "lucide/printer"
+    ],
+    "speaker": [
+      "lucide/speaker"
+    ],
+    "headphones": [
+      "lucide/headphones"
+    ],
+    "battery": [
+      "lucide/battery"
+    ],
+    "plug": [
+      "lucide/plug",
+      "octicons/plug-24"
+    ],
+    "power": [
+      "lucide/power"
+    ],
+    "wrench": [
+      "lucide/wrench"
+    ],
+    "hammer": [
+      "lucide/hammer"
+    ],
+    "shopping-cart": [
+      "lucide/shopping-cart"
+    ],
+    "shopping": [
+      "lucide/shopping-cart",
+      "lucide/shopping-bag"
+    ],
+    "cart": [
+      "lucide/shopping-cart"
+    ],
+    "shopping-bag": [
+      "lucide/shopping-bag"
+    ],
+    "bag": [
+      "lucide/shopping-bag"
+    ],
+    "credit-card": [
+      "lucide/credit-card"
+    ],
+    "credit": [
+      "lucide/credit-card"
+    ],
+    "card": [
+      "lucide/credit-card"
+    ],
+    "wallet": [
+      "lucide/wallet"
+    ],
+    "receipt": [
+      "lucide/receipt"
+    ],
+    "coins": [
+      "lucide/coins"
+    ],
+    "pill": [
+      "lucide/pill"
+    ],
+    "syringe": [
+      "lucide/syringe"
+    ],
+    "stethoscope": [
+      "lucide/stethoscope"
+    ],
+    "bandage": [
+      "lucide/bandage"
+    ],
+    "dumbbell": [
+      "lucide/dumbbell"
+    ],
+    "utensils": [
+      "lucide/utensils"
+    ],
+    "coffee": [
+      "lucide/coffee"
+    ],
+    "wine": [
+      "lucide/wine"
+    ],
+    "beer": [
+      "lucide/beer"
+    ],
+    "pizza": [
+      "lucide/pizza"
+    ],
+    "apple": [
+      "lucide/apple"
+    ],
+    "egg": [
+      "lucide/egg"
+    ],
+    "cake": [
+      "lucide/cake"
+    ],
+    "bed": [
+      "lucide/bed"
+    ],
+    "bath": [
+      "lucide/bath"
+    ],
+    "armchair": [
+      "lucide/armchair"
+    ],
+    "sofa": [
+      "lucide/sofa"
+    ],
+    "database": [
+      "lucide/database",
+      "octicons/database-24"
+    ],
+    "server": [
+      "lucide/server",
+      "octicons/server-24"
+    ],
+    "hard-drive": [
+      "lucide/hard-drive"
+    ],
+    "hard": [
+      "lucide/hard-drive"
+    ],
+    "drive": [
+      "lucide/hard-drive"
+    ],
+    "cpu": [
+      "lucide/cpu",
+      "octicons/cpu-24"
+    ],
+    "memory-stick": [
+      "lucide/memory-stick"
+    ],
+    "memory": [
+      "lucide/memory-stick"
+    ],
+    "stick": [
+      "lucide/memory-stick"
+    ],
+    "usb": [
+      "lucide/usb"
+    ],
+    "wifi": [
+      "lucide/wifi"
+    ],
+    "bluetooth": [
+      "lucide/bluetooth"
+    ],
+    "radio": [
+      "lucide/radio",
+      "lucide/radio-tower"
+    ],
+    "antenna": [
+      "lucide/antenna"
+    ],
+    "satellite": [
+      "lucide/satellite"
+    ],
+    "terminal": [
+      "lucide/terminal",
+      "octicons/terminal-24"
+    ],
+    "braces": [
+      "lucide/braces"
+    ],
+    "hash": [
+      "lucide/hash",
+      "octicons/hash-24"
+    ],
+    "binary": [
+      "lucide/binary"
+    ],
+    "variable": [
+      "lucide/variable"
+    ],
+    "git-branch": [
+      "lucide/git-branch",
+      "octicons/git-branch-24"
+    ],
+    "git": [
+      "lucide/git-branch",
+      "lucide/git-merge",
+      "lucide/git-pull-request",
+      "octicons/git-branch-24",
+      "octicons/git-commit-24",
+      "octicons/git-merge-24",
+      "octicons/git-pull-request-24"
+    ],
+    "branch": [
+      "lucide/git-branch",
+      "octicons/git-branch-24"
+    ],
+    "git-merge": [
+      "lucide/git-merge",
+      "octicons/git-merge-24"
+    ],
+    "merge": [
+      "lucide/git-merge",
+      "octicons/git-merge-24"
+    ],
+    "git-pull-request": [
+      "lucide/git-pull-request",
+      "octicons/git-pull-request-24"
+    ],
+    "pull": [
+      "lucide/git-pull-request",
+      "octicons/git-pull-request-24"
+    ],
+    "request": [
+      "lucide/git-pull-request",
+      "octicons/git-pull-request-24"
+    ],
+    "link": [
+      "lucide/link",
+      "lucide/external-link",
+      "octicons/link-24",
+      "octicons/link-external-24"
+    ],
+    "unlink": [
+      "lucide/unlink"
+    ],
+    "external-link": [
+      "lucide/external-link"
+    ],
+    "external": [
+      "lucide/external-link",
+      "octicons/link-external-24"
+    ],
+    "download": [
+      "lucide/download",
+      "lucide/cloud-download",
+      "octicons/download-24",
+      "octicons/desktop-download-24"
+    ],
+    "upload": [
+      "lucide/upload",
+      "lucide/cloud-upload",
+      "octicons/upload-24"
+    ],
+    "cloud-download": [
+      "lucide/cloud-download"
+    ],
+    "cloud-upload": [
+      "lucide/cloud-upload"
+    ],
+    "search": [
+      "lucide/search",
+      "octicons/search-24"
+    ],
+    "settings": [
+      "lucide/settings"
+    ],
+    "toggle-left": [
+      "lucide/toggle-left"
+    ],
+    "toggle": [
+      "lucide/toggle-left",
+      "lucide/toggle-right"
+    ],
+    "left": [
+      "lucide/toggle-left",
+      "lucide/panel-left",
+      "lucide/arrow-left",
+      "lucide/chevron-left",
+      "octicons/arrow-left-24"
+    ],
+    "toggle-right": [
+      "lucide/toggle-right"
+    ],
+    "right": [
+      "lucide/toggle-right",
+      "lucide/panel-right",
+      "lucide/arrow-right",
+      "lucide/chevron-right",
+      "lucide/flag-triangle-right",
+      "octicons/arrow-right-24"
+    ],
+    "maximize": [
+      "lucide/maximize"
+    ],
+    "minimize": [
+      "lucide/minimize"
+    ],
+    "expand": [
+      "lucide/expand",
+      "octicons/sidebar-expand-24"
+    ],
+    "shrink": [
+      "lucide/shrink"
+    ],
+    "layout-grid": [
+      "lucide/layout-grid"
+    ],
+    "layout": [
+      "lucide/layout-grid",
+      "lucide/layout-list",
+      "lucide/layout-dashboard"
+    ],
+    "grid": [
+      "lucide/layout-grid"
+    ],
+    "layout-list": [
+      "lucide/layout-list"
+    ],
+    "list": [
+      "lucide/layout-list",
+      "lucide/list",
+      "lucide/list-ordered",
+      "lucide/list-checks",
+      "lucide/list-tree",
+      "octicons/list-unordered-24",
+      "octicons/list-ordered-24"
+    ],
+    "layout-dashboard": [
+      "lucide/layout-dashboard"
+    ],
+    "dashboard": [
+      "lucide/layout-dashboard"
+    ],
+    "panel-left": [
+      "lucide/panel-left"
+    ],
+    "panel": [
+      "lucide/panel-left",
+      "lucide/panel-right",
+      "lucide/panel-top",
+      "lucide/panel-bottom"
+    ],
+    "panel-right": [
+      "lucide/panel-right"
+    ],
+    "panel-top": [
+      "lucide/panel-top"
+    ],
+    "top": [
+      "lucide/panel-top"
+    ],
+    "panel-bottom": [
+      "lucide/panel-bottom"
+    ],
+    "bottom": [
+      "lucide/panel-bottom"
+    ],
+    "menu": [
+      "lucide/menu"
+    ],
+    "grip-vertical": [
+      "lucide/grip-vertical"
+    ],
+    "grip": [
+      "lucide/grip-vertical",
+      "lucide/grip-horizontal"
+    ],
+    "vertical": [
+      "lucide/grip-vertical"
+    ],
+    "grip-horizontal": [
+      "lucide/grip-horizontal"
+    ],
+    "horizontal": [
+      "lucide/grip-horizontal"
+    ],
+    "table": [
+      "lucide/table",
+      "octicons/table-24"
+    ],
+    "kanban": [
+      "lucide/kanban"
+    ],
+    "calendar-days": [
+      "lucide/calendar-days"
+    ],
+    "days": [
+      "lucide/calendar-days"
+    ],
+    "play": [
+      "lucide/play"
+    ],
+    "pause": [
+      "lucide/pause"
+    ],
+    "skip-forward": [
+      "lucide/skip-forward"
+    ],
+    "skip": [
+      "lucide/skip-forward",
+      "lucide/skip-back",
+      "octicons/skip-24"
+    ],
+    "forward": [
+      "lucide/skip-forward",
+      "lucide/fast-forward"
+    ],
+    "skip-back": [
+      "lucide/skip-back"
+    ],
+    "back": [
+      "lucide/skip-back"
+    ],
+    "rewind": [
+      "lucide/rewind"
+    ],
+    "fast-forward": [
+      "lucide/fast-forward"
+    ],
+    "fast": [
+      "lucide/fast-forward"
+    ],
+    "repeat": [
+      "lucide/repeat"
+    ],
+    "shuffle": [
+      "lucide/shuffle"
+    ],
+    "volume": [
+      "lucide/volume",
+      "lucide/volume-1",
+      "lucide/volume-2",
+      "lucide/volume-x"
+    ],
+    "volume-1": [
+      "lucide/volume-1"
+    ],
+    "1": [
+      "lucide/volume-1"
+    ],
+    "volume-2": [
+      "lucide/volume-2"
+    ],
+    "volume-x": [
+      "lucide/volume-x"
+    ],
+    "x": [
+      "lucide/volume-x",
+      "lucide/x",
+      "lucide/circle-x",
+      "lucide/user-x",
+      "octicons/x-24"
+    ],
+    "plus": [
+      "lucide/plus",
+      "lucide/user-plus",
+      "octicons/plus-24"
+    ],
+    "minus": [
+      "lucide/minus",
+      "lucide/user-minus"
+    ],
+    "check-check": [
+      "lucide/check-check"
+    ],
+    "arrow-up": [
+      "lucide/arrow-up",
+      "octicons/arrow-up-24"
+    ],
+    "arrow": [
+      "lucide/arrow-up",
+      "lucide/arrow-down",
+      "lucide/arrow-left",
+      "lucide/arrow-right",
+      "octicons/arrow-up-24",
+      "octicons/arrow-down-24",
+      "octicons/arrow-left-24",
+      "octicons/arrow-right-24"
+    ],
+    "up": [
+      "lucide/arrow-up",
+      "lucide/chevron-up",
+      "lucide/trending-up",
+      "lucide/thumbs-up",
+      "octicons/arrow-up-24"
+    ],
+    "arrow-down": [
+      "lucide/arrow-down",
+      "octicons/arrow-down-24"
+    ],
+    "down": [
+      "lucide/arrow-down",
+      "lucide/chevron-down",
+      "lucide/trending-down",
+      "lucide/thumbs-down",
+      "octicons/arrow-down-24"
+    ],
+    "arrow-left": [
+      "lucide/arrow-left",
+      "octicons/arrow-left-24"
+    ],
+    "arrow-right": [
+      "lucide/arrow-right",
+      "octicons/arrow-right-24"
+    ],
+    "chevron-up": [
+      "lucide/chevron-up"
+    ],
+    "chevron": [
+      "lucide/chevron-up",
+      "lucide/chevron-down",
+      "lucide/chevron-left",
+      "lucide/chevron-right"
+    ],
+    "chevron-down": [
+      "lucide/chevron-down"
+    ],
+    "chevron-left": [
+      "lucide/chevron-left"
+    ],
+    "chevron-right": [
+      "lucide/chevron-right"
+    ],
+    "rotate-cw": [
+      "lucide/rotate-cw"
+    ],
+    "rotate": [
+      "lucide/rotate-cw",
+      "lucide/rotate-ccw"
+    ],
+    "cw": [
+      "lucide/rotate-cw",
+      "lucide/refresh-cw"
+    ],
+    "rotate-ccw": [
+      "lucide/rotate-ccw"
+    ],
+    "ccw": [
+      "lucide/rotate-ccw",
+      "lucide/refresh-ccw"
+    ],
+    "refresh-cw": [
+      "lucide/refresh-cw"
+    ],
+    "refresh": [
+      "lucide/refresh-cw",
+      "lucide/refresh-ccw"
+    ],
+    "refresh-ccw": [
+      "lucide/refresh-ccw"
+    ],
+    "undo": [
+      "lucide/undo"
+    ],
+    "redo": [
+      "lucide/redo"
+    ],
+    "copy": [
+      "lucide/copy",
+      "octicons/copy-24"
+    ],
+    "clipboard": [
+      "lucide/clipboard"
+    ],
+    "trash": [
+      "lucide/trash",
+      "lucide/trash-2",
+      "octicons/trash-24"
+    ],
+    "trash-2": [
+      "lucide/trash-2"
+    ],
+    "eraser": [
+      "lucide/eraser"
+    ],
+    "save": [
+      "lucide/save"
+    ],
+    "send": [
+      "lucide/send"
+    ],
+    "share": [
+      "lucide/share",
+      "lucide/share-2",
+      "octicons/share-24",
+      "octicons/share-android-24"
+    ],
+    "share-2": [
+      "lucide/share-2"
+    ],
+    "eye": [
+      "lucide/eye",
+      "lucide/eye-off",
+      "octicons/eye-24"
+    ],
+    "eye-off": [
+      "lucide/eye-off"
+    ],
+    "off": [
+      "lucide/eye-off",
+      "lucide/shield-off"
+    ],
+    "log-in": [
+      "lucide/log-in"
+    ],
+    "log": [
+      "lucide/log-in",
+      "lucide/log-out",
+      "octicons/log-24"
+    ],
+    "in": [
+      "lucide/log-in",
+      "octicons/sign-in-24"
+    ],
+    "log-out": [
+      "lucide/log-out"
+    ],
+    "out": [
+      "lucide/log-out",
+      "octicons/sign-out-24"
+    ],
+    "move": [
+      "lucide/move"
+    ],
+    "mail": [
+      "lucide/mail",
+      "octicons/mail-24"
+    ],
+    "inbox": [
+      "lucide/inbox",
+      "octicons/inbox-24"
+    ],
+    "at-sign": [
+      "lucide/at-sign"
+    ],
+    "at": [
+      "lucide/at-sign"
+    ],
+    "sign": [
+      "lucide/at-sign",
+      "octicons/sign-out-24",
+      "octicons/sign-in-24"
+    ],
+    "message-circle": [
+      "lucide/message-circle"
+    ],
+    "message": [
+      "lucide/message-circle",
+      "lucide/message-square"
+    ],
+    "circle": [
+      "lucide/message-circle",
+      "lucide/circle-check",
+      "lucide/circle-x",
+      "lucide/circle-dot"
+    ],
+    "message-square": [
+      "lucide/message-square"
+    ],
+    "square": [
+      "lucide/message-square",
+      "lucide/messages-square"
+    ],
+    "messages-square": [
+      "lucide/messages-square"
+    ],
+    "messages": [
+      "lucide/messages-square"
+    ],
+    "bell": [
+      "lucide/bell",
+      "lucide/bell-ring",
+      "octicons/bell-24"
+    ],
+    "bell-ring": [
+      "lucide/bell-ring"
+    ],
+    "ring": [
+      "lucide/bell-ring"
+    ],
+    "megaphone": [
+      "lucide/megaphone",
+      "octicons/megaphone-24"
+    ],
+    "radio-tower": [
+      "lucide/radio-tower"
+    ],
+    "tower": [
+      "lucide/radio-tower"
+    ],
+    "trending-up": [
+      "lucide/trending-up"
+    ],
+    "trending": [
+      "lucide/trending-up",
+      "lucide/trending-down"
+    ],
+    "trending-down": [
+      "lucide/trending-down"
+    ],
+    "activity": [
+      "lucide/activity"
+    ],
+    "gauge": [
+      "lucide/gauge"
+    ],
+    "target": [
+      "lucide/target"
+    ],
+    "info": [
+      "lucide/info",
+      "octicons/info-24"
+    ],
+    "circle-check": [
+      "lucide/circle-check"
+    ],
+    "circle-x": [
+      "lucide/circle-x"
+    ],
+    "circle-dot": [
+      "lucide/circle-dot"
+    ],
+    "dot": [
+      "lucide/circle-dot"
+    ],
+    "loader": [
+      "lucide/loader"
+    ],
+    "hourglass": [
+      "lucide/hourglass"
+    ],
+    "thumbs-up": [
+      "lucide/thumbs-up"
+    ],
+    "thumbs": [
+      "lucide/thumbs-up",
+      "lucide/thumbs-down"
+    ],
+    "thumbs-down": [
+      "lucide/thumbs-down"
+    ],
+    "smile": [
+      "lucide/smile"
+    ],
+    "frown": [
+      "lucide/frown"
+    ],
+    "meh": [
+      "lucide/meh"
+    ],
+    "tag": [
+      "lucide/tag",
+      "octicons/tag-24"
+    ],
+    "tags": [
+      "lucide/tags"
+    ],
+    "list-ordered": [
+      "lucide/list-ordered",
+      "octicons/list-ordered-24"
+    ],
+    "ordered": [
+      "lucide/list-ordered",
+      "octicons/list-ordered-24"
+    ],
+    "list-checks": [
+      "lucide/list-checks"
+    ],
+    "checks": [
+      "lucide/list-checks"
+    ],
+    "list-tree": [
+      "lucide/list-tree"
+    ],
+    "tree": [
+      "lucide/list-tree"
+    ],
+    "layers": [
+      "lucide/layers"
+    ],
+    "network": [
+      "lucide/network"
+    ],
+    "workflow": [
+      "lucide/workflow",
+      "octicons/workflow-24"
+    ],
+    "puzzle": [
+      "lucide/puzzle"
+    ],
+    "blocks": [
+      "lucide/blocks"
+    ],
+    "milestone": [
+      "lucide/milestone",
+      "octicons/milestone-24"
+    ],
+    "flag-triangle-right": [
+      "lucide/flag-triangle-right"
+    ],
+    "triangle": [
+      "lucide/flag-triangle-right"
+    ],
+    "shield-alert": [
+      "lucide/shield-alert"
+    ],
+    "alert": [
+      "lucide/shield-alert",
+      "octicons/alert-24"
+    ],
+    "shield-off": [
+      "lucide/shield-off"
+    ],
+    "scan": [
+      "lucide/scan"
+    ],
+    "qr-code": [
+      "lucide/qr-code"
+    ],
+    "qr": [
+      "lucide/qr-code"
+    ],
+    "user-check": [
+      "lucide/user-check"
+    ],
+    "user-plus": [
+      "lucide/user-plus"
+    ],
+    "user-minus": [
+      "lucide/user-minus"
+    ],
+    "user-x": [
+      "lucide/user-x"
+    ],
+    "calculator": [
+      "lucide/calculator"
+    ],
+    "sigma": [
+      "lucide/sigma"
+    ],
+    "infinity": [
+      "lucide/infinity"
+    ],
+    "percent": [
+      "lucide/percent"
+    ],
+    "atom": [
+      "lucide/atom"
+    ],
+    "dna": [
+      "lucide/dna"
+    ],
+    "microscope": [
+      "lucide/microscope"
+    ],
+    "telescope": [
+      "lucide/telescope",
+      "octicons/telescope-24"
+    ],
+    "ruler": [
+      "lucide/ruler"
+    ],
+    "repo": [
+      "octicons/repo-24"
+    ],
+    "git-commit": [
+      "octicons/git-commit-24"
+    ],
+    "commit": [
+      "octicons/git-commit-24"
+    ],
+    "issue-opened": [
+      "octicons/issue-opened-24"
+    ],
+    "issue": [
+      "octicons/issue-opened-24",
+      "octicons/issue-closed-24"
+    ],
+    "opened": [
+      "octicons/issue-opened-24"
+    ],
+    "issue-closed": [
+      "octicons/issue-closed-24"
+    ],
+    "closed": [
+      "octicons/issue-closed-24"
+    ],
+    "comment": [
+      "octicons/comment-24",
+      "octicons/comment-discussion-24"
+    ],
+    "comment-discussion": [
+      "octicons/comment-discussion-24"
+    ],
+    "discussion": [
+      "octicons/comment-discussion-24"
+    ],
+    "file-directory": [
+      "octicons/file-directory-24"
+    ],
+    "directory": [
+      "octicons/file-directory-24"
+    ],
+    "gear": [
+      "octicons/gear-24"
+    ],
+    "tools": [
+      "octicons/tools-24"
+    ],
+    "shield-lock": [
+      "octicons/shield-lock-24"
+    ],
+    "graph": [
+      "octicons/graph-24"
+    ],
+    "pulse": [
+      "octicons/pulse-24"
+    ],
+    "meter": [
+      "octicons/meter-24"
+    ],
+    "filter": [
+      "octicons/filter-24"
+    ],
+    "people": [
+      "octicons/people-24"
+    ],
+    "organization": [
+      "octicons/organization-24"
+    ],
+    "project": [
+      "octicons/project-24"
+    ],
+    "dash": [
+      "octicons/dash-24"
+    ],
+    "question": [
+      "octicons/question-24"
+    ],
+    "stop": [
+      "octicons/stop-24"
+    ],
+    "link-external": [
+      "octicons/link-external-24"
+    ],
+    "sync": [
+      "octicons/sync-24"
+    ],
+    "history": [
+      "octicons/history-24"
+    ],
+    "paste": [
+      "octicons/paste-24"
+    ],
+    "note": [
+      "octicons/note-24"
+    ],
+    "list-unordered": [
+      "octicons/list-unordered-24"
+    ],
+    "unordered": [
+      "octicons/list-unordered-24"
+    ],
+    "rows": [
+      "octicons/rows-24"
+    ],
+    "columns": [
+      "octicons/columns-24"
+    ],
+    "browser": [
+      "octicons/browser-24"
+    ],
+    "desktop-download": [
+      "octicons/desktop-download-24"
+    ],
+    "desktop": [
+      "octicons/desktop-download-24"
+    ],
+    "device-mobile": [
+      "octicons/device-mobile-24"
+    ],
+    "device": [
+      "octicons/device-mobile-24"
+    ],
+    "mobile": [
+      "octicons/device-mobile-24"
+    ],
+    "container": [
+      "octicons/container-24"
+    ],
+    "home": [
+      "octicons/home-24"
+    ],
+    "location": [
+      "octicons/location-24"
+    ],
+    "broadcast": [
+      "octicons/broadcast-24"
+    ],
+    "iterations": [
+      "octicons/iterations-24"
+    ],
+    "beaker": [
+      "octicons/beaker-24"
+    ],
+    "thumbsup": [
+      "octicons/thumbsup-24"
+    ],
+    "thumbsdown": [
+      "octicons/thumbsdown-24"
+    ],
+    "number": [
+      "octicons/number-24"
+    ],
+    "apps": [
+      "octicons/apps-24"
+    ],
+    "stack": [
+      "octicons/stack-24"
+    ],
+    "sidebar-expand": [
+      "octicons/sidebar-expand-24"
+    ],
+    "sidebar": [
+      "octicons/sidebar-expand-24"
+    ],
+    "typography": [
+      "octicons/typography-24"
+    ],
+    "sign-out": [
+      "octicons/sign-out-24"
+    ],
+    "sign-in": [
+      "octicons/sign-in-24"
+    ],
+    "share-android": [
+      "octicons/share-android-24"
+    ],
+    "android": [
+      "octicons/share-android-24"
+    ],
+    "report": [
+      "octicons/report-24"
+    ],
+    "verified": [
+      "octicons/verified-24"
+    ],
+    "unverified": [
+      "octicons/unverified-24"
+    ],
+    "blocked": [
+      "octicons/blocked-24"
+    ],
+    "strikethrough": [
+      "octicons/strikethrough-24"
+    ],
+    "bold": [
+      "octicons/bold-24"
+    ],
+    "italic": [
+      "octicons/italic-24"
+    ],
+    "code-review": [
+      "octicons/code-review-24"
+    ],
+    "review": [
+      "octicons/code-review-24"
+    ],
+    "diff": [
+      "octicons/diff-24",
+      "octicons/diff-added-24",
+      "octicons/diff-removed-24",
+      "octicons/diff-modified-24"
+    ],
+    "diff-added": [
+      "octicons/diff-added-24"
+    ],
+    "added": [
+      "octicons/diff-added-24"
+    ],
+    "diff-removed": [
+      "octicons/diff-removed-24"
+    ],
+    "removed": [
+      "octicons/diff-removed-24"
+    ],
+    "diff-modified": [
+      "octicons/diff-modified-24"
+    ],
+    "modified": [
+      "octicons/diff-modified-24"
+    ],
+    "tasklist": [
+      "octicons/tasklist-24"
+    ],
+    "checklist": [
+      "octicons/checklist-24"
+    ],
+    "dependabot": [
+      "octicons/dependabot-24"
+    ],
+    "hubot": [
+      "octicons/hubot-24"
+    ],
+    "north-star": [
+      "octicons/north-star-24"
+    ],
+    "north": [
+      "octicons/north-star-24"
+    ],
+    "sparkle-fill": [
+      "octicons/sparkle-fill-24"
+    ],
+    "sparkle": [
+      "octicons/sparkle-fill-24"
+    ],
+    "fill": [
+      "octicons/sparkle-fill-24"
+    ],
+    "cache": [
+      "octicons/cache-24"
+    ],
+    "codescan": [
+      "octicons/codescan-24"
+    ],
+    "accessibility": [
+      "octicons/accessibility-24"
+    ],
+    "screen-full": [
+      "octicons/screen-full-24"
+    ],
+    "screen": [
+      "octicons/screen-full-24"
+    ],
+    "full": [
+      "octicons/screen-full-24"
+    ]
+  }
+}

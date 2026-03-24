@@ -1,11 +1,12 @@
 """Icon management for visualizations."""
 
+import logging
 from typing import Dict, Any, Optional
-from .nounproject import NounProjectClient
 from reifire.icon_registry import IconRegistry
-from .material_icons import MaterialIconProvider
 from .color_swatch import ColorSwatchGenerator
 import base64
+
+logger = logging.getLogger(__name__)
 
 
 class IconManager:
@@ -24,7 +25,6 @@ class IconManager:
         "alternative": (
             "https://raw.githubusercontent.com/primer/octicons/main/icons/git-branch-24.svg"
         ),
-        # Add more specific fallbacks for UI components
         "ui_component": (
             "https://raw.githubusercontent.com/primer/octicons/main/icons/browser-24.svg"
         ),
@@ -35,7 +35,6 @@ class IconManager:
         "data_display": "https://raw.githubusercontent.com/primer/octicons/main/icons/graph-24.svg",
         "feedback": "https://raw.githubusercontent.com/primer/octicons/main/icons/comment-24.svg",
         "layout": "https://raw.githubusercontent.com/primer/octicons/main/icons/layout-24.svg",
-        # Add more specific fallbacks for technical components
         "api": "https://raw.githubusercontent.com/primer/octicons/main/icons/api-24.svg",
         "database": "https://raw.githubusercontent.com/primer/octicons/main/icons/database-24.svg",
         "security": (
@@ -88,27 +87,25 @@ class IconManager:
     }
 
     def __init__(
-        self, icon_registry: IconRegistry, noun_project_client: NounProjectClient
-    ):
+        self,
+        icon_registry: IconRegistry,
+        provider_chain: Optional[Any] = None,
+    ) -> None:
         """Initialize the icon manager.
 
         Args:
             icon_registry: The icon registry to use for storing and retrieving icons
-            noun_project_client: The Noun Project client for fetching icons
+            provider_chain: ProviderChain for fetching icons. If None, creates a default chain.
         """
         self.icon_registry = icon_registry
-        self.noun_project_client = noun_project_client
-        self.material_provider = MaterialIconProvider()
+        if provider_chain is None:
+            from .providers.chain import ProviderChain
+
+            provider_chain = ProviderChain()
+        self.provider_chain = provider_chain
 
     def _get_component_category(self, term: str) -> str:
-        """Determine the category of a component based on its name.
-
-        Args:
-            term: The term to categorize
-
-        Returns:
-            The category name for the term
-        """
+        """Determine the category of a component based on its name."""
         normalized = term.lower()
         for category, terms in self.COMPONENT_CATEGORIES.items():
             if any(t in normalized for t in terms):
@@ -125,11 +122,10 @@ class IconManager:
 
             # Handle color swatches
             if vis_props.get("source") == "colors":
-                print(f"  Generating color swatches for: {vis_props.get('name', '')}")
+                logger.debug("Generating color swatches for: %s", vis_props.get("name", ""))
                 colors = vis_props["name"].split("-")
                 swatches = ColorSwatchGenerator.generate_swatches(colors)
 
-                # Convert SVG strings to data URLs
                 data_urls = []
                 for swatch in swatches:
                     b64 = base64.b64encode(swatch.encode()).decode()
@@ -148,35 +144,23 @@ class IconManager:
                     "source": vis_props["source"],
                 }
 
-                if vis_props["source"] == "nounproject":
-                    print(
-                        f"  Noun Project icon specified with name: {vis_props['name']}"
-                    )
-                    icon_url = self._get_or_fetch_icon(vis_props["name"])
-                    if icon_url:
-                        print(f"  Updated placeholder with real icon URL: {icon_url}")
-                        result["image"] = icon_url
+                # For any provider-backed source, try to resolve the icon
+                if vis_props["source"] not in ["openai", "custom", "colors"]:
+                    icon_image = self._resolve_icon(vis_props["name"])
+                    if icon_image:
+                        result["image"] = icon_image
                     else:
-                        print("  Using fallback icon for failed Noun Project fetch")
                         category = self._get_component_category(vis_props["name"])
                         result["image"] = self.FALLBACK_ICONS.get(
                             category, self.FALLBACK_ICONS["default"]
                         )
                 elif vis_props["source"] in ["openai", "custom"]:
-                    print(
-                        "  Using fallback icon for {source} source: "
-                        "{fallback}".format(
-                            source=vis_props["source"],
-                            fallback=self.FALLBACK_ICONS["default"],
-                        )
-                    )
                     result["image"] = self.FALLBACK_ICONS["default"]
                 return result
             return dict(vis_props)
 
         # If an icon is specified directly, use that
         if "icon" in obj:
-            print(f"  Using directly specified icon: {obj['icon']}")
             return {
                 "image": obj["icon"],
                 "name": obj.get("name", ""),
@@ -186,17 +170,12 @@ class IconManager:
         # Try to fetch an icon based on the object's name or type
         icon_name = obj.get("name", "") or obj.get("type", "")
         if not icon_name:
-            print("  No name or type found to fetch icon for")
             return {"image": self.FALLBACK_ICONS["default"], "source": "fallback"}
 
-        print(f"  Attempting to fetch icon for: {icon_name}")
-        icon_url = self._get_or_fetch_icon(icon_name)
-        if icon_url:
-            print(f"  Successfully got icon URL: {icon_url}")
-            source = "material" if icon_url.startswith("/") else "nounproject"
-            return {"image": icon_url, "name": icon_name, "source": source}
+        icon_image = self._resolve_icon(icon_name)
+        if icon_image:
+            return {"image": icon_image, "name": icon_name, "source": "provider"}
 
-        print("  No icon found or fetched, using fallback")
         category = self._get_component_category(icon_name)
         component_type = obj.get("type", "default").lower()
         fallback_url = self.FALLBACK_ICONS.get(
@@ -205,105 +184,56 @@ class IconManager:
         )
         return {"image": fallback_url, "name": icon_name, "source": "fallback"}
 
-    def _get_or_fetch_icon(self, term: str) -> Optional[str]:
-        """Get an icon from the registry or fetch it from available sources.
+    def _resolve_icon(self, term: str) -> Optional[str]:
+        """Resolve an icon for a term using the registry cache then provider chain.
 
         Args:
-            term: The term to get or fetch an icon for
+            term: The term to resolve an icon for
 
         Returns:
-            The URL or path of the icon if found or fetched, None otherwise
+            The image URL/data URI if found, None otherwise
         """
-        print(f"  Looking up icon for term: {term}")
-
-        # Check registry first
+        # Check registry cache first
         icon_url = self.icon_registry.get_icon(term)
         if icon_url:
-            print(f"  Found icon in registry: {icon_url}")
             return icon_url
 
-        # Try Material Design Icons if available
-        if self.material_provider.is_available():
-            print("  Checking Material Design Icons...")
-            if icon_path := self.material_provider.get_icon_path(term):
-                print(f"  Found Material Design icon: {icon_path}")
-                self.icon_registry.register_icon(term, icon_path)
-                return icon_path
+        # Search provider chain
+        results = self.provider_chain.search(term, limit=1)
+        if results:
+            image = results[0].get("image", "")
+            if image:
+                self.icon_registry.register_icon(term, image)
+                return image
 
-        print(
-            "  Icon not found in Material Design Icons, "
-            "attempting to fetch from Noun Project..."
-        )
-        # Try to fetch from Noun Project
-        try:
-            # Search for icons matching the term
-            print(f"  Searching Noun Project for: {term}")
-            search_results = self.noun_project_client.search_icons(term, limit=1)
-
-            if not search_results.get("icons"):
-                print("  No icons found in search results")
-                return None
-
-            # Get the first icon's details
-            icon_data = search_results["icons"][0]
-            icon_id = str(icon_data["id"])  # Ensure icon_id is a string
-            print(f"  Found icon with ID: {icon_id}")
-
-            # Use thumbnail_url directly from search results
-            preview_url = icon_data.get("thumbnail_url")
-            if not isinstance(preview_url, str):
-                print("  Icon data missing thumbnail URL")
-                return None
-
-            print(f"  Got icon URL: {preview_url}")
-            print("  Registering icon for future use")
-            self.icon_registry.register_icon(term, preview_url)
-            return preview_url
-
-        except Exception as e:
-            print(f"  Error fetching icon: {str(e)}")
-            return None
+        return None
 
     def get_icon_data(
         self, icon_name: str, icon_type: Optional[str] = None
     ) -> dict[str, Any]:
-        """Get icon data for a given icon name and type.
+        """Get icon data for a given icon name and optional provider type.
 
         Args:
             icon_name: The name of the icon to retrieve
-            icon_type: The type of icon to retrieve. If not specified, will search all
-                registered icon types.
+            icon_type: Optional provider name to search (e.g. 'material', 'bundled')
 
         Returns:
             A dictionary containing the icon data
         """
         if icon_type is not None:
-            if icon_type not in ["material", "nounproject"]:
-                raise ValueError(
-                    f"Icon type {icon_type} not found. Available types: material, nounproject"
-                )
-            if icon_type == "material" and self.material_provider.is_available():
-                return self.material_provider.get_icon_data(icon_name)
-            elif icon_type == "nounproject":
-                icon_url = self._get_or_fetch_icon(icon_name)
-                if icon_url:
-                    return {
-                        "image": icon_url,
-                        "name": icon_name,
-                        "source": "nounproject",
-                    }
+            result = self.provider_chain.get_icon(icon_type, icon_name)
+            if result:
+                return result
+            # Try searching if get_icon didn't find it
+            results = self.provider_chain.search(icon_name, limit=1)
+            provider_results = [r for r in results if r.get("source") == icon_type]
+            if provider_results:
+                return provider_results[0]
             raise ValueError(f"Icon {icon_name} not found in {icon_type}")
 
-        # Try material icons first if available
-        if self.material_provider.is_available():
-            try:
-                return self.material_provider.get_icon_data(icon_name)
-            except ValueError:
-                pass
+        # Search all providers
+        results = self.provider_chain.search(icon_name, limit=1)
+        if results:
+            return results[0]
 
-        # Try noun project
-        icon_url = self._get_or_fetch_icon(icon_name)
-        if icon_url:
-            return {"image": icon_url, "name": icon_name, "source": "nounproject"}
-
-        raise ValueError(f"Icon {icon_name} not found in any available icon types")
+        raise ValueError(f"Icon {icon_name} not found in any available provider")

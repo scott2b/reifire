@@ -38,43 +38,51 @@ class ReifiedConcept:
         """Set an icon for this concept."""
         term = term or self.data.get("type", "")
         if icon_id:
-            # Use specific icon
             self.icon = IconMetadata(
                 icon_id=icon_id, term=term, metadata=metadata or {}
             )
             registry.associate_icon(term, icon_id, metadata)
         else:
-            # Get suggestions and use the best match
             suggestions = registry.suggest_icons(term)
             if suggestions:
                 best_match = suggestions[0]
+                best_id = best_match.get("id", best_match.get("name", ""))
                 self.icon = IconMetadata(
-                    icon_id=best_match["id"], term=term, metadata=metadata or {}
+                    icon_id=best_id,
+                    term=term,
+                    source=best_match.get("source", "bundled"),
+                    metadata=metadata or {},
                 )
-                registry.associate_icon(term, best_match["id"], metadata)
+                registry.associate_icon(term, best_id, metadata)
 
     def clear_icon(self) -> None:
         """Remove the icon from this concept."""
         self.icon = None
 
 
-def reify(prompt: str) -> Dict[str, Any]:
+def reify(prompt: str, provider_chain: Optional[Any] = None) -> Dict[str, Any]:
     """
     Reify a natural language prompt into a structured representation.
 
     Args:
         prompt: The natural language prompt to reify.
+        provider_chain: Optional ProviderChain for icon resolution.
+            If None, creates a default chain (bundled icons always available).
 
     Returns:
         A dictionary containing the reified structure.
     """
-    import os
-    from .visualization.nounproject import NounProjectClient
+    import warnings
+
+    if provider_chain is None:
+        from .visualization.providers.chain import ProviderChain
+
+        provider_chain = ProviderChain()
 
     # Basic structure
-    reified = {
+    reified: Dict[str, Any] = {
         "object": {
-            "name": prompt,  # Simplified: using whole prompt as object name for now
+            "name": prompt,
             "modifiers": [],
             "description": prompt,
             "variants": [],
@@ -91,95 +99,79 @@ def reify(prompt: str) -> Dict[str, Any]:
         "metadata": {
             "original_prompt": prompt,
             "version": "0.1.0",
-            # "timestamp": ... # TODO: Add timestamp
         },
     }
 
-    import warnings
+    # Extract keywords using Spacy
+    keywords = []
+    try:
+        import spacy
 
-    # Try to get visualization from Noun Project
-    api_key = os.environ.get("NOUNPROJECT_API_KEY") or os.environ.get("NOUN_PROJECT_KEY")
-    api_secret = os.environ.get("NOUNPROJECT_API_SECRET") or os.environ.get(
-        "NOUN_PROJECT_SECRET"
-    )
-
-    if api_key and api_secret:
         try:
-            client = NounProjectClient(api_key, api_secret)
-            
-            # Extract keywords using Spacy
-            keywords = []
-            try:
-                import spacy
-                
-                try:
-                    nlp = spacy.load("en_core_web_sm")
-                except OSError:
-                    from spacy.cli import download
-                    download("en_core_web_sm")
-                    nlp = spacy.load("en_core_web_sm")
+            nlp = spacy.load("en_core_web_sm")
+        except OSError:
+            from spacy.cli import download
 
-                doc = nlp(prompt)
-                
-                # Extract nouns, proper nouns, verbs, and adjectives
-                # Use lemma_ for better search results (e.g. "raining" -> "rain", "cats" -> "cat")
-                keywords = [token.lemma_ for token in doc if token.pos_ in ["NOUN", "PROPN", "VERB", "ADJ"]]
-                
-                # Fallback to all words if no nouns found
-                if not keywords:
-                    keywords = [token.text for token in doc if not token.is_stop and not token.is_punct]
-            except Exception as e:
-                warnings.warn(f"NLP extraction failed: {e}")
-                # Fallback to simple split if NLP fails
-                keywords = prompt.split()
+            download("en_core_web_sm")
+            nlp = spacy.load("en_core_web_sm")
 
-            # If prompt itself is short/simple, treat it as a keyword too
-            if len(prompt.split()) <= 2 and prompt not in keywords:
-                keywords.insert(0, prompt)
+        doc = nlp(prompt)
 
-            # Deduplicate while preserving order
-            keywords = list(dict.fromkeys(keywords))
+        # Extract nouns, proper nouns, verbs, and adjectives
+        keywords = [
+            token.lemma_
+            for token in doc
+            if token.pos_ in ["NOUN", "PROPN", "VERB", "ADJ"]
+        ]
 
-            found_icons = []
-            for keyword in keywords:
-                try:
-                    results = client.search_icons(keyword, limit=1)
-                    icons = results.get("icons", [])
-                    if icons:
-                        icon_data = icons[0]
-                        viz = {
-                            "source": "nounproject",
-                            "name": icon_data.get("term", keyword),
-                            "image": icon_data.get("preview_url"),
-                            "attribution": f"Created by {icon_data.get('uploader', {}).get('name', 'Unknown')} from the Noun Project",
-                            "properties": {"icon_id": icon_data.get("id")},
-                        }
-                        found_icons.append({"keyword": keyword, "visualization": viz})
-                except Exception as e:
-                    print(f"Failed to search for {keyword}: {e}")
+        # Fallback to all words if no keywords found
+        if not keywords:
+            keywords = [
+                token.text
+                for token in doc
+                if not token.is_stop and not token.is_punct
+            ]
+    except Exception as e:
+        warnings.warn(f"NLP extraction failed: {e}")
+        keywords = prompt.split()
 
-            if found_icons:
-                # Use the first found icon as the primary visualization
-                reified["artifact"]["visualization"] = found_icons[0]["visualization"]
-                
-                # Add all found icons as attributes
-                reified["artifact"]["attributes"] = []
-                for item in found_icons:
-                    reified["artifact"]["attributes"].append({
-                        "name": item["keyword"],
-                        "value": "present",
-                        "category": "element",
-                        "visualization": item["visualization"]
-                    })
-            else:
-                warnings.warn(f"No icons found for prompt '{prompt}' or its keywords.")
+    # If prompt itself is short/simple, treat it as a keyword too
+    if len(prompt.split()) <= 2 and prompt not in keywords:
+        keywords.insert(0, prompt)
+
+    # Deduplicate while preserving order
+    keywords = list(dict.fromkeys(keywords))
+
+    # Search for icons for each keyword
+    found_icons = []
+    for keyword in keywords:
+        try:
+            results = provider_chain.search(keyword, limit=1)
+            if results:
+                icon_data = results[0]
+                viz = {
+                    "source": icon_data.get("source", "bundled"),
+                    "name": icon_data.get("name", keyword),
+                    "image": icon_data.get("image", ""),
+                    "attribution": icon_data.get("attribution", ""),
+                    "properties": icon_data.get("metadata", {}),
+                }
+                found_icons.append({"keyword": keyword, "visualization": viz})
         except Exception as e:
-            warnings.warn(f"Failed to fetch icon from Noun Project: {e}")
-    else:
-        warnings.warn(
-            "Noun Project API keys not found. Visualization will be empty. "
-            "Please set NOUNPROJECT_API_KEY and NOUNPROJECT_API_SECRET environment variables."
-        )
+            warnings.warn(f"Failed to search for {keyword}: {e}")
 
+    if found_icons:
+        reified["artifact"]["visualization"] = found_icons[0]["visualization"]
+        reified["artifact"]["attributes"] = [
+            {
+                "name": item["keyword"],
+                "value": "present",
+                "category": "element",
+                "visualization": item["visualization"],
+            }
+            for item in found_icons
+        ]
+    else:
+        warnings.warn(f"No icons found for prompt '{prompt}' or its keywords.")
 
     return reified

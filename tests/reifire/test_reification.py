@@ -2,27 +2,28 @@ import pytest
 from pathlib import Path
 import tempfile
 from unittest.mock import MagicMock
-from typing import Generator, cast
+from typing import Generator
 
 from reifire.reification import ReifiedConcept
 from reifire.visualization.metadata import IconMetadata
 from reifire.visualization.registry import IconRegistry
-from reifire.visualization.nounproject import NounProjectClient
+from reifire.visualization.providers.chain import ProviderChain
 
 
 @pytest.fixture
-def mock_client() -> NounProjectClient:
-    client = MagicMock(spec=NounProjectClient)
-    client.get_icon.return_value = {"id": "123", "term": "test"}
-    client.search_icons.return_value = {"icons": [{"id": "123", "term": "test"}]}
-    return cast(NounProjectClient, client)
+def mock_chain() -> ProviderChain:
+    chain = MagicMock(spec=ProviderChain)
+    chain.search.return_value = [{"id": "123", "name": "test", "source": "mock", "image": "test.svg"}]
+    chain.search_all.return_value = [{"id": "123", "name": "test", "source": "mock", "image": "test.svg"}]
+    chain.get_icon.return_value = {"id": "123", "name": "test", "source": "mock", "image": "test.svg"}
+    return chain
 
 
 @pytest.fixture
-def registry(mock_client: NounProjectClient) -> Generator[IconRegistry, None, None]:
+def registry(mock_chain: ProviderChain) -> Generator[IconRegistry, None, None]:
     with tempfile.TemporaryDirectory() as tmpdir:
         registry_path = Path(tmpdir) / "registry.json"
-        yield IconRegistry(mock_client, registry_path)
+        yield IconRegistry(mock_chain, registry_path)
 
 
 def test_set_icon_with_id(registry: IconRegistry) -> None:
@@ -41,7 +42,7 @@ def test_set_icon_with_suggestions(registry: IconRegistry) -> None:
     concept.set_icon(registry)
 
     assert concept.icon is not None
-    assert concept.icon.icon_id == "123"  # First suggestion
+    assert concept.icon.icon_id == "123"
 
 
 def test_clear_icon() -> None:

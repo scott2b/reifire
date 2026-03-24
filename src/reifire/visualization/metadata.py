@@ -9,7 +9,7 @@ class IconMetadata:
 
     icon_id: str
     term: str
-    source: str = "noun_project"  # Future-proof for other icon sources
+    source: str = "bundled"
     metadata: Dict[str, Any] = field(default_factory=dict)
     local_path: Optional[Path] = None
 
@@ -34,7 +34,7 @@ class IconMetadata:
         return cls(
             icon_id=data["icon_id"],
             term=data["term"],
-            source=data.get("source", "noun_project"),
+            source=data.get("source", "bundled"),
             metadata=data.get("metadata", {}),
             local_path=local_path,
         )

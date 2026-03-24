@@ -29,6 +29,6 @@ def test_icon_metadata_serialization() -> None:
 def test_icon_metadata_defaults() -> None:
     """Test default values for icon metadata."""
     icon = IconMetadata(icon_id="123", term="computer")
-    assert icon.source == "noun_project"
+    assert icon.source == "bundled"
     assert icon.metadata == {}
     assert icon.local_path is None

@@ -1,7 +1,6 @@
 from typing import Dict, List, Optional, Any
 from pathlib import Path
 import json
-from .nounproject import NounProjectClient
 from .suggestions import IconSuggester
 
 
@@ -10,18 +9,22 @@ class IconRegistry:
 
     def __init__(
         self,
-        noun_project_client: NounProjectClient,
+        provider_chain: Optional[Any] = None,
         registry_path: Optional[Path] = None,
         suggester: Optional[IconSuggester] = None,
     ) -> None:
         """Initialize the registry.
 
         Args:
-            noun_project_client: Client for fetching icons
+            provider_chain: ProviderChain for fetching icons. If None, creates a default chain.
             registry_path: Path to store registry data (defaults to ~/.reifire/icon_registry.json)
             suggester: Suggestion engine for intelligent suggestions
         """
-        self.client = noun_project_client
+        if provider_chain is None:
+            from .providers.chain import ProviderChain
+
+            provider_chain = ProviderChain()
+        self.provider_chain = provider_chain
         self.registry_path = (
             registry_path or Path.home() / ".reifire" / "icon_registry.json"
         )
@@ -46,16 +49,15 @@ class IconRegistry:
 
         Args:
             term: The term to associate with
-            icon_id: The Noun Project icon ID
+            icon_id: The icon identifier (provider-specific)
             metadata: Optional metadata about the association
         """
         self.associations[term] = {
             "icon_id": icon_id,
             "metadata": metadata or {},
-            "version": 1,  # Basic versioning
+            "version": 1,
         }
         self._save_registry()
-        # Record selection for future suggestions
         self.suggester.record_selection(term, icon_id)
 
     def get_icon(self, term: str) -> Optional[Dict[str, Any]]:
@@ -68,29 +70,29 @@ class IconRegistry:
             Icon data if found, None otherwise
         """
         if term in self.associations:
-            icon_id = self.associations[term]["icon_id"]
-            return self.client.get_icon(icon_id)
+            assoc = self.associations[term]
+            icon_id = assoc["icon_id"]
+            source = assoc.get("metadata", {}).get("source", "")
+            if source:
+                return self.provider_chain.get_icon(source, icon_id)
+            # If no source stored, search by term as fallback
+            results = self.provider_chain.search(term, limit=1)
+            return results[0] if results else None
         return None
 
     def suggest_icons(
         self, term: str, limit: int = 5, context: Optional[Dict[str, Any]] = None
     ) -> List[Dict[str, Any]]:
         """Suggest icons for a term."""
-        # Get related terms
         related_terms = self.suggester.get_related_terms(term)
 
-        # Search for icons using both original and related terms
-        all_icons = []
-        all_icons.extend(self.client.search_icons(term, limit=limit)["icons"])
-        for related_term in related_terms[:2]:  # Limit related term searches
-            all_icons.extend(
-                self.client.search_icons(related_term, limit=limit)["icons"]
-            )
+        # Search all providers for original and related terms
+        all_icons = self.provider_chain.search_all(term, limit=limit)
+        for related_term in related_terms[:2]:
+            all_icons.extend(self.provider_chain.search_all(related_term, limit=limit))
 
         # Score and sort suggestions
         sorted_icons = self.suggester.sort_suggestions(all_icons, term, context)
-
-        # Return top suggestions
         return sorted_icons[:limit]
 
     def get_custom_mapping(self, term: str) -> Optional[str]:

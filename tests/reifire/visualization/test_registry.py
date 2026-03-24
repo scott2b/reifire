@@ -1,26 +1,39 @@
 import pytest
 from pathlib import Path
 import tempfile
-from unittest.mock import MagicMock, Mock
+from unittest.mock import MagicMock
 from reifire.visualization.registry import IconRegistry
-from reifire.visualization.nounproject import NounProjectClient
-from typing import Generator, cast
-from unittest.mock import call
+from reifire.visualization.providers.base import IconProvider
+from typing import Generator
 
 
 @pytest.fixture
-def mock_client() -> NounProjectClient:
-    client = MagicMock(spec=NounProjectClient)
-    client.get_icon.return_value = {"id": "123", "term": "test"}
-    client.search_icons.return_value = {"icons": [{"id": "123", "term": "test"}]}
-    return cast(NounProjectClient, client)
+def mock_provider() -> IconProvider:
+    provider = MagicMock(spec=IconProvider)
+    provider.name = "mock"
+    provider.priority = 10
+    provider.is_available.return_value = True
+    provider.search.return_value = [{"id": "123", "name": "test", "source": "mock", "image": "test.svg"}]
+    provider.get_icon.return_value = {"id": "123", "name": "test", "source": "mock", "image": "test.svg"}
+    return provider
 
 
 @pytest.fixture
-def registry(mock_client: NounProjectClient) -> Generator[IconRegistry, None, None]:
+def mock_chain(mock_provider: IconProvider) -> MagicMock:
+    from reifire.visualization.providers.chain import ProviderChain
+
+    chain = MagicMock(spec=ProviderChain)
+    chain.search.return_value = [{"id": "123", "name": "test", "source": "mock", "image": "test.svg"}]
+    chain.search_all.return_value = [{"id": "123", "name": "test", "source": "mock", "image": "test.svg"}]
+    chain.get_icon.return_value = {"id": "123", "name": "test", "source": "mock", "image": "test.svg"}
+    return chain
+
+
+@pytest.fixture
+def registry(mock_chain: MagicMock) -> Generator[IconRegistry, None, None]:
     with tempfile.TemporaryDirectory() as tmpdir:
         registry_path = Path(tmpdir) / "registry.json"
-        yield IconRegistry(mock_client, registry_path)
+        yield IconRegistry(mock_chain, registry_path)
 
 
 def test_associate_icon(registry: IconRegistry) -> None:
@@ -31,23 +44,20 @@ def test_associate_icon(registry: IconRegistry) -> None:
     assert registry.associations["test"]["metadata"]["tags"] == ["example"]
 
 
-def test_get_icon(registry: IconRegistry, mock_client: NounProjectClient) -> None:
+def test_get_icon(registry: IconRegistry, mock_chain: MagicMock) -> None:
     """Test retrieving an associated icon."""
-    registry.associate_icon("test", "123")
+    registry.associate_icon("test", "123", {"source": "mock"})
     icon = registry.get_icon("test")
     assert icon is not None and icon["id"] == "123"
-    cast(Mock, mock_client.get_icon).assert_called_once_with("123")
+    mock_chain.get_icon.assert_called_once_with("mock", "123")
 
 
-def test_suggest_icons(registry: IconRegistry, mock_client: NounProjectClient) -> None:
+def test_suggest_icons(registry: IconRegistry, mock_chain: MagicMock) -> None:
     """Test icon suggestions."""
     suggestions = registry.suggest_icons("test")
-    assert len(suggestions) <= 5  # We're limiting to 5 suggestions
+    assert len(suggestions) <= 5
     assert suggestions[0]["id"] == "123"
-    # First call is for the original term
-    assert cast(Mock, mock_client.search_icons).call_args_list[0] == call(
-        "test", limit=5
-    )
+    mock_chain.search_all.assert_called()
 
 
 def test_custom_mappings(registry: IconRegistry) -> None:

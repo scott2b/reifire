@@ -3,13 +3,14 @@
 Reify your natural language prompts
 
 **⚠️ Current Status: Alpha / Experimental**
- 
+
 Currently available:
-- ✅ `reify()` - Convert natural language prompts to reified data (Basic NLP + Noun Project)
+- ✅ `reify()` - Convert natural language prompts to reified data (Basic NLP + pluggable icon providers)
 - ✅ `articulate()` - Convert reified data structures back to natural language
 - ✅ `articulate_alternatives()` - Generate prompt variants
 - ✅ Visualization system - Interactive HTML visualizations
-- ✅ Icon integration - Noun Project, Material Icons, Octicons
+- ✅ Bundled icons - 400+ curated Lucide & Octicons SVGs, zero-config
+- ✅ Pluggable icon providers - Material Icons, Noun Project, LLM-generated SVGs
 
 ## Quickstart
 
@@ -22,9 +23,23 @@ cd reifire
 pip install -e .
 ```
 
+### Reify a prompt
+
+Icons are resolved automatically from the bundled icon set — no API keys needed:
+
+```python
+from reifire import reify
+
+result = reify("a cat sitting on a table")
+# Result includes extracted keywords with matched icons:
+# - "cat" -> bundled Lucide cat icon
+# - "table" -> bundled Lucide table icon
+# - "sit" -> searched across available providers
+```
+
 ### Articulate a reified data structure
 
-Currently, you can convert pre-existing reified data structures back to natural language:
+Convert pre-existing reified data structures back to natural language:
 
 ```python
 >>> from reifire import articulate
@@ -40,10 +55,18 @@ Currently, you can convert pre-existing reified data structures back to natural 
 ...     }
 ... }
 >>> articulate(reified)
-'Create a baby Cthulhu illustration in children's illustration style with a brown-green-purple color scheme.'
+'Create a baby Cthulhu illustration in children\'s illustration style with a brown-green-purple color scheme.'
 ```
 
-See `examples/` directory for complete reified data structure examples.
+### Browse bundled icons
+
+```bash
+python examples/provider_demo.py
+```
+
+Opens a grid of bundled SVG icons in your browser.
+
+See `examples/` directory for more examples.
 
 ## Project description
 
@@ -54,7 +77,7 @@ which can be found [here](https://www.microsoft.com/en-us/research/uploads/prod/
 The relevant content of that report follows:
 
 > Initial evidence on post-chat interaction techniques suggests that they could help solve prompt engineering hurdles
-> The principle of reification in human-computer interaction turns abstract commands into persistent reusable interface objects, which affords several benefits to users (Beaudoin-Lafon 2000). We can apply this principle to user prompts (or fragments of prompts), embodying them into interactive graphical objects persistent on screen for users to store and reuse multiple times, as well as alter and combine at will. Riche et al. (2024) call this next generation of widgets: “AI-instruments”.
+> The principle of reification in human-computer interaction turns abstract commands into persistent reusable interface objects, which affords several benefits to users (Beaudoin-Lafon 2000). We can apply this principle to user prompts (or fragments of prompts), embodying them into interactive graphical objects persistent on screen for users to store and reuse multiple times, as well as alter and combine at will. Riche et al. (2024) call this next generation of widgets: "AI-instruments".
 >
 > An initial qualitative study with 12 users shows a few advantages of AI instruments over more linear typing-based interactions:
 >   • Generating interactive objects surfacing different dimensions (or
@@ -78,65 +101,84 @@ reification of natural language prompts into their projects.
 
 
 ## Reification process
- 
+
 Reifire parses natural language prompts into structured components and enriches them with visualizations.
-The current implementation uses **Spacy** for Natural Language Processing (NLP) to extract key concepts (nouns, verbs, adjectives) and the **Noun Project API** to find relevant icons.
- 
+The current implementation uses **Spacy** for Natural Language Processing (NLP) to extract key concepts (nouns, verbs, adjectives) and a **pluggable icon provider system** to find relevant icons.
+
 ### Basic Usage
- 
+
 ```python
 from reifire import reify
- 
-# Reify a simple prompt
+
+# Reify a simple prompt — bundled icons work out of the box
 reification = reify("raining cats and dogs")
- 
+
 # Result includes:
 # - Primary object: "raining cats and dogs"
 # - Attributes: "rain", "cat", "dog" (extracted keywords)
-# - Visualizations: Icons for each attribute from Noun Project
+# - Visualizations: Icons for each attribute from bundled set
 ```
- 
+
 Currently, the reverse process (articulation) is also fully implemented - see examples above.
 
-## Visualizations
+## Icon Providers
 
-Reifire can create visualization components for reified data structures.
-Currently the following icon sources are supported:
+Reifire uses a pluggable provider system for icon resolution. Providers are tried in
+priority order until one returns a match.
 
-  - [the Noun Project API](https://api.thenounproject.com/)
-  - Material Design Icons (local)
-  - Octicons (fallback)
+### Bundled Icons (default, zero-config)
 
-The visualization system generates interactive HTML representations of reified structures.
-See `examples/*.html` for examples of generated visualizations.
+Ships with 400+ curated SVGs from [Lucide](https://lucide.dev/) and
+[GitHub Octicons](https://primer.style/foundations/icons). Always available, no setup needed.
 
-            "image": "bc.png"
-        }
-    },
-    "type": {
-        "name": "illustration",
-        "visualization": {
-            "source": "nounproject",
-            "name": "illustration",
-            "image": "illustration",
-            "attribution": "somecreator",
-        }
-    },
-    "attributes": [
-        {
-            "name": "color scheme",
-            "visualization": {
-                "source": "colors",
-                "name": "brown-green-purple",
-                "images": [
-                    "brown.svg",
-                    "green.svg",
-                    "purple.svg",
-                ],
-            }
-        }
-    ]
-}
+### Material Design Icons (optional)
+
+Set `MATERIAL_DESIGN_ICONS_DIR` to a local clone of Google's
+[material-design-icons](https://github.com/google/material-design-icons) repo:
+
+```bash
+export MATERIAL_DESIGN_ICONS_DIR=/path/to/material-design-icons
+```
+
+### Noun Project (optional)
+
+```bash
+pip install reifire[nounproject]
+export NOUNPROJECT_API_KEY=your_api_key
+export NOUNPROJECT_API_SECRET=your_secret
+```
+
+### LLM-Generated SVGs (optional, experimental)
+
+Generate icons on demand using any LLM via [Pydantic AI](https://ai.pydantic.dev/):
+
+```bash
+pip install reifire[llm]
+```
+
+```python
+from reifire.visualization.providers.llm_svg import LLMSVGProvider
+from reifire.visualization.providers import ProviderChain
+
+llm_provider = LLMSVGProvider(model="anthropic:claude-haiku-4-5-20251001")
+chain = ProviderChain([llm_provider])
+```
+
+### Custom Provider Chains
+
+```python
+from reifire.visualization.providers import ProviderChain
+from reifire.visualization.providers.bundled import BundledIconProvider
+from reifire.visualization.providers.nounproject import NounProjectProviderAdapter
+
+chain = ProviderChain([
+    BundledIconProvider(),                              # priority 10
+    NounProjectProviderAdapter(api_key="...", api_secret="..."),  # priority 50
+])
+
+# Use with reify
+from reifire import reify
+result = reify("a sunset over mountains", provider_chain=chain)
 ```
 
 ## Reification data structure
@@ -230,25 +272,15 @@ mkdocs build
 
 ```
 reifire/
-├── examples/           # Example JSON files
+├── examples/           # Example scripts and JSON files
 ├── src/               # Source code
 │   └── reifire/       # Main package
+│       └── visualization/
+│           └── providers/  # Icon provider system
+│               └── icons/  # Bundled SVG icons
 ├── tests/             # Test suite
 │   └── reifire/       # Package tests
 ├── scripts/           # Development scripts
 ├── .pre-commit-config.yaml  # Pre-commit hook configuration
 └── pyproject.toml     # Project metadata, build config, and tool configurations
-```
-
-## Icons
-
-If avaiable, Material Icons are first checked for a suitable icon. Get the latest icons with the download instructions at https://developers.google.com/fonts/docs/material_icons/
-
-Unzip the icons and set the environment variable `MATERIAL_ICONS_DIR` to the path of the unzipped icons.
-
-The Noun Project API is used as a fallback. Set the following environment variables to use it:
-
-```
-NOUNPROJECT_API_KEY=your_api_key
-NOUNPROJECT_API_SECRET=your_secret
 ```

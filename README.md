@@ -164,6 +164,10 @@ llm_provider = LLMSVGProvider(model="anthropic:claude-haiku-4-5-20251001")
 chain = ProviderChain([llm_provider])
 ```
 
+This provider is a first probe. The plan for generated icons, covering local and
+hosted backends and the experiments that decide between them, is in
+[docs/project-info/generated-icons.md](docs/project-info/generated-icons.md).
+
 ### Custom Provider Chains
 
 ```python

@@ -160,9 +160,40 @@
   - [ ] Add visual style guide
   - [ ] Include performance recommendations
 
+## Generated icons
 
+Exploration plan: [docs/project-info/generated-icons.md](generated-icons.md). Backends are
+expected to change; the harness, term corpus and review data are what accumulate.
 
+### Exploration harness
+- [x] LLM SVG provider via Pydantic AI (first probe, March 2026)
+- [ ] `IconCandidate` record with kind, score, provenance and review fields
+- [ ] Scored bundled matcher
+- [ ] `ProviderChain.resolve` with `first`, `all` and `threshold` strategies
+- [ ] Term corpus fixture with buckets (`experiments/icons/terms.json`)
+- [ ] `reifire-icons run` and `report`
+- [ ] `reifire-icons review` with picks to JSONL and pin-to-registry
+- [ ] `reifire-icons export` of accepted icons to a generated bundled set
 
+### Retrieval expansion
+- [ ] Iconify-backed provider with per-set license in the manifest
+- [ ] Optional embedding matcher
 
+### Generation
+- [ ] `IconStyle` presets and SVG validator with render check
+- [ ] LLM backend covering hosted models and OpenAI-compatible local servers
+- [ ] Spend cap, ledger and price table for service backends
+- [ ] `GeneratedIconProvider` with provenance-keyed cache (replaces `llm_svg.py`)
+- [ ] Raster to SVG post-processing (threshold, despeckle, Potrace, simplify, normalize)
+- [ ] Draw Things backend (local diffusion)
+- [ ] Replicate backend (hosted raster and vector)
+- [ ] OmniSVG backend, conditional on E5
 
-
+### Experiments
+- [ ] E0 baseline coverage
+- [ ] E1 retrieval expansion
+- [ ] E2 LLM to SVG, hosted versus local
+- [ ] E3 local diffusion plus trace
+- [ ] E4 hosted vector generation
+- [ ] E5 native local SVG model (conditional)
+- [ ] Decide the default provider chain from E0 to E4 data
